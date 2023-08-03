@@ -1,0 +1,29 @@
+<mvc:View controllerName="com.ifb.invoicegenerator.controller.Login" displayBlock="true"
+	xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc">
+	<Page showHeader="false" id="page" backgroundDesign="Transparent">
+		<content>
+			<FlexBox alignItems="Center" justifyContent="Center" fitContainer="true" direction="Column">
+				<Image src="../images/ifb.png" class="sapUiSmallMarginBottom"/>
+				<VBox >
+				<f:SimpleForm id="SimpleFormLogin" editable="true" layout="ResponsiveGridLayout" title="Sign In"
+					labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false"
+					emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+					columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="true" width="350px">
+					<f:content>
+						<Label text="Email or Mobile No." required="true"/>
+						<Input  />
+						<Label text="Password" required="true" />
+						<Input  type="Password"/>
+						<HBox justifyContent="End" alignItems="End">
+							<Link text="Forgot Password?" textAlign="Right" />
+						</HBox>
+						<CheckBox text="Keep me logged in"/>
+						<Button text="Sign In" type="Emphasized" icon="sap-icon://visits" press="onLoginPressed"/>
+					</f:content>
+				</f:SimpleForm>
+				
+				</VBox>
+			</FlexBox>
+		</content>
+	</Page>
+</mvc:View>

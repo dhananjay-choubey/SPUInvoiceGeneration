@@ -1,0 +1,45 @@
+<mvc:View controllerName="com.ifb.invoicegenerator.controller.MaterialDetails" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" >
+    <Page title="Material Details">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm id="SimpleFormDisplayMaterial"
+                    editable="false"
+                    layout="ResponsiveGridLayout"
+                    title="Material"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false" >
+                    <f:content>
+                        <Label text="Product ID" />
+                        <Text text="ABCDEFGHIJK" />
+                        <Label text="Product Desc." />
+                        <Text text="This is the product description" />
+                        <Label text="Material Category" />
+                        <Text text="{ZIPCode} {City}" />
+                        <Label text="Category Hierarchy ID" />
+                        <Text  text="{Country}" />
+                        <Label text="Tax Tariff Code" />
+                        <Text  text="{Country}" />
+                        <Label text="Tax Type" />
+                        <Text  text="{Country}" />
+                        <Label text="Units of Measure of Product" />
+                        <Text  text="{Country}" />
+                        <Label text="Group ID" />
+                        <Text  text="{Country}" />
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

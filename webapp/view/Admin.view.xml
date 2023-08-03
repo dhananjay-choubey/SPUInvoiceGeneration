@@ -1,0 +1,53 @@
+<mvc:View
+    controllerName="com.ifb.invoicegenerator.controller.Admin"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+>
+    <Page
+        showHeader="true"
+        backgroundDesign="Transparent"
+		title="Admin Overview"
+    >
+        <content>
+		<GenericTile
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                header="Materials"
+                press="onMaterialPress"
+            >
+                <TileContent>
+                    <ImageContent src="sap-icon://product" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                header="Customers"
+                press="onBranchUserPress"
+            >
+                <TileContent>
+                    <ImageContent src="sap-icon://company-view" />
+                </TileContent>
+            </GenericTile>
+			<GenericTile
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                header="Franchisee"
+                press="onFranchiseePress"
+            >
+                <TileContent>
+                    <ImageContent src="sap-icon://customer" />
+                </TileContent>
+            </GenericTile>
+			<GenericTile
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                header="App Users"
+                press="onAppUsersPress"
+            >
+                <TileContent>
+                    <ImageContent src="sap-icon://employee" />
+                </TileContent>
+            </GenericTile>
+        </content>
+    </Page>
+</mvc:View>

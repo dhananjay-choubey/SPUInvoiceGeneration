@@ -1,0 +1,86 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+>
+    <Dialog
+        id="createUserDialog"
+        title="Create User"
+		showHeader="false"
+    >
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm
+                    id="SimpleFormChangeUser"
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    title="Create User"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false"
+                >
+                    <f:content>
+                        <Label text="User Type" required="true"/>
+                        <RadioButtonGroup
+                            id="rbg3"
+                            columns="3"
+                        >
+                            <RadioButton
+                                id="RB3-1"
+                                text="Customer"
+                            />
+                            <RadioButton
+                                id="RB3-2"
+                                text="Franchisee"
+                            />
+                        </RadioButtonGroup>
+                        <Label text="User" required="true"/>
+                        <Input
+                            id="inputValueHelpUser"
+                            placeholder="Select User"
+                            showValueHelp="true"
+                            valueHelpRequest="handleValueHelp"
+                        />
+						<Label text="Password" required="true"/>
+                        <Input
+							type="Password"
+                            id="inputPassword"
+                            placeholder="Password"
+                        />
+						<Label text="Confirm Password" required="true"/>
+                        <Input
+							type="Password"
+                            id="inputConfirmPassword"
+                            placeholder="Confirm Password"
+                        />
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button
+                type="Emphasized"
+                text="Submit"
+                press=".onSubmitDialog"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                type="Reject"
+                text="Cancel"
+                press=".onCancelDialog"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

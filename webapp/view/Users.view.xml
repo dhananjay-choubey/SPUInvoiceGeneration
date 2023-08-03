@@ -1,0 +1,99 @@
+<mvc:View
+    controllerName="com.ifb.invoicegenerator.controller.Users"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+>
+    <Page
+        showHeader="true"
+        backgroundDesign="Transparent"
+        title="Users"
+    >
+        <content>
+            <Table
+                id="idUsersTable"
+                inset="false"
+            >
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title
+                                text="Users"
+                                level="H2"
+                            />
+                            <ToolbarSpacer />
+                            <Button
+                                text="Create User"
+                                type="Transparent"
+                                icon="sap-icon://create"
+                                press="handleCreatePress"
+                            />
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                    >
+                        <Text text="Name" />
+                    </Column>
+                    <Column width="12em">
+                        <Text text="User Type" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                    >
+                        <Text text="Email ID" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                    >
+                        <Text text="Phone No." />
+                    </Column>
+                    <Column
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                    >
+                        <Text text="Region" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                    >
+                        <Text text="Branch (Segment)" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                        hAlign="Center"
+                    >
+                        <Text text="Change Password" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier
+                                title="Name"
+                                text="Id"
+                            />
+                            <Text text="User Type" />
+                            <Text text="Email Id" />
+                            <Text text="Phone No" />
+                            <Text text="Region" />
+                            <Text text="Branch (Segment)" />
+                            <core:Icon
+                                src="sap-icon://show"
+                                class="sapUiSmallMarginEnd"
+                                press="handleShowPassword"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

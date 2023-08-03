@@ -1,0 +1,78 @@
+<mvc:View
+    controllerName="com.ifb.invoicegenerator.controller.CustomerMaster"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+>
+    <Page title="Customers List">
+        <subHeader>
+            <Bar id="headerBarCustomer">
+                <contentMiddle>
+                    <SearchField
+                        id="searchFieldCustomer"
+                        showRefreshButton="{= !${device>/support/touch} }"
+                        tooltip="{i18n>masterSearchTooltip}"
+                        width="100%"
+                        search="onSearch"
+                    />
+                    <core:Icon
+                        src="sap-icon://download"
+                        class="sapUiTinyMarginEnd"
+                        color="#8875E7"
+                        press="handleStethoscopePress"
+                    >
+                        <core:layoutData>
+                            <FlexItemData growFactor="1" />
+                        </core:layoutData>
+                    </core:Icon>
+                </contentMiddle>
+            </Bar>
+        </subHeader>
+        <List
+            id="list"
+            items=""
+            busyIndicatorDelay="{masterView>/delay}"
+            noDataText="{masterView>/noDataText}"
+            mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+            growing="true"
+            growingThreshold="10"
+            growingScrollToLoad="true"
+            updateFinished="onUpdateFinished"
+            selectionChange="onSelectionChange"
+        >
+            <items>
+                <ObjectListItem
+                    intro="Material No"
+                    title="Material Desc"
+                    type="Active"
+                    selected="true"
+                    press="onObjectListItemPress"
+                >
+                    <attributes>
+                        <ObjectAttribute
+                            title="Material Category"
+                            text="{Version}"
+                            active="false"
+                            visible="true"
+                        />
+                        <ObjectAttribute
+                            title="Group Id"
+                            text="{CreatedByID}"
+                            active="false"
+                            visible="true"
+                        />
+                    </attributes>
+                    <firstStatus>
+                        <!-- title="{i18n>createdOn}" -->
+                        <ObjectStatus
+                            text="Material UOM"
+                            state="Success"
+                            visible="true"
+                        />
+                    </firstStatus>
+                    <secondStatus />
+                </ObjectListItem>
+            </items>
+        </List>
+    </Page>
+</mvc:View>

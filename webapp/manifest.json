@@ -1,0 +1,178 @@
+{
+	"_version": "1.21.0",
+	"sap.app": {
+		"id": "com.ifb.invoicegenerator",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [
+				""
+			],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"ach": "ach"
+	},
+
+	"sap.ui": {
+		"technology": "UI5",
+		"fullWidth": true,
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "com.ifb.invoicegenerator.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.ifb.invoicegenerator.i18n.i18n",
+					"supportedLocales": [
+						""
+					],
+					"fallbackLocale": ""
+				}
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "com.ifb.invoicegenerator.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "login",
+					"target": ["login"]
+				},
+				{
+					"pattern": "admin",
+					"name": "admin",
+					"target": ["admin"]
+				},
+				{
+					"pattern": "users",
+					"name": "users",
+					"target": ["users"]
+				},
+				{
+					"pattern": "material",
+					"name": "material",
+					"target": ["materialmaster", "materialdetail"]
+				},
+				{
+					"pattern": "customers",
+					"name": "customer",
+					"target": ["customermaster", "customerdetail"]
+				},
+				{
+					"pattern": "vendors",
+					"name": "vendor",
+					"target": ["vendormaster", "vendordetail"]
+				}
+			],
+			"targets": {
+				"splitviewTarget": {
+					"viewName": "SplitView"
+				},
+				"login": {
+					"viewName": "Login",
+					"viewId": "login"
+				},
+				"admin": {
+					"viewName": "Admin",
+					"viewId": "admin"
+				},
+				"users": {
+					"viewName": "Users",
+					"viewId": "users"
+				},
+				"customermaster": {
+					"viewName": "CustomerMaster",
+                    "parent": "splitviewTarget",
+					"viewId": "customerMaster",
+                    "controlId": "splitContainerControl",
+                    "controlAggregation": "masterPages"
+				},
+				"customerdetail": {
+					"viewName": "CustomerDetails",
+                    "parent": "splitviewTarget",
+					"viewId": "customerDetails",
+                    "controlId": "splitContainerControl",
+                    "controlAggregation": "detailPages"
+				},
+				"materialmaster": {
+					"viewName": "MaterialMaster",
+                    "parent": "splitviewTarget",
+					"viewId": "materialMaster",
+                    "controlId": "splitContainerControl",
+                    "controlAggregation": "masterPages"
+				},
+				"materialdetail": {
+					"viewName": "MaterialDetails",
+                    "parent": "splitviewTarget",
+					"viewId": "materialDetails",
+                    "controlId": "splitContainerControl",
+                    "controlAggregation": "detailPages"
+				},
+				"vendormaster": {
+					"viewName": "VendorMaster",
+                    "parent": "splitviewTarget",
+					"viewId": "vendorMaster",
+                    "controlId": "splitContainerControl",
+                    "controlAggregation": "masterPages"
+				},
+				"vendordetail": {
+					"viewName": "VendorDetails",
+                    "parent": "splitviewTarget",
+					"viewId": "vendorDetails",
+                    "controlId": "splitContainerControl",
+                    "controlAggregation": "detailPages"
+				}
+			}
+		}
+	}
+}
