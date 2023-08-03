@@ -5,7 +5,7 @@
     xmlns="sap.m"
 >
     <Page
-        showHeader="true"
+        showHeader="false"
         backgroundDesign="Transparent"
         title="Users"
     >
@@ -88,7 +88,7 @@
                             <core:Icon
                                 src="sap-icon://show"
                                 class="sapUiSmallMarginEnd"
-                                press="handleShowPassword"
+                                press="handleChangePassword"
                             />
                         </cells>
                     </ColumnListItem>

@@ -1,12 +1,15 @@
 sap.ui.define(
-    ["sap/ui/core/mvc/Controller", "../model/formatter"],
-    function (Controller, formatter) {
-      "use strict";
-  
-      return Controller.extend("com.ifb.invoicegenerator.controller.VendorMaster", {
+  ["sap/ui/core/mvc/Controller", "../model/formatter"],
+  function (Controller, formatter) {
+    "use strict";
+
+    return Controller.extend(
+      "com.ifb.invoicegenerator.controller.VendorMaster",
+      {
         formatter: formatter,
-  
-        onInit: function () {}
-      });
-    }
-  );
+
+        onInit: function () {},
+      }
+    );
+  }
+);

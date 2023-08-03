@@ -10,23 +10,22 @@ sap.ui.define(
         //First do the backend call to validate the user
         var oRouter = this.getOwnerComponent().getRouter();
         oRouter.getRoute("admin").attachMatched(this._onRouteMatched, this);
-
       },
-      _onRouteMatched: function(oEvent){
+      _onRouteMatched: function (oEvent) {
         console.log("onROuteMatched triggered");
       },
-      onMaterialPress: function(oEvent){
+      onMaterialPress: function (oEvent) {
         this.getOwnerComponent().getRouter().navTo("material");
       },
-      onBranchUserPress: function(){
+      onBranchUserPress: function () {
         this.getOwnerComponent().getRouter().navTo("customer");
       },
-      onFranchiseePress: function(){
+      onFranchiseePress: function () {
         this.getOwnerComponent().getRouter().navTo("vendor");
       },
-      onAppUsersPress: function(){
+      onAppUsersPress: function () {
         this.getOwnerComponent().getRouter().navTo("users");
-      }
+      },
     });
   }
 );

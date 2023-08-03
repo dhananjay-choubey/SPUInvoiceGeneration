@@ -1,8 +1,16 @@
 <mvc:View
-	displayBlock="true"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc">
-	<Shell backgroundColor="grey" appWidthLimited="false">
-		<App id="app" height="100%" backgroundColor="grey"/>
-	</Shell>
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+>
+    <Shell
+        backgroundColor="grey"
+        appWidthLimited="false"
+    >
+        <App
+            id="app"
+            height="100%"
+            backgroundColor="grey"
+        />
+    </Shell>
 </mvc:View>

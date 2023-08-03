@@ -7,9 +7,9 @@ sap.ui.define(
       formatter: formatter,
 
       onInit: function () {},
-	  onLoginPressed: function(oEvent) {
-		this.getOwnerComponent().getRouter().navTo("admin");
-	  }
+      onLoginPressed: function (oEvent) {
+        this.getOwnerComponent().getRouter().navTo("admin");
+      },
     });
   }
 );

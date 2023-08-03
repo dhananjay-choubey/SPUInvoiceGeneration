@@ -1,9 +1,15 @@
-<mvc:View controllerName="com.ifb.invoicegenerator.controller.CustomerDetails" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
-	xmlns:f="sap.ui.layout.form" >
+<mvc:View
+    controllerName="com.ifb.invoicegenerator.controller.CustomerDetails"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+>
     <Page title="Customer Details">
         <content>
             <VBox class="sapUiSmallMargin">
-                <f:SimpleForm id="SimpleFormDisplayCustomer"
+                <f:SimpleForm
+                    id="SimpleFormDisplayCustomer"
                     editable="false"
                     layout="ResponsiveGridLayout"
                     title="Customer"
@@ -19,7 +25,8 @@
                     columnsXL="1"
                     columnsL="1"
                     columnsM="1"
-                    singleContainerFullSize="false" >
+                    singleContainerFullSize="false"
+                >
                     <f:content>
                         <Label text="Product ID" />
                         <Text text="ABCDEFGHIJK" />
@@ -28,15 +35,15 @@
                         <Label text="Material Category" />
                         <Text text="{ZIPCode} {City}" />
                         <Label text="Category Hierarchy ID" />
-                        <Text  text="{Country}" />
+                        <Text text="{Country}" />
                         <Label text="Tax Tariff Code" />
-                        <Text  text="{Country}" />
+                        <Text text="{Country}" />
                         <Label text="Tax Type" />
-                        <Text  text="{Country}" />
+                        <Text text="{Country}" />
                         <Label text="Units of Measure of Product" />
-                        <Text  text="{Country}" />
+                        <Text text="{Country}" />
                         <Label text="Group ID" />
-                        <Text  text="{Country}" />
+                        <Text text="{Country}" />
                     </f:content>
                 </f:SimpleForm>
             </VBox>

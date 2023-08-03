@@ -9,10 +9,10 @@
     <Page
         showHeader="true"
         backgroundDesign="Transparent"
-		title="Admin Overview"
+        title="Admin Overview"
     >
         <content>
-		<GenericTile
+            <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                 header="Materials"
                 press="onMaterialPress"
@@ -30,7 +30,7 @@
                     <ImageContent src="sap-icon://company-view" />
                 </TileContent>
             </GenericTile>
-			<GenericTile
+            <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                 header="Franchisee"
                 press="onFranchiseePress"
@@ -39,7 +39,7 @@
                     <ImageContent src="sap-icon://customer" />
                 </TileContent>
             </GenericTile>
-			<GenericTile
+            <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                 header="App Users"
                 press="onAppUsersPress"
