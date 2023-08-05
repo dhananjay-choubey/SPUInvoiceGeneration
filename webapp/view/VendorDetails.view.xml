@@ -5,7 +5,7 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
 >
-    <Page title="Franchisee Details">
+    <Page title="Franchisee Details" showHeader="false">
         <content>
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm
@@ -28,22 +28,33 @@
                     singleContainerFullSize="false"
                 >
                     <f:content>
-                        <Label text="Product ID" />
-                        <Text text="ABCDEFGHIJK" />
-                        <Label text="Product Desc." />
-                        <Text text="This is the product description" />
-                        <Label text="Material Category" />
-                        <Text text="{ZIPCode} {City}" />
-                        <Label text="Category Hierarchy ID" />
-                        <Text text="{Country}" />
-                        <Label text="Tax Tariff Code" />
-                        <Text text="{Country}" />
-                        <Label text="Tax Type" />
-                        <Text text="{Country}" />
-                        <Label text="Units of Measure of Product" />
-                        <Text text="{Country}" />
-                        <Label text="Group ID" />
-                        <Text text="{Country}" />
+                        <Label text="Vendor" />
+                        <Text text="{VendorDetailModel>/VendorName} ({VendorDetailModel>/VendorCode})" />
+                        <Label text="Vendor Address" />
+                        <Text text="{VendorDetailModel>/VendorAdress}" />
+                        <Label text="Branch" />
+                        <Text text="{VendorDetailModel>/BranchName} ({VendorDetailModel>/BranchCode})" />
+                        <Label text="GSTN" />
+                        <Text text="{VendorDetailModel>/GSTN}" />
+                        <Label text="PAN" />
+                        <Text text="{VendorDetailModel>/PAN}" />
+                        <Label text="Mobile Number" />
+                        <Text text="{VendorDetailModel>/MobileNumber}" />
+                        <Label text="Email ID" />
+                        <Text text="{VendorDetailModel>/EmailID}" />
+                        <Label text="Pin Code" />
+                        <Text text="{VendorDetailModel>/PinCode}" />
+                        <Label text="GSTN Registration Type" />
+                        <Text text="{VendorDetailModel>/GSTNRegType}" />
+                        <Label text="Effective Date" />
+                        <Text text="{VendorDetailModel>/EffectiveDate}" />
+                        <Label text="State" />
+                        <Text text="{VendorDetailModel>/State}" />
+                        <Label text="Region Code" />
+                        <Text text="{VendorDetailModel>/RegionCode}" />
+                        <Label text="City" />
+                        <Text text="{VendorDetailModel>/City}" />
+
                     </f:content>
                 </f:SimpleForm>
             </VBox>

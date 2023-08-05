@@ -1,0 +1,186 @@
+{
+    "Materials": [
+        {
+            "MaterialCategory": "AC",
+            "CategoryHierarchyID": "ZHWA",
+            "TaxTariffCode": "84159000",
+            "TaxType": "",
+            "ProductDescription": "CAPACITOR MOTOR WAEL50CA022",
+            "UOM": "PCS",
+            "ProductId": "AC221ECCPM010",
+            "GroupId": "ACSPR"
+
+        },
+        {
+            "MaterialCategory": "AC",
+            "CategoryHierarchyID": "ZHWA",
+            "TaxTariffCode": "84159000",
+            "TaxType": "",
+            "ProductDescription": "FAN MOTOR V012",
+            "UOM": "PCS",
+            "ProductId": "AC221ECFMT010",
+            "GroupId": "ACSPR"
+
+        },
+        {
+            "MaterialCategory": "AC",
+            "CategoryHierarchyID": "ZHWA",
+            "TaxTariffCode": "84159000",
+            "TaxType": "",
+            "ProductDescription": "CAPACITOR COMPRESSOR WAEL50CA023",
+            "UOM": "PCS",
+            "ProductId": "AC221ELCCP010",
+            "GroupId": "ACSPR"
+
+        },
+        {
+            "MaterialCategory": "AC",
+            "CategoryHierarchyID": "ZHWA",
+            "TaxTariffCode": "84148019",
+            "TaxType": "",
+            "ProductDescription": "COMPRESSOR EDCOMP039",
+            "UOM": "PCS",
+            "ProductId": "AC221ELCMP010",
+            "GroupId": "ACSPR"
+
+        },
+        {
+            "MaterialCategory": "AC",
+            "CategoryHierarchyID": "ZHWA",
+            "TaxTariffCode": "84159000",
+            "TaxType": "",
+            "ProductDescription": "CONDENSER ASSEMBLY ODSP50CD085",
+            "UOM": "PCS",
+            "ProductId": "AC221MMCON010",
+            "GroupId": "ACSPR"
+
+        }
+    ],
+    "Customers": [
+        {
+            "BranchCode": "3500",
+            "BranchName": "IFB Global Kolkata",
+            "GSTNNumber": "33ABOFS1176Q1ZH",
+            "Address": "Salt Lake City",
+            "PinCode": "700019",
+            "RegionCode": "22",
+            "RegionDesc": "Kolkata",
+            "PAN": "ABOFS1176Q",
+            "MobileNumber": "9876543210",
+            "EmailId": "01234@ifbglobal.com"
+        },
+        {
+            "BranchCode": "3456",
+            "BranchName": "Test Branch",
+            "GSTNNumber": "33ABOFS1176Q1ZH",
+            "Address": "Salem",
+            "PinCode": "623455",
+            "RegionCode": "28",
+            "RegionDesc": "Salem",
+            "PAN": "ABOFS1176Q",
+            "MobileNumber": "1234567890",
+            "EmailId": "3456@ifbglobal.com"
+        }
+        
+
+    ],
+    "Vendors": [
+        {
+            "VendorCode": "10006848",
+            "VendorName": "CR487 Test Vendor4",
+            "VendorAdress": "Test Address",
+            "BranchCode": "01234",
+            "BranchName": "Test Branch",
+            "GSTN": "33ABOFS1176Q1ZH",
+            "PAN": "ABOFS1176Q",
+            "MobileNumber": "9876543210",
+            "EmailID": "10006848@ifbglobal.com",
+            "PinCode": "641038",
+            "GSTNRegType": "01",
+            "EffectiveDate": "06.06.2022",
+            "State": "Tamilnadu",
+            "RegionCode": "22",
+            "City": "COIMBATORE"
+        },
+        {
+            "VendorCode": "50011870",
+            "VendorName": "Sree Rajaganapathy Traders",
+            "VendorAdress": "Saibaba colony",
+            "BranchCode": "01236",
+            "BranchName": "Test Branch",
+            "GSTN": "33ABOFS1176Q1ZH",
+            "PAN": "ABOFS1176Q",
+            "MobileNumber": "9876543210",
+            "EmailID": "50011870@ifbglobal.com",
+            "PinCode": "700136",
+            "GSTNRegType": "05",
+            "EffectiveDate": "26.03.2022",
+            "State": "West Bengal",
+            "RegionCode": "25",
+            "City": "Kolkata"
+        },
+        {
+            "VendorCode": "59999999",
+            "VendorName": "TEST VENDOR PAN ISSUE",
+            "VendorAdress": "Test Address PAN",
+            "BranchCode": "986667",
+            "BranchName": "Test Branch",
+            "GSTN": "33ABOFS1176Q1ZH",
+            "PAN": "ABOFS1176Q",
+            "MobileNumber": "9876543210",
+            "EmailID": "59999999@ifbglobal.com",
+            "PinCode": "800001",
+            "GSTNRegType": "01",
+            "EffectiveDate": "30.03.2023",
+            "State": "Bihar",
+            "RegionCode": "22",
+            "City": "Patna"
+        }
+        
+    ],
+    "Users": [
+        {
+            "usertype": "A",
+            "firstname": "Dhananjay",
+            "lastname": "Choubey",
+            "username": "DCHOUBEY@test.com",
+            "password": "12345",
+            "refid": "Admin",
+            "email": "testmail@testing.com",
+            "phnum": "9876543210",
+            "region": "Kolkata",
+            "branchcode": "3500",
+            "branchdesc": "IFB Global",
+            "segment": "1234"
+        },
+        {
+            "usertype": "C",
+            "firstname": "Test",
+            "lastname": "Customer",
+            "username": "customer@test.com",
+            "password": "asdfg",
+            "refid": "3500",
+            "email": "customer@testing.com",
+            "phnum": "6754328765",
+            "region": "Kolkata",
+            "branchcode": "1234",
+            "branchdesc": "Test",
+            "segment": "4567"
+        },
+        {
+            "usertype": "V",
+            "firstname": "Test",
+            "lastname": "Franchisee",
+            "username": "franchisee@test.com",
+            "password": "oiuytre",
+            "refid": "50011870",
+            "email": "franchisee@testing.com",
+            "phnum": "8765476789",
+            "region": "Kolkata",
+            "branchcode": "1234",
+            "branchdesc": "Test",
+            "segment": "4567"
+        }
+
+    ]
+}

@@ -16,7 +16,13 @@
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
 		"resources": "resources.json",
-		"ach": "ach"
+		"ach": "ach",	
+		"dataSources": {
+			"localData_alias": {
+				"uri": "test/data/testData.json",
+				"type": "JSON"
+			}
+		}
 	},
 
 	"sap.ui": {
@@ -66,6 +72,10 @@
 					],
 					"fallbackLocale": ""
 				}
+			},
+			"localData": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "localData_alias"
 			}
 		},
 		"resources": {

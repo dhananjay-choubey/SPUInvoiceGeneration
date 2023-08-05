@@ -5,7 +5,7 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
 >
-    <Page title="Customer Details">
+    <Page title="Customer Details" showHeader="false">
         <content>
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm
@@ -28,22 +28,23 @@
                     singleContainerFullSize="false"
                 >
                     <f:content>
-                        <Label text="Product ID" />
-                        <Text text="ABCDEFGHIJK" />
-                        <Label text="Product Desc." />
-                        <Text text="This is the product description" />
-                        <Label text="Material Category" />
-                        <Text text="{ZIPCode} {City}" />
-                        <Label text="Category Hierarchy ID" />
-                        <Text text="{Country}" />
-                        <Label text="Tax Tariff Code" />
-                        <Text text="{Country}" />
-                        <Label text="Tax Type" />
-                        <Text text="{Country}" />
-                        <Label text="Units of Measure of Product" />
-                        <Text text="{Country}" />
-                        <Label text="Group ID" />
-                        <Text text="{Country}" />
+                        <Label text="Branch" />
+                        <Text text="{CustomerDetailModel>/BranchName} ({CustomerDetailModel>/BranchCode})" />
+                        <Label text="Customer Address" />
+                        <Text text="{CustomerDetailModel>/Address}" />
+                        <Label text="Pin Code" />
+                        <Text text="{CustomerDetailModel>/PinCode}" />
+                        <Label text="GSTN Number" />
+                        <Text text="{CustomerDetailModel>/GSTNNumber}" />
+                        <Label text="PAN" />
+                        <Text text="{CustomerDetailModel>/PAN}" />
+                        <Label text="Mobile Number" />
+                        <Text text="{CustomerDetailModel>/MobileNumber}" />
+                        <Label text="Email ID" />
+                        <Text text="{CustomerDetailModel>/EmailId}" />
+                        <Label text="Region" />
+                        <Text text="{CustomerDetailModel>/RegionDesc} ({CustomerDetailModel>/RegionCode})" />
+
                     </f:content>
                 </f:SimpleForm>
             </VBox>

@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+        title="Franchisee"
+        items="{path : 'VendorF4Model>/Vendors'}"
+        search="_handleValueHelpVendorSearch"
+        confirm="_handleValueHelpVendorClose"
+        cancel="_handleValueHelpVendorClose"
+    >
+        <StandardListItem
+            title="{VendorF4Model>VendorName}"
+            description="{VendorF4Model>VendorCode}"
+        />
+    </SelectDialog>
+</core:FragmentDefinition>

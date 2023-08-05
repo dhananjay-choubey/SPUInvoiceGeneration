@@ -25,6 +25,17 @@ sap.ui.define([
 
 			// create the views based on the url/hash
 			this.getRouter().initialize();
-		}
+			this.getRootControl().addStyleClass(this.getContentDensityClass());
+		},
+		getContentDensityClass: function () {
+			if (!this._sContentDensityClass) {
+			  if (Device.support.touch) {
+				this._sContentDensityClass = "sapUiSizeCozy";
+			  } else {
+				this._sContentDensityClass = "sapUiSizeCompact";
+			  }
+			}
+			return this._sContentDensityClass;
+		  }
 	});
 });

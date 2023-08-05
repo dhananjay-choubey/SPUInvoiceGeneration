@@ -13,6 +13,7 @@
             <Table
                 id="idUsersTable"
                 inset="false"
+                items="{path : 'UserModel>/Users'}"
             >
                 <headerToolbar>
                     <OverflowToolbar>
@@ -33,13 +34,11 @@
                 </headerToolbar>
                 <columns>
                     <Column
-                        minScreenWidth="Desktop"
                         demandPopin="true"
                     >
                         <Text text="Name" />
                     </Column>
                     <Column width="12em">
-                        <Text text="User Type" />
                     </Column>
                     <Column
                         minScreenWidth="Desktop"
@@ -54,13 +53,13 @@
                         <Text text="Phone No." />
                     </Column>
                     <Column
-                        minScreenWidth="Desktop"
+                        minScreenWidth="Tablet"
                         demandPopin="true"
                     >
                         <Text text="Region" />
                     </Column>
                     <Column
-                        minScreenWidth="Desktop"
+                        minScreenWidth="Tablet"
                         demandPopin="true"
                     >
                         <Text text="Branch (Segment)" />
@@ -77,14 +76,14 @@
                     <ColumnListItem>
                         <cells>
                             <ObjectIdentifier
-                                title="Name"
-                                text="Id"
+                                title="{UserModel>firstname} {UserModel>lastname}"
+                                text="{UserModel>refid}"
                             />
-                            <Text text="User Type" />
-                            <Text text="Email Id" />
-                            <Text text="Phone No" />
-                            <Text text="Region" />
-                            <Text text="Branch (Segment)" />
+                            <Text text="{path:'UserModel>usertype',formatter: '.formatter.getUserType'}" />
+                            <Text text="{UserModel>email}" />
+                            <Text text="{UserModel>phnum}" />
+                            <Text text="{UserModel>region}" />
+                            <Text text="{UserModel>branchdesc} ({UserModel>segment})" />
                             <core:Icon
                                 src="sap-icon://show"
                                 class="sapUiSmallMarginEnd"

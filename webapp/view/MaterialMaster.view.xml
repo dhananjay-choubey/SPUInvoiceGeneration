@@ -10,16 +10,15 @@
                 <contentMiddle>
                     <SearchField
                         id="searchFieldMaterial"
-                        showRefreshButton="{= !${device>/support/touch} }"
-                        tooltip="{i18n>masterSearchTooltip}"
+                        tooltip="Search Material"
                         width="100%"
-                        search="onSearch"
+                        search="onSearchMaterial"
                     />
                     <core:Icon
                         src="sap-icon://download"
                         class="sapUiTinyMarginEnd"
                         color="#8875E7"
-                        press="handleStethoscopePress"
+                        press="onMaterialExport"
                     >
                         <core:layoutData>
                             <FlexItemData growFactor="1" />
@@ -29,35 +28,34 @@
             </Bar>
         </subHeader>
         <List
-            id="list"
-            items=""
+            id="materialList"
+            items="{path : 'MaterialModel>/Materials'}"
             busyIndicatorDelay="{masterView>/delay}"
             noDataText="{masterView>/noDataText}"
             mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
             growing="true"
             growingThreshold="10"
             growingScrollToLoad="true"
-            updateFinished="onUpdateFinished"
+            updateFinished="onMaterialUpdateFinished"
             selectionChange="onSelectionChange"
+            itemPress="onListItemPress"
         >
             <items>
                 <ObjectListItem
-                    intro="Material No"
-                    title="Material Desc"
+                    intro="{MaterialModel>ProductId}"
+                    title="{MaterialModel>ProductDescription}"
                     type="Active"
-                    selected="true"
-                    press="onObjectListItemPress"
                 >
                     <attributes>
                         <ObjectAttribute
-                            title="Material Category"
-                            text="{Version}"
+                            title="Mat. Category"
+                            text="{MaterialModel>MaterialCategory}"
                             active="false"
                             visible="true"
                         />
                         <ObjectAttribute
                             title="Group Id"
-                            text="{CreatedByID}"
+                            text="{MaterialModel>GroupId}"
                             active="false"
                             visible="true"
                         />
@@ -65,7 +63,7 @@
                     <firstStatus>
                         <!-- title="{i18n>createdOn}" -->
                         <ObjectStatus
-                            text="Material UOM"
+                            text="UOM: {MaterialModel>UOM}"
                             state="Success"
                             visible="true"
                         />

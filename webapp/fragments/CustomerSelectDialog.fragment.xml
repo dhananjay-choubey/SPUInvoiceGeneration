@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+        title="Customer"
+        items="{path : 'CustomerF4Model>/Customers'}"
+        search="_handleValueHelpCustomerSearch"
+        confirm="_handleValueHelpCustomerClose"
+        cancel="_handleValueHelpCustomerClose"
+    >
+        <StandardListItem
+            title="{CustomerF4Model>BranchName}"
+            description="{CustomerF4Model>BranchCode}"
+        />
+    </SelectDialog>
+</core:FragmentDefinition>

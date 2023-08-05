@@ -5,7 +5,7 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
 >
-    <Page title="Material Details">
+    <Page title="Material Details"  showHeader="false">
         <content>
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm
@@ -29,21 +29,21 @@
                 >
                     <f:content>
                         <Label text="Product ID" />
-                        <Text text="ABCDEFGHIJK" />
+                        <Text text="{MaterialDetailModel>/ProductId}" />
                         <Label text="Product Desc." />
-                        <Text text="This is the product description" />
+                        <Text text="{MaterialDetailModel>/ProductDescription}" />
                         <Label text="Material Category" />
-                        <Text text="{ZIPCode} {City}" />
+                        <Text text="{MaterialDetailModel>/MaterialCategory}" />
                         <Label text="Category Hierarchy ID" />
-                        <Text text="{Country}" />
+                        <Text text="{MaterialDetailModel>/CategoryHierarchyID}" />
                         <Label text="Tax Tariff Code" />
-                        <Text text="{Country}" />
+                        <Text text="{MaterialDetailModel>/TaxTariffCode}" />
                         <Label text="Tax Type" />
-                        <Text text="{Country}" />
+                        <Text text="{MaterialDetailModel>/TaxType}" />
                         <Label text="Units of Measure of Product" />
-                        <Text text="{Country}" />
+                        <Text text="{MaterialDetailModel>/UOM}" />
                         <Label text="Group ID" />
-                        <Text text="{Country}" />
+                        <Text text="{MaterialDetailModel>/GroupId}" />
                     </f:content>
                 </f:SimpleForm>
             </VBox>

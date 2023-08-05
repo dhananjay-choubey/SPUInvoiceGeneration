@@ -37,7 +37,7 @@
                         />
                         <RadioButtonGroup
                             id="rbg3"
-                            columns="3"
+                            columns="3" select="onRBGSelect"
                         >
                             <RadioButton
                                 id="RB3-1"
@@ -49,22 +49,23 @@
                             />
                         </RadioButtonGroup>
                         <Label
-                            text="User"
+                            text="Reference"
                             required="true"
                         />
                         <Input
                             id="inputValueHelpUser"
-                            placeholder="Select User"
+                            placeholder="Select Reference"
                             showValueHelp="true"
                             valueHelpRequest="handleValueHelpUser"
+                            value="{createModel>/refid}"
                         />
-                        <Label text="Name" />
+                        <Label text="Name" required="true"/>
                         <Input
-                            value="{Street}"
+                            value="{createModel>/firstname}"
                             placeholder="First Name"
                         />
                         <Input
-                            value="{HouseNumber}"
+                            value="{createModel>/lastname}"
                             placeholder="Last Name"
                         />
                         <Label
@@ -75,6 +76,7 @@
                             type="Password"
                             id="inputPassword"
                             placeholder="Password"
+                            value="{createModel>/password}"
                         />
                         <Label
                             text="Confirm Password"
@@ -84,6 +86,7 @@
                             type="Password"
                             id="inputConfirmPassword"
                             placeholder="Confirm Password"
+                            value="{createModel>/confirmpassword}"
                         />
                     </f:content>
                 </f:SimpleForm>

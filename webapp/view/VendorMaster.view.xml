@@ -10,16 +10,15 @@
                 <contentMiddle>
                     <SearchField
                         id="searchFieldVendor"
-                        showRefreshButton="{= !${device>/support/touch} }"
-                        tooltip="{i18n>masterSearchTooltip}"
+                        tooltip="Search Vendor"
                         width="100%"
-                        search="onSearch"
+                        search="onSearchVendor"
                     />
                     <core:Icon
                         src="sap-icon://download"
                         class="sapUiTinyMarginEnd"
                         color="#8875E7"
-                        press="handleStethoscopePress"
+                        press="onVendorExport"
                     >
                         <core:layoutData>
                             <FlexItemData growFactor="1" />
@@ -29,35 +28,34 @@
             </Bar>
         </subHeader>
         <List
-            id="list"
-            items=""
+            id="vendorList"
+            items="{path : 'VendorModel>/Vendors'}"
             busyIndicatorDelay="{masterView>/delay}"
             noDataText="{masterView>/noDataText}"
             mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
             growing="true"
             growingThreshold="10"
             growingScrollToLoad="true"
-            updateFinished="onUpdateFinished"
+            updateFinished="onVendorUpdateFinished"
             selectionChange="onSelectionChange"
+            itemPress="onListItemPress"
         >
             <items>
                 <ObjectListItem
-                    intro="Material No"
-                    title="Material Desc"
+                    intro="{VendorModel>VendorCode}"
+                    title="{VendorModel>VendorName}"
                     type="Active"
-                    selected="true"
-                    press="onObjectListItemPress"
                 >
                     <attributes>
                         <ObjectAttribute
-                            title="Material Category"
-                            text="{Version}"
+                            title="Region Code"
+                            text="{VendorModel>RegionCode}"
                             active="false"
                             visible="true"
                         />
                         <ObjectAttribute
-                            title="Group Id"
-                            text="{CreatedByID}"
+                            title="Effective Date"
+                            text="{VendorModel>EffectiveDate}"
                             active="false"
                             visible="true"
                         />
@@ -65,7 +63,7 @@
                     <firstStatus>
                         <!-- title="{i18n>createdOn}" -->
                         <ObjectStatus
-                            text="Material UOM"
+                            text="{VendorModel>State}"
                             state="Success"
                             visible="true"
                         />

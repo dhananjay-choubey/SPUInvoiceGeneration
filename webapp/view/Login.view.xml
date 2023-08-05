@@ -48,12 +48,12 @@
                                 text="Email or Mobile No."
                                 required="true"
                             />
-                            <Input />
+                            <Input id="loginEmailId" type="Email" value="" liveChange="onLiveEmailChange"/>
                             <Label
                                 text="Password"
                                 required="true"
                             />
-                            <Input type="Password" />
+                            <Input type="Password" id="loginPassword" liveChange="onPasswordLiveChange"/>
                             <HBox
                                 justifyContent="End"
                                 alignItems="End"
@@ -61,9 +61,10 @@
                                 <Link
                                     text="Forgot Password?"
                                     textAlign="Right"
+                                    press="onForgotPasswordClicked"
                                 />
                             </HBox>
-                            <CheckBox text="Keep me logged in" />
+                            <CheckBox text="Keep me logged in" id="keepMeLoggedInId"/>
                             <Button
                                 text="Sign In"
                                 type="Emphasized"
