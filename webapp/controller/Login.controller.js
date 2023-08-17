@@ -1,6 +1,6 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/MessageToast"],
-  function (Controller, formatter, MessageToast) {
+  ["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/MessageToast", "sap/ui/model/json/JSONModel"],
+  function (Controller, formatter, MessageToast, JSONModel) {
     "use strict";
 
     return Controller.extend("com.ifb.invoicegenerator.controller.Login", {
@@ -34,13 +34,29 @@ sap.ui.define(
             localStorage.setItem("email" , this.byId("loginEmailId").getValue());
             localStorage.setItem("password" , this.byId("loginPassword").getValue());
           }
+
+          var sloginData = {
+            email: this.byId("loginEmailId").getValue(),
+            firstname: "Dhananjay",
+            lastname: "Choubey",
+            usertype: "A"
+          }
+
+          var loginDataModel = new JSONModel(sloginData);
+
+          this.getOwnerComponent().setModel(loginDataModel, "LoginDataModel");
+
+          this.getOwnerComponent().getRouter().navTo("admin");
+
+
+
           this.byId("loginEmailId").setValue("");
           this.byId("loginPassword").setValue("");
           this.byId("loginEmailId").setValueState("None");
           this.byId("loginPassword").setValueState("None");
           this.byId("loginEmailId").setValueStateText("");
           this.byId("loginPassword").setValueStateText("");
-          this.getOwnerComponent().getRouter().navTo("admin");
+
         } else {
           MessageToast.show("Plese provide valid email and password");
         }

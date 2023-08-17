@@ -4,8 +4,15 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
 >
-    <Page title="Franchisee Details" showHeader="false">
+    <Page showHeader="true">
+        <headerContent>
+            <core:Fragment
+                fragmentName='com.ifb.invoicegenerator.fragments.Menu'
+                type='XML'
+            />
+        </headerContent>
         <content>
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm
@@ -29,11 +36,15 @@
                 >
                     <f:content>
                         <Label text="Vendor" />
-                        <Text text="{VendorDetailModel>/VendorName} ({VendorDetailModel>/VendorCode})" />
+                        <Text
+                            text="{VendorDetailModel>/VendorName} ({VendorDetailModel>/VendorCode})"
+                        />
                         <Label text="Vendor Address" />
                         <Text text="{VendorDetailModel>/VendorAdress}" />
                         <Label text="Branch" />
-                        <Text text="{VendorDetailModel>/BranchName} ({VendorDetailModel>/BranchCode})" />
+                        <Text
+                            text="{VendorDetailModel>/BranchName} ({VendorDetailModel>/BranchCode})"
+                        />
                         <Label text="GSTN" />
                         <Text text="{VendorDetailModel>/GSTN}" />
                         <Label text="PAN" />
@@ -54,7 +65,6 @@
                         <Text text="{VendorDetailModel>/RegionCode}" />
                         <Label text="City" />
                         <Text text="{VendorDetailModel>/City}" />
-
                     </f:content>
                 </f:SimpleForm>
             </VBox>

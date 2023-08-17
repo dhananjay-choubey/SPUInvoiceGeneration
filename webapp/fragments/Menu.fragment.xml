@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <MenuButton text="{LoginDataModel>/firstname} {LoginDataModel>/lastname}">
+        <menu>
+            <Menu>
+                <MenuItem
+                    text="Logoff"
+                    icon="sap-icon://log"
+                    press="onLogoffPress"
+                />
+            </Menu>
+        </menu>
+    </MenuButton>
+</core:FragmentDefinition>

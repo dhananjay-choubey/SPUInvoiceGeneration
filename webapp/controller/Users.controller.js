@@ -63,6 +63,9 @@ sap.ui.define(
       },
       onSubmitDialog: function (oEvent) {
 
+        var mailRegex =
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
         var sData = oEvent
           .getSource()
           .getParent()
@@ -76,6 +79,16 @@ sap.ui.define(
 
           if(!sData.firstname){
             MessageToast.show("First Name is blank");
+            return;
+          }
+
+          if(!sData.email || !mailRegex.test(sData.email)){
+            MessageToast.show("Enter valid email Id");
+            return;
+          }
+
+          if(!sData.phnum || sData.phnum.length != 10){
+            MessageToast.show("Enter Valid Mobile Number");
             return;
           }
 
@@ -98,8 +111,6 @@ sap.ui.define(
           var sCustomer = sCustomerData.filter(function(item){
             return item.BranchCode == sData.refid;         
         })
-        oEvent.getSource().getParent().getModel("createModel").setProperty("/email", sCustomer[0].EmailId);
-        oEvent.getSource().getParent().getModel("createModel").setProperty("/phnum", sCustomer[0].MobileNumber);
         oEvent.getSource().getParent().getModel("createModel").setProperty("/region", "Kolkata");
         oEvent.getSource().getParent().getModel("createModel").setProperty("/branchdesc", "Test");
         oEvent.getSource().getParent().getModel("createModel").setProperty("/segment", "1234");
@@ -112,8 +123,6 @@ sap.ui.define(
           var sVendor = sVendorData.filter(function(item){
             return item.VendorCode == sData.refid;         
         })
-        oEvent.getSource().getParent().getModel("createModel").setProperty("/email", sVendor[0].EmailID);
-        oEvent.getSource().getParent().getModel("createModel").setProperty("/phnum", sVendor[0].MobileNumber);
         oEvent.getSource().getParent().getModel("createModel").setProperty("/region", "Kolkata");
         oEvent.getSource().getParent().getModel("createModel").setProperty("/branchdesc", "Test");
         oEvent.getSource().getParent().getModel("createModel").setProperty("/segment", "1234");
@@ -293,6 +302,11 @@ sap.ui.define(
       },
       onRBGSelect: function(oEvent){
         this.initializeCreateModel(this.getView().byId("createUserDialog"));
+      },
+      handleDeactivateUser: function(oEvent){
+        var selectedItem = oEvent.getSource().getParent().getBindingContext("UserModel").getObject();
+
+        MessageToast.show("User " + selectedItem.firstname + " " + selectedItem.lastname + " has been deactivated.")
       }
     });
   }

@@ -5,10 +5,15 @@
     xmlns="sap.m"
 >
     <Page
-        showHeader="false"
+        showHeader="true"
         backgroundDesign="Transparent"
-        title="Users"
     >
+        <headerContent>
+            <core:Fragment
+                fragmentName='com.ifb.invoicegenerator.fragments.Menu'
+                type='XML'
+            />
+        </headerContent>
         <content>
             <Table
                 id="idUsersTable"
@@ -33,12 +38,15 @@
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-                    <Column
-                        demandPopin="true"
-                    >
+                    <Column demandPopin="true">
                         <Text text="Name" />
                     </Column>
-                    <Column width="12em">
+                    <Column
+                        width="12em"
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="User Type" />
                     </Column>
                     <Column
                         minScreenWidth="Desktop"
@@ -67,9 +75,9 @@
                     <Column
                         minScreenWidth="Desktop"
                         demandPopin="true"
-                        hAlign="Center"
+                        hAlign="Left"
                     >
-                        <Text text="Change Password" />
+                        <Text text="Change Password / Deactivate" />
                     </Column>
                 </columns>
                 <items>
@@ -79,16 +87,27 @@
                                 title="{UserModel>firstname} {UserModel>lastname}"
                                 text="{UserModel>refid}"
                             />
-                            <Text text="{path:'UserModel>usertype',formatter: '.formatter.getUserType'}" />
+                            <Text
+                                text="{path:'UserModel>usertype',formatter: '.formatter.getUserType'}"
+                            />
                             <Text text="{UserModel>email}" />
                             <Text text="{UserModel>phnum}" />
                             <Text text="{UserModel>region}" />
-                            <Text text="{UserModel>branchdesc} ({UserModel>segment})" />
-                            <core:Icon
-                                src="sap-icon://show"
-                                class="sapUiSmallMarginEnd"
-                                press="handleChangePassword"
+                            <Text
+                                text="{UserModel>branchdesc} ({UserModel>segment})"
                             />
+                            <HBox>
+                                <core:Icon
+                                    src="sap-icon://show"
+                                    class="sapUiSmallMarginEnd"
+                                    press="handleChangePassword"
+                                />
+                                <core:Icon
+                                    src="sap-icon://cancel"
+                                    class="sapUiSmallMarginBeginEnd"
+                                    press="handleDeactivateUser"
+                                />
+                            </HBox>
                         </cells>
                     </ColumnListItem>
                 </items>

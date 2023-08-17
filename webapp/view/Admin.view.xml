@@ -5,14 +5,22 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
 >
     <Page
         showHeader="true"
         backgroundDesign="Transparent"
         title="Admin Overview"
     >
+        <headerContent>
+            <core:Fragment
+                fragmentName='com.ifb.invoicegenerator.fragments.Menu'
+                type='XML'
+            />
+        </headerContent>
         <content>
             <GenericTile
+                visible="{= (${LoginDataModel>/usertype} === 'A' || ${LoginDataModel>/usertype} === 'C') ? true : false }"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                 header="Materials"
                 press="onMaterialPress"
@@ -22,8 +30,9 @@
                 </TileContent>
             </GenericTile>
             <GenericTile
+                visible="{= (${LoginDataModel>/usertype} === 'A' || ${LoginDataModel>/usertype} === 'V') ? true : false }"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                header="Customers"
+                header="{= (${LoginDataModel>/usertype} === 'V') ? 'My Branch' : 'Customers' }"
                 press="onBranchUserPress"
             >
                 <TileContent>
@@ -31,6 +40,7 @@
                 </TileContent>
             </GenericTile>
             <GenericTile
+                visible="{= (${LoginDataModel>/usertype} === 'A' || ${LoginDataModel>/usertype} === 'C') ? true : false }"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                 header="Franchisee"
                 press="onFranchiseePress"
@@ -40,6 +50,7 @@
                 </TileContent>
             </GenericTile>
             <GenericTile
+                visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                 header="App Users"
                 press="onAppUsersPress"

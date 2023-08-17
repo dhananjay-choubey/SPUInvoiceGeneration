@@ -45,7 +45,7 @@
                     >
                         <f:content>
                             <Label
-                                text="Email or Mobile No."
+                                text="Email Id"
                                 required="true"
                             />
                             <Input id="loginEmailId" type="Email" value="" liveChange="onLiveEmailChange"/>

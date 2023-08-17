@@ -4,8 +4,15 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
 >
-    <Page title="Material Details"  showHeader="false">
+    <Page showHeader="true">
+        <headerContent>
+            <core:Fragment
+                fragmentName='com.ifb.invoicegenerator.fragments.Menu'
+                type='XML'
+            />
+        </headerContent>
         <content>
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm
@@ -31,11 +38,15 @@
                         <Label text="Product ID" />
                         <Text text="{MaterialDetailModel>/ProductId}" />
                         <Label text="Product Desc." />
-                        <Text text="{MaterialDetailModel>/ProductDescription}" />
+                        <Text
+                            text="{MaterialDetailModel>/ProductDescription}"
+                        />
                         <Label text="Material Category" />
                         <Text text="{MaterialDetailModel>/MaterialCategory}" />
                         <Label text="Category Hierarchy ID" />
-                        <Text text="{MaterialDetailModel>/CategoryHierarchyID}" />
+                        <Text
+                            text="{MaterialDetailModel>/CategoryHierarchyID}"
+                        />
                         <Label text="Tax Tariff Code" />
                         <Text text="{MaterialDetailModel>/TaxTariffCode}" />
                         <Label text="Tax Type" />

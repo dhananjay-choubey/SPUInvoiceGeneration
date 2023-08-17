@@ -69,6 +69,25 @@
                             placeholder="Last Name"
                         />
                         <Label
+                            text="Email Id"
+                            required="true"
+                        />
+                        <Input
+                            type="Email"
+                            placeholder="Email Id"
+                            value="{createModel>/email}"
+                        />
+                        <Label
+                            text="Mobile Number"
+                            required="true"
+                        />
+                        <Input
+                            type="Tel"
+                            placeholder="Mobile Number"
+                            value="{createModel>/phnum}"
+                            maxLength="10"
+                        />
+                        <Label
                             text="Password"
                             required="true"
                         />

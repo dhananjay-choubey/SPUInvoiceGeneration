@@ -99,7 +99,7 @@
 					"target": ["login"]
 				},
 				{
-					"pattern": "admin",
+					"pattern": "dashboard",
 					"name": "admin",
 					"target": ["admin"]
 				},
