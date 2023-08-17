@@ -1,6 +1,6 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "com/ifb/invoicegenerator/controller/BaseController",
     "../model/formatter",
     "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel",

@@ -109,6 +109,11 @@
 					"target": ["users"]
 				},
 				{
+					"pattern": "syncinvoice",
+					"name": "syncinvoice",
+					"target": ["syncinvoice"]
+				},
+				{
 					"pattern": "material",
 					"name": "material",
 					"target": ["materialmaster", "materialdetail"]
@@ -131,6 +136,10 @@
 				"login": {
 					"viewName": "Login",
 					"viewId": "login"
+				},
+				"syncinvoice":{
+					"viewName": "SyncData",
+					"viewId": "syncinvoice"
 				},
 				"admin": {
 					"viewName": "Admin",

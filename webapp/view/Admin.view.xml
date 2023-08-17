@@ -10,7 +10,7 @@
     <Page
         showHeader="true"
         backgroundDesign="Transparent"
-        title="Admin Overview"
+        title="Dashboard"
     >
         <headerContent>
             <core:Fragment
@@ -57,6 +57,41 @@
             >
                 <TileContent>
                     <ImageContent src="sap-icon://employee" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile
+                visible="{= (${LoginDataModel>/usertype} === 'C') ? true : false }"
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                header="Sync Data"
+                subheader="for Invoice Generation"
+                press="onSyncInvoiceGenerationPress"
+            >
+                <TileContent>
+                    <ImageContent src="sap-icon://synchronize" />
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile
+                visible="{= (${LoginDataModel>/usertype} === 'V' || ${LoginDataModel>/usertype} === 'C') ? true : false }"
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                header="Sales Transactions"
+                subheader="Sales to IFB"
+                press="onSalesTransactionsPress"
+            >
+                <TileContent>
+                    <ImageContent src="sap-icon://sales-order" />
+                </TileContent>
+            </GenericTile>
+
+                        <GenericTile
+                visible="{= (${LoginDataModel>/usertype} === 'V') ? true : false }"
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                header="Digital Signatures"
+                subheader="of Invoices"
+                press="onDigitalSignaturePress"
+            >
+                <TileContent>
+                    <ImageContent src="sap-icon://signature" />
                 </TileContent>
             </GenericTile>
         </content>

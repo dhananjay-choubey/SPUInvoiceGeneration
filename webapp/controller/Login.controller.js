@@ -1,5 +1,5 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/MessageToast", "sap/ui/model/json/JSONModel"],
+  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/m/MessageToast", "sap/ui/model/json/JSONModel"],
   function (Controller, formatter, MessageToast, JSONModel) {
     "use strict";
 
@@ -39,7 +39,7 @@ sap.ui.define(
             email: this.byId("loginEmailId").getValue(),
             firstname: "Dhananjay",
             lastname: "Choubey",
-            usertype: "A"
+            usertype: "C"
           }
 
           var loginDataModel = new JSONModel(sloginData);

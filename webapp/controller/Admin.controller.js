@@ -1,5 +1,5 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "../model/formatter"],
+  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter"],
   function (Controller, formatter) {
     "use strict";
 
@@ -26,6 +26,9 @@ sap.ui.define(
       onAppUsersPress: function () {
         this.getOwnerComponent().getRouter().navTo("users");
       },
+      onSyncInvoiceGenerationPress: function(){
+        this.getOwnerComponent().getRouter().navTo("syncinvoice"); 
+      }
     });
   }
 );

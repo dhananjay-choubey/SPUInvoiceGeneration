@@ -1,5 +1,5 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "../model/formatter", "sap/ui/model/json/JSONModel", "sap/ui/model/Filter", "sap/ui/model/FilterOperator",
+  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/ui/model/json/JSONModel", "sap/ui/model/Filter", "sap/ui/model/FilterOperator",
 	"sap/ui/export/Spreadsheet",
 	"sap/m/MessageToast"],
   function (Controller, formatter, JSONModel, Filter, FilterOperator, Spreadsheet, MessageToast) {
