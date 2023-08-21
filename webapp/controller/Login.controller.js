@@ -39,7 +39,7 @@ sap.ui.define(
             email: this.byId("loginEmailId").getValue(),
             firstname: "Dhananjay",
             lastname: "Choubey",
-            usertype: "A"
+            usertype: "C"
           }
 
           var loginDataModel = new JSONModel(sloginData);

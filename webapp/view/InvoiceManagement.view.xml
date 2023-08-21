@@ -18,7 +18,7 @@
 						<fb:filterGroupItems>
 							<fb:FilterGroupItem name="invoiceDateRangeLabel" label="Invoice Date" groupName="__$INTERNAL$" visibleInFilterBar="true">
 								<fb:control>
-									<DateRangeSelection id="invoiceDateRange" change="handleChange"/>
+									<DatePicker id="invoiceDateRange" change="handleChange"/>
 								</fb:control>
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem name="invoiceFreeSearchLabel" label="Invoice Number" groupName="__$INTERNAL$" visibleInFilterBar="true">
@@ -38,8 +38,8 @@
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem name="gmPartyLabel" label="Party Name" groupName="__$INTERNAL$" visibleInFilterBar="true">
 								<fb:control>
-									<Select id="gmParty" forceSelection="false" change="onSearch" items="{ path: 'statusModel>/' }" enabled="false">
-										<core:Item key="{statusModel>STATUS_CASE_ID}" text="{statusModel>STATUS_CASE_TEXT}"/>
+									<Select id="invoiceParty" forceSelection="false" change="onSearch" items="{ path: 'localData>/Customers' }">
+										<core:Item key="{localData>BranchCode}" text="{localData>BranchName}"/>
 									</Select>
 								</fb:control>
 							</fb:FilterGroupItem>
@@ -212,7 +212,7 @@
 							<Text text="{roundoff}" textAlign="End"/>
 							<Text text="{grandTotal}"  textAlign="End"/>
 							<HBox>
-								<Button tooltip="View" icon="sap-icon://display" press="onViewPress"/>
+								<Button tooltip="View" icon="sap-icon://display" press="onViewPress" class="sapUiTinyMarginEnd"/>
 								<Button tooltip="Print" icon="sap-icon://print" press="onPrintPress"/>
 							</HBox>
 							
