@@ -5,3 +5,7 @@
 .loginBox {
     background-color: #ebeaea;
 }
+
+.mdSyncSelectDialog .sapMSFF {
+    display: none;
+}

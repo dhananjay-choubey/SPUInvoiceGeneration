@@ -182,5 +182,26 @@
             "segment": "4567"
         }
 
+    ],
+    "Invoices": [
+        {
+            "invoicenumber": "SAL-00001-1718",
+            "invoiceDate": "19-07-2017",
+            "SPUNumber": "1234567890",
+            "ticketNo": "1000174259",
+            "referenceNo": "7000079909",
+            "referenceDate": "19-07-2017",
+            "orgId": "1234",
+            "orgName": "JB Enterprise",
+            "partyCode": "6544333",
+            "partyName": "IFB Industries Limited (West Bengal)",
+            "consignee": "MR SUROJIT",
+            "subTotal": "2029.95",
+            "sgst": "284.19",
+            "cgst": "284.19",
+            "igst": "0.00",
+            "roundoff": "-0.33",
+            "grandTotal": "2598.00"
+        }
     ]
 }

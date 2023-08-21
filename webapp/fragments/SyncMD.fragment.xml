@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog class="mdSyncSelectDialog"
+        title="What do you want to Sync?"
+        confirm="_handleValueHelpMDSyncClose"
+        cancel="_handleValueHelpMDSyncClose"
+        
+    >
+        <StandardListItem title="Materials" />
+        <StandardListItem title="Vendors" />
+        <StandardListItem title="Customers" />
+    </SelectDialog>
+</core:FragmentDefinition>

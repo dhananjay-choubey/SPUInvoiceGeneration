@@ -74,7 +74,7 @@
             <GenericTile
                 visible="{= (${LoginDataModel>/usertype} === 'V' || ${LoginDataModel>/usertype} === 'C') ? true : false }"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                header="Sales Transactions"
+                header="Invoice Management"
                 subheader="Sales to IFB"
                 press="onSalesTransactionsPress"
             >
@@ -83,7 +83,7 @@
                 </TileContent>
             </GenericTile>
 
-                        <GenericTile
+            <GenericTile
                 visible="{= (${LoginDataModel>/usertype} === 'V') ? true : false }"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                 header="Digital Signatures"
@@ -92,6 +92,16 @@
             >
                 <TileContent>
                     <ImageContent src="sap-icon://signature" />
+                </TileContent>
+            </GenericTile>
+            <GenericTile
+                visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }"
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                header="Sync Master Data"
+                press="onMasterDataSyncPress"
+            >
+                <TileContent>
+                    <ImageContent src="sap-icon://synchronize" />
                 </TileContent>
             </GenericTile>
         </content>

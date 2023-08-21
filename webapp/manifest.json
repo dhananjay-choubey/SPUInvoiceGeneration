@@ -114,6 +114,11 @@
 					"target": ["syncinvoice"]
 				},
 				{
+					"pattern": "invoices",
+					"name": "invoices",
+					"target": ["invoices"]
+				},
+				{
 					"pattern": "material",
 					"name": "material",
 					"target": ["materialmaster", "materialdetail"]
@@ -148,6 +153,10 @@
 				"users": {
 					"viewName": "Users",
 					"viewId": "users"
+				},
+				"invoices": {
+					"viewName": "InvoiceManagement",
+					"viewId": "invoicemanagement"
 				},
 				"customermaster": {
 					"viewName": "CustomerMaster",

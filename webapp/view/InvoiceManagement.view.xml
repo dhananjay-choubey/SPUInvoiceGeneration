@@ -1,0 +1,225 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt"
+	xmlns:f="sap.f" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.ifb.invoicegenerator.controller.InvoiceManagement" displayBlock="true"
+	height="{='calc(100% - 3rem)' }">
+	<tnt:ToolHeader visible="true">
+		<Title text="Invoice Management" class="sapUiSmallMarginBegin" />
+		<ToolbarSpacer/>
+		<core:Fragment
+                fragmentName='com.ifb.invoicegenerator.fragments.Menu'
+                type='XML'
+        />
+	</tnt:ToolHeader>
+	<f:DynamicPage id="dynamicPageId" headerExpanded="true" showFooter="true">
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<fb:FilterBar id="filterbar" clear="onClear" reset="onReset" search="onSearch" useToolbar="false" showRestoreButton="true" showFilterConfiguration="false"
+						showClearButton="true" showClearOnFB="true" filterBarExpanded="true">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem name="invoiceDateRangeLabel" label="Invoice Date" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<DateRangeSelection id="invoiceDateRange" change="handleChange"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="invoiceFreeSearchLabel" label="Invoice Number" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="invoiceFreeSearch" placeholder="Invoice Number" submit="onSearch"></Input>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="invoiceFreeSearchTicketLabel" label="Ticket Number" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="invoiceFreeTicketSearch" placeholder="Ticket Number" submit="onSearch"></Input>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="invoiceFreeSearchRefLabel" label="Reference Number" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="invoiceFreeRefSearch" placeholder="Reference Number" submit="onSearch"></Input>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="gmPartyLabel" label="Party Name" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Select id="gmParty" forceSelection="false" change="onSearch" items="{ path: 'statusModel>/' }" enabled="false">
+										<core:Item key="{statusModel>STATUS_CASE_ID}" text="{statusModel>STATUS_CASE_TEXT}"/>
+									</Select>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<smartTable:SmartTable id="invoiceTable" entitySet="Invoices" enableAutoBinding="false" beforeRebindTable="onBeforeRebindTable"
+				tableType="ResponsiveTable" showRowCount="true" header="Invoices" showFullScreenButton="true" showTablePersonalisation="false"
+				initiallyVisibleFields="invoicenumber,invoiceDate,SPUNumber,ticketNo,referenceNo,referenceDate,orgId,orgName,partyCode,partyName,consignee,subTotal,sgst,cgst,igst,roundoff,grandTotal"
+				class="sapUiResponsiveContentPadding sapUiLargeMarginBottom" placeToolbarInTable="true">
+				<smartTable:customData>
+					<core:CustomData key="p13nDialogSettings"
+						value='\{ "filter": \{ "visible": true},"sort": \{ "visible": true}, "group": \{ "visible": false} }'/>
+				</smartTable:customData>
+				<smartTable:customToolbar>
+					<OverflowToolbar design="Transparent">
+						<content>
+							<ToolbarSpacer/>
+							    <MenuButton text="Action">
+									<menu>
+										<Menu>
+											<MenuItem
+												text="Download"
+												icon="sap-icon://download"
+												press="onBulkDownloadPress"
+											/>
+											<MenuItem
+												text="Bulk Print"
+												icon="sap-icon://print"
+												press="onBulkPrintPress"
+											/>
+										</Menu>
+									</menu>
+								</MenuButton>
+							<OverflowToolbarButton icon="sap-icon://sort" tooltip="{i18n>sort}" text="{i18n>sort}" press="onSort"/>
+						</content>
+					</OverflowToolbar>
+				</smartTable:customToolbar>
+				<Table mode="MultiSelect" sticky="HeaderToolbar,ColumnHeaders" growing="true" width="100%" updateFinished="onTableUpdateFinished">
+					<columns>
+						<Column>
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "invoicenumber", "type": "string","columnKey": "invoicenumber", "leadingProperty": "invoicenumber"}'/>
+							</customData>
+							<Text text="Invoice Number"/>
+						</Column>
+						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "invoiceDate", "type": "string", "leadingProperty": "invoiceDate","columnKey": "invoiceDate"}'/>
+							</customData>
+							<Text text="Invoice Date"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData" value='\{"sortProperty": "SPUNumber", "type": "string","columnKey": "SPUNumber", "leadingProperty": "SPUNumber"}'/>
+							</customData>
+							<Text text="SPU No"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "ticketNo", "type": "string","columnKey": "ticketNo", "leadingProperty": "ticketNo"}'/>
+							</customData>
+							<Text text="Ticket No"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "referenceNo", "type": "string","columnKey": "referenceNo", "leadingProperty": "referenceNo"}'/>
+							</customData>
+							<Text text="Ref Number"/>
+						</Column>
+						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "referenceDate", "type": "date","columnKey": "referenceDate", "leadingProperty": "referenceDate"}'/>
+							</customData>
+							<Text text="Ref Date"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "orgName", "type": "string","columnKey": "orgName", "leadingProperty": "orgName"}'/>
+							</customData>
+							<Text text="Organization"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "partyName", "type": "string", "columnKey": "partyName", "leadingProperty": "partyName"}'/>
+							</customData>
+							<Text text="Party Name"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "consignee", "type": "string", "columnKey": "consignee", "leadingProperty": "consignee"}'/>
+							</customData>
+							<Text text="Consignee"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "subTotal", "type": "string","columnKey": "subTotal", "leadingProperty": "subTotal"}'/>
+							</customData>
+							<Text text="Sub Total"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "sgst", "type": "string", "columnKey": "sgst", "leadingProperty": "sgst"}'/>
+							</customData>
+							<Text text="SGST"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "cgst", "type": "string", "columnKey": "cgst", "leadingProperty": "cgst"}'/>
+							</customData>
+							<Text text="CGST"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "igst", "type": "string", "columnKey": "igst", "leadingProperty": "igst"}'/>
+							</customData>
+							<Text text="IGST"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "roundoff", "type": "string", "columnKey": "roundoff", "leadingProperty": "roundoff"}'/>
+							</customData>
+							<Text text="RoundOff"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "grandTotal", "type": "string", "columnKey": "grandTotal", "leadingProperty": "grandTotal"}'/>
+							</customData>
+							<Text text="Grand Total"/>
+						</Column>
+						<Column  id="invoiceActionColumn" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData id="invoiceCustomDataActionCol" key="p13nData" value='\{"columnKey": "Action"}'/>
+							</customData>
+							<Text text="Action"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Inactive">
+							<ObjectIdentifier title="{invoicenumber}"/>
+							<ObjectIdentifier title="{invoiceDate}"/>
+							<Text text="{SPUNumber}"/>
+							<Text text="{ticketNo}"/>
+							<Text text="{referenceNo}"/>
+							<Text text="{referenceDate}"/>
+							<Text text="{orgName}"/>
+							<Text text="{partyName}"/>
+							<Text text="{consignee}"/>
+							<Text text="{subTotal}" textAlign="End"/>
+							<Text text="{sgst}" textAlign="End"/>
+							<Text text="{cgst}" textAlign="End"/>
+							<Text text="{igst}" textAlign="End"/>
+							<Text text="{roundoff}" textAlign="End"/>
+							<Text text="{grandTotal}"  textAlign="End"/>
+							<HBox>
+								<Button tooltip="View" icon="sap-icon://display" press="onViewPress"/>
+								<Button tooltip="Print" icon="sap-icon://print" press="onPrintPress"/>
+							</HBox>
+							
+						</ColumnListItem>
+					</items>
+				</Table>
+			</smartTable:SmartTable>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

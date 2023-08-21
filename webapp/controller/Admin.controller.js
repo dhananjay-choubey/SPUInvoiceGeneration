@@ -1,6 +1,6 @@
 sap.ui.define(
-  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter"],
-  function (Controller, formatter) {
+  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/m/MessageToast", "sap/ui/core/Fragment"],
+  function (Controller, formatter, MessageToast, Fragment) {
     "use strict";
 
     return Controller.extend("com.ifb.invoicegenerator.controller.Admin", {
@@ -26,8 +26,41 @@ sap.ui.define(
       onAppUsersPress: function () {
         this.getOwnerComponent().getRouter().navTo("users");
       },
-      onSyncInvoiceGenerationPress: function(){
-        this.getOwnerComponent().getRouter().navTo("syncinvoice"); 
+      onSyncInvoiceGenerationPress: function () {
+        this.getOwnerComponent().getRouter().navTo("syncinvoice");
+      },
+      onMasterDataSyncPress: function (oEvent) {
+        var oView = this.getView();
+        // create value help dialog
+        if (!this._pMasterDataSync) {
+          this._pMasterDataSync = Fragment.load({
+            id: oView.getId(),
+            name: "com.ifb.invoicegenerator.fragments.SyncMD",
+            controller: this,
+          }).then(
+            function (oValueHelpDialogMDSync) {
+              oValueHelpDialogMDSync.addStyleClass(
+                this.getOwnerComponent().getContentDensityClass()
+              );
+              oView.addDependent(oValueHelpDialogMDSync);
+              return oValueHelpDialogMDSync;
+            }.bind(this)
+          );
+        }
+
+        // open value help dialog
+        this._pMasterDataSync.then(function (oValueHelpDialogMDSync) {
+          oValueHelpDialogMDSync.open();
+        });
+      },
+      _handleValueHelpMDSyncClose: function (oEvent) {
+        var oSelectedItem = oEvent.getParameter("selectedItem");
+        if (oSelectedItem) {
+          MessageToast.show(oSelectedItem.getTitle() + " Sync is in progress.");
+        }
+      },
+      onSalesTransactionsPress: function(oEvent){
+        this.getOwnerComponent().getRouter().navTo("invoices");
       }
     });
   }
