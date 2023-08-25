@@ -1,8 +1,8 @@
 sap.ui.define(
   ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/ui/model/json/JSONModel", "sap/ui/model/Filter", "sap/ui/model/FilterOperator",
 	"sap/ui/export/Spreadsheet",
-	"sap/m/MessageToast"],
-  function (Controller, formatter, JSONModel, Filter, FilterOperator, Spreadsheet, MessageToast) {
+	"sap/m/MessageToast", "com/ifb/invoicegenerator/model/models"],
+  function (Controller, formatter, JSONModel, Filter, FilterOperator, Spreadsheet, MessageToast, models) {
     "use strict";
 
     return Controller.extend(
@@ -11,8 +11,22 @@ sap.ui.define(
         formatter: formatter,
 
         onInit: function () {
-          var dataModel = this.getOwnerComponent().getModel("localData");
-			    this.getView().setModel(dataModel, "CustomerModel");
+          // Get Router Info
+          this.oRouter = this.getOwnerComponent().getRouter();
+          // Calling _handleRouteMatched before UI Rendering
+          this.oRouter.getRoute("customer").attachPatternMatched(this._handleRouteMatched, this);
+        },
+        _handleRouteMatched: function(oEvent){
+          if(!this.getOwnerComponent().getModel("LoginDataModel")){
+            this.getOwnerComponent().getRouter().navTo("admin");
+          }
+          this._getCustomers();
+          
+        },
+        _getCustomers: async function(){
+          var sData = await models.getCustomers();
+          var oModel = new JSONModel(sData);
+			    this.getView().setModel(oModel, "CustomerModel");
         },
         onListItemPress: function(oEvent){
           var sData = oEvent.getParameter("listItem").getBindingContext("CustomerModel").getObject();
@@ -30,8 +44,8 @@ sap.ui.define(
         },
         onSearchCustomer: function(oEvent){
           var sValue = oEvent.getSource().getValue().trim();
-          var oFilter1 = new Filter("BranchCode",FilterOperator.Contains, sValue);
-          var oFilter2 = new Filter("BranchName",FilterOperator.Contains, sValue);
+          var oFilter1 = new Filter("branchcode",FilterOperator.Contains, sValue);
+          var oFilter2 = new Filter("branchname",FilterOperator.Contains, sValue);
 					
           var oBinding = this.byId("customerList").getBinding("items");
           var oFilter = new Filter([oFilter1,oFilter2]);
@@ -41,52 +55,52 @@ sap.ui.define(
           return [
             {
               label: 'Branch Code',
-              property: 'BranchCode',
+              property: 'branchcode',
               width: 25
             },
             {
               label: 'Branch Name',
-              property: 'BranchName',
+              property: 'branchname',
               width: '35'
             },
             {
               label: 'Customer Adress',
-              property: 'Address',
+              property: 'address',
               width: '25'
             },
             {
               label: 'Pin Code',
-              property: 'PinCode',
+              property: 'pincode',
               width: '10'
             },
             {
               label: 'GSTN Number',
-              property: 'GSTNNumber',
+              property: 'gstinnum',
               width: '18'
             },
             {
               label: 'PAN',
-              property: 'PAN',
+              property: 'pannum',
               width: '18'
             },
             {
               label: 'Mobile Number',
-              property: 'MobileNumber',
+              property: 'mobilenum',
               width: '25'
             },
             {
               label: 'Email ID',
-              property: 'EmailId',
+              property: 'emailid',
               width: '25'
             },
             {
               label: 'Region Code',
-              property: 'RegionCode',
+              property: 'regioncode',
               width: '25'
             },
             {
               label: 'Region Description',
-              property: 'RegionDesc',
+              property: 'regiondesc',
               width: '25'
             }];
         },

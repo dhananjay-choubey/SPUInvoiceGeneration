@@ -29,7 +29,7 @@
         </subHeader>
         <List
             id="vendorList"
-            items="{path : 'VendorModel>/Vendors'}"
+            items="{path : 'VendorModel>/'}"
             busyIndicatorDelay="{masterView>/delay}"
             noDataText="{masterView>/noDataText}"
             mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
@@ -42,20 +42,20 @@
         >
             <items>
                 <ObjectListItem
-                    intro="{VendorModel>VendorCode}"
-                    title="{VendorModel>VendorName}"
+                    intro="{VendorModel>vendorcode}"
+                    title="{VendorModel>vendorname}"
                     type="Active"
                 >
                     <attributes>
                         <ObjectAttribute
                             title="Region Code"
-                            text="{VendorModel>RegionCode}"
+                            text="{VendorModel>regioncode}"
                             active="false"
                             visible="true"
                         />
                         <ObjectAttribute
                             title="Effective Date"
-                            text="{VendorModel>EffectiveDate}"
+                            text="{VendorModel>effectivedate}"
                             active="false"
                             visible="true"
                         />
@@ -63,7 +63,7 @@
                     <firstStatus>
                         <!-- title="{i18n>createdOn}" -->
                         <ObjectStatus
-                            text="{VendorModel>State}"
+                            text="{VendorModel>state}"
                             state="Success"
                             visible="true"
                         />

@@ -36,25 +36,25 @@
                 >
                     <f:content>
                         <Label text="Product ID" />
-                        <Text text="{MaterialDetailModel>/ProductId}" />
+                        <Text text="{MaterialDetailModel>/productid}" />
                         <Label text="Product Desc." />
                         <Text
-                            text="{MaterialDetailModel>/ProductDescription}"
+                            text="{MaterialDetailModel>/materialdesc}"
                         />
                         <Label text="Material Category" />
-                        <Text text="{MaterialDetailModel>/MaterialCategory}" />
+                        <Text text="{MaterialDetailModel>/materialcat}" />
                         <Label text="Category Hierarchy ID" />
                         <Text
-                            text="{MaterialDetailModel>/CategoryHierarchyID}"
+                            text="{MaterialDetailModel>/categoryhierarchyid}"
                         />
                         <Label text="Tax Tariff Code" />
-                        <Text text="{MaterialDetailModel>/TaxTariffCode}" />
+                        <Text text="{MaterialDetailModel>/taxtariffcode}" />
                         <Label text="Tax Type" />
-                        <Text text="{MaterialDetailModel>/TaxType}" />
+                        <Text text="{MaterialDetailModel>/taxtype}" />
                         <Label text="Units of Measure of Product" />
-                        <Text text="{MaterialDetailModel>/UOM}" />
+                        <Text text="{MaterialDetailModel>/uom}" />
                         <Label text="Group ID" />
-                        <Text text="{MaterialDetailModel>/GroupId}" />
+                        <Text text="{MaterialDetailModel>/groupid}" />
                     </f:content>
                 </f:SimpleForm>
             </VBox>

@@ -38,23 +38,23 @@
                     <f:content>
                         <Label text="Branch" />
                         <Text
-                            text="{CustomerDetailModel>/BranchName} ({CustomerDetailModel>/BranchCode})"
+                            text="{CustomerDetailModel>/branchname} ({CustomerDetailModel>/branchcode})"
                         />
                         <Label text="Customer Address" />
-                        <Text text="{CustomerDetailModel>/Address}" />
+                        <Text text="{CustomerDetailModel>/address}" />
                         <Label text="Pin Code" />
-                        <Text text="{CustomerDetailModel>/PinCode}" />
+                        <Text text="{CustomerDetailModel>/pincode}" />
                         <Label text="GSTN Number" />
-                        <Text text="{CustomerDetailModel>/GSTNNumber}" />
+                        <Text text="{CustomerDetailModel>/gstinnum}" />
                         <Label text="PAN" />
-                        <Text text="{CustomerDetailModel>/PAN}" />
+                        <Text text="{CustomerDetailModel>/pannum}" />
                         <Label text="Mobile Number" />
-                        <Text text="{CustomerDetailModel>/MobileNumber}" />
+                        <Text text="{CustomerDetailModel>/mobilenum}" />
                         <Label text="Email ID" />
-                        <Text text="{CustomerDetailModel>/EmailId}" />
+                        <Text text="{CustomerDetailModel>/emailid}" />
                         <Label text="Region" />
                         <Text
-                            text="{CustomerDetailModel>/RegionDesc} ({CustomerDetailModel>/RegionCode})"
+                            text="{CustomerDetailModel>/regiondesc} ({CustomerDetailModel>/regioncode})"
                         />
                     </f:content>
                 </f:SimpleForm>

@@ -29,7 +29,7 @@
         </subHeader>
         <List
             id="materialList"
-            items="{path : 'MaterialModel>/Materials'}"
+            items="{path : 'MaterialModel>/'}"
             busyIndicatorDelay="{masterView>/delay}"
             noDataText="{masterView>/noDataText}"
             mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
@@ -42,20 +42,20 @@
         >
             <items>
                 <ObjectListItem
-                    intro="{MaterialModel>ProductId}"
-                    title="{MaterialModel>ProductDescription}"
+                    intro="{MaterialModel>productid}"
+                    title="{MaterialModel>materialdesc}"
                     type="Active"
                 >
                     <attributes>
                         <ObjectAttribute
                             title="Mat. Category"
-                            text="{MaterialModel>MaterialCategory}"
+                            text="{MaterialModel>materialcat}"
                             active="false"
                             visible="true"
                         />
                         <ObjectAttribute
                             title="Group Id"
-                            text="{MaterialModel>GroupId}"
+                            text="{MaterialModel>groupid}"
                             active="false"
                             visible="true"
                         />
@@ -63,7 +63,7 @@
                     <firstStatus>
                         <!-- title="{i18n>createdOn}" -->
                         <ObjectStatus
-                            text="UOM: {MaterialModel>UOM}"
+                            text="UOM: {MaterialModel>uom}"
                             state="Success"
                             visible="true"
                         />

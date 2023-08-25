@@ -8,7 +8,17 @@ sap.ui.define(
       {
         formatter: formatter,
 
-        onInit: function () {},
+        onInit: function () {
+        // Get Router Info
+        this.oRouter = this.getOwnerComponent().getRouter();
+        // Calling _handleRouteMatched before UI Rendering
+        this.oRouter.getRoute("customer").attachPatternMatched(this._handleRouteMatched, this);
+        },
+        _handleRouteMatched: function(oEvent){
+          if(!this.getOwnerComponent().getModel("LoginDataModel")){
+            this.getOwnerComponent().getRouter().navTo("admin");
+          }
+        }
       }
     );
   }

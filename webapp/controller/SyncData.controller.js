@@ -1,6 +1,7 @@
 sap.ui.define(
-    ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/m/MessageToast"],
-    function (Controller, formatter, MessageToast) {
+    ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/m/MessageToast",
+    "com/ifb/invoicegenerator/model/models"],
+    function (Controller, formatter, MessageToast, models) {
       "use strict";
   
       return Controller.extend(
@@ -8,7 +9,17 @@ sap.ui.define(
         {
           formatter: formatter,
   
-          onInit: function () {},
+          onInit: function () {
+            // Get Router Info
+            this.oRouter = this.getOwnerComponent().getRouter();
+            // Calling _handleRouteMatched before UI Rendering
+            this.oRouter.getRoute("syncinvoice").attachPatternMatched(this._handleRouteMatched, this);
+          },
+          _handleRouteMatched: function(oEvent){
+            if(!this.getOwnerComponent().getModel("LoginDataModel")){
+              this.getOwnerComponent().getRouter().navTo("admin");
+            }
+          },
           onSyncPress: function(oEvent){
             if(this.byId("idStartDate").getDateValue() == null || this.byId("idEndDate").getDateValue() == null){
               MessageToast.show("Please enter valid dates");

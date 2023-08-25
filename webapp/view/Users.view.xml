@@ -18,7 +18,7 @@
             <Table
                 id="idUsersTable"
                 inset="false"
-                items="{path : 'UserModel>/Users'}"
+                items="{path : 'UserModel>/'}"
             >
                 <headerToolbar>
                     <OverflowToolbar>
@@ -42,11 +42,16 @@
                         <Text text="Name" />
                     </Column>
                     <Column
-                        width="12em"
                         minScreenWidth="Tablet"
                         demandPopin="true"
                     >
                         <Text text="User Type" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="User Status" />
                     </Column>
                     <Column
                         minScreenWidth="Desktop"
@@ -90,19 +95,23 @@
                             <Text
                                 text="{path:'UserModel>usertype',formatter: '.formatter.getUserType'}"
                             />
+                            <ObjectStatus class="sapUiSmallMarginBottom" text="{path:'UserModel>isActive',formatter: '.formatter.getUserStatus'}"
+			                    icon="sap-icon://sys-enter-2" state="{path:'UserModel>isActive',formatter: '.formatter.getUserStatusState'}" />
                             <Text text="{UserModel>email}" />
                             <Text text="{UserModel>phnum}" />
-                            <Text text="{UserModel>region}" />
+                            <Text text="{UserModel>region_desc} ({UserModel>regioncode})" />
                             <Text
                                 text="{UserModel>branchdesc} ({UserModel>segment})"
                             />
                             <HBox>
                                 <core:Icon
+                                    visible="{path:'UserModel>isActive',formatter: '.formatter.setIconVisibility'}"
                                     src="sap-icon://show"
                                     class="sapUiSmallMarginEnd"
                                     press="handleChangePassword"
                                 />
                                 <core:Icon
+                                    visible="{path:'UserModel>isActive',formatter: '.formatter.setIconVisibility'}"
                                     src="sap-icon://cancel"
                                     class="sapUiSmallMarginBeginEnd"
                                     press="handleDeactivateUser"

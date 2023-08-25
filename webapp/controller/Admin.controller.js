@@ -1,18 +1,21 @@
 sap.ui.define(
-  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/m/MessageToast", "sap/ui/core/Fragment"],
-  function (Controller, formatter, MessageToast, Fragment) {
+  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/m/MessageToast", "sap/ui/core/Fragment", "com/ifb/invoicegenerator/model/models"],
+  function (Controller, formatter, MessageToast, Fragment, models) {
     "use strict";
 
     return Controller.extend("com.ifb.invoicegenerator.controller.Admin", {
       formatter: formatter,
 
       onInit: function () {
-        //First do the backend call to validate the user
-        var oRouter = this.getOwnerComponent().getRouter();
-        oRouter.getRoute("admin").attachMatched(this._onRouteMatched, this);
+        // Get Router Info
+        this.oRouter = this.getOwnerComponent().getRouter();
+        // Calling _handleRouteMatched before UI Rendering
+        this.oRouter.getRoute("admin").attachPatternMatched(this._handleRouteMatched, this);
       },
-      _onRouteMatched: function (oEvent) {
-        console.log("onROuteMatched triggered");
+      _handleRouteMatched: function (oEvent) {
+        if(!this.getOwnerComponent().getModel("LoginDataModel")){
+          this.getOwnerComponent().getRouter().navTo("admin");
+        }
       },
       onMaterialPress: function (oEvent) {
         this.getOwnerComponent().getRouter().navTo("material");

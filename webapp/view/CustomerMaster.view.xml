@@ -29,7 +29,7 @@
         </subHeader>
         <List
             id="customerList"
-            items="{path : 'CustomerModel>/Customers'}"
+            items="{path : 'CustomerModel>/'}"
             busyIndicatorDelay="{masterView>/delay}"
             noDataText="{masterView>/noDataText}"
             mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
@@ -42,14 +42,14 @@
         >
             <items>
                 <ObjectListItem
-                    intro="{CustomerModel>BranchCode}"
-                    title="{CustomerModel>BranchName}"
+                    intro="{CustomerModel>branchcode}"
+                    title="{CustomerModel>branchname}"
                     type="Active"
                 >
                     <attributes>
                         <ObjectAttribute
                             title="Region"
-                            text="{CustomerModel>RegionDesc} ({CustomerModel>RegionCode})"
+                            text="{CustomerModel>regiondesc} ({CustomerModel>regioncode})"
                             active="false"
                             visible="true"
                         />

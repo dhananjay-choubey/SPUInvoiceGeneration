@@ -37,34 +37,34 @@
                     <f:content>
                         <Label text="Vendor" />
                         <Text
-                            text="{VendorDetailModel>/VendorName} ({VendorDetailModel>/VendorCode})"
+                            text="{VendorDetailModel>/vendorname} ({VendorDetailModel>/vendorcode})"
                         />
                         <Label text="Vendor Address" />
-                        <Text text="{VendorDetailModel>/VendorAdress}" />
+                        <Text text="{VendorDetailModel>/address}" />
                         <Label text="Branch" />
                         <Text
-                            text="{VendorDetailModel>/BranchName} ({VendorDetailModel>/BranchCode})"
+                            text="{VendorDetailModel>/branchdesc} ({VendorDetailModel>/branchcode})"
                         />
                         <Label text="GSTN" />
-                        <Text text="{VendorDetailModel>/GSTN}" />
+                        <Text text="{VendorDetailModel>/gstinnum}" />
                         <Label text="PAN" />
-                        <Text text="{VendorDetailModel>/PAN}" />
+                        <Text text="{VendorDetailModel>/pannum}" />
                         <Label text="Mobile Number" />
-                        <Text text="{VendorDetailModel>/MobileNumber}" />
+                        <Text text="{VendorDetailModel>/mobilenum}" />
                         <Label text="Email ID" />
-                        <Text text="{VendorDetailModel>/EmailID}" />
+                        <Text text="{VendorDetailModel>/emailid}" />
                         <Label text="Pin Code" />
-                        <Text text="{VendorDetailModel>/PinCode}" />
+                        <Text text="{VendorDetailModel>/pincode}" />
                         <Label text="GSTN Registration Type" />
-                        <Text text="{VendorDetailModel>/GSTNRegType}" />
+                        <Text text="{VendorDetailModel>/gstinregtype}" />
                         <Label text="Effective Date" />
-                        <Text text="{VendorDetailModel>/EffectiveDate}" />
+                        <Text text="{VendorDetailModel>/effectivedate}" />
                         <Label text="State" />
-                        <Text text="{VendorDetailModel>/State}" />
+                        <Text text="{VendorDetailModel>/state}" />
                         <Label text="Region Code" />
-                        <Text text="{VendorDetailModel>/RegionCode}" />
+                        <Text text="{VendorDetailModel>/regioncode}" />
                         <Label text="City" />
-                        <Text text="{VendorDetailModel>/City}" />
+                        <Text text="{VendorDetailModel>/city}" />
                     </f:content>
                 </f:SimpleForm>
             </VBox>

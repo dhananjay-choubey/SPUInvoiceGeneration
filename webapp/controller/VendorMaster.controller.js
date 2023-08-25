@@ -1,8 +1,9 @@
 sap.ui.define(
   ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/ui/model/json/JSONModel", "sap/ui/model/Filter", "sap/ui/model/FilterOperator",
 	"sap/ui/export/Spreadsheet",
-	"sap/m/MessageToast"],
-  function (Controller, formatter, JSONModel, Filter, FilterOperator, Spreadsheet, MessageToast) {
+	"sap/m/MessageToast",
+  "com/ifb/invoicegenerator/model/models"],
+  function (Controller, formatter, JSONModel, Filter, FilterOperator, Spreadsheet, MessageToast, models) {
     "use strict";
 
     return Controller.extend(
@@ -11,6 +12,15 @@ sap.ui.define(
         formatter: formatter,
 
         onInit: function () {
+          // Get Router Info
+          this.oRouter = this.getOwnerComponent().getRouter();
+          // Calling _handleRouteMatched before UI Rendering
+          this.oRouter.getRoute("vendor").attachPatternMatched(this._handleRouteMatched, this);
+        },
+        _handleRouteMatched: function(oEvent){
+          if(!this.getOwnerComponent().getModel("LoginDataModel")){
+            this.getOwnerComponent().getRouter().navTo("admin");
+          }
           var dataModel = this.getOwnerComponent().getModel("localData");
 			    this.getView().setModel(dataModel, "VendorModel");
         },
@@ -30,8 +40,8 @@ sap.ui.define(
         },
         onSearchVendor: function(oEvent){
           var sValue = oEvent.getSource().getValue().trim();
-          var oFilter1 = new Filter("VendorCode",FilterOperator.Contains, sValue);
-          var oFilter2 = new Filter("VendorName",FilterOperator.Contains, sValue);
+          var oFilter1 = new Filter("vendorcode",FilterOperator.Contains, sValue);
+          var oFilter2 = new Filter("vendorname",FilterOperator.Contains, sValue);
 					
           var oBinding = this.byId("vendorList").getBinding("items");
           var oFilter = new Filter([oFilter1,oFilter2]);
@@ -41,77 +51,77 @@ sap.ui.define(
           return [
             {
               label: 'Vendor Code',
-              property: 'VendorCode',
+              property: 'vendorcode',
               width: 25
             },
             {
               label: 'Vendor Name',
-              property: 'VendorName',
+              property: 'vendorname',
               width: '35'
             },
             {
               label: 'Vendor Adress',
-              property: 'VendorAdress',
+              property: 'address',
               width: '25'
             },
             {
               label: 'Branch Code',
-              property: 'BranchCode',
+              property: 'branchcode',
               width: '18'
             },
             {
               label: 'Branch Name',
-              property: 'BranchName',
+              property: 'branchdesc',
               width: '10'
             },
             {
               label: 'GSTN',
-              property: 'GSTN',
+              property: 'gstinnum',
               width: '18'
             },
             {
               label: 'PAN',
-              property: 'PAN',
+              property: 'pannum',
               width: '18'
             },
             {
               label: 'Mobile Number',
-              property: 'MobileNumber',
+              property: 'mobilenum',
               width: '25'
             },
             {
               label: 'Email ID',
-              property: 'EmailID',
+              property: 'emailid',
               width: '25'
             },
             {
               label: 'Pin Code',
-              property: 'PinCode',
+              property: 'pincode',
               width: '25'
             },
             {
               label: 'GSTN Reg Type',
-              property: 'GSTNRegType',
+              property: 'gstinregtype',
               width: '25'
             },
             {
               label: 'Effective Date',
-              property: 'EffectiveDate',
+              property: 'effectivedate',
               width: '25'
             },
             {
               label: 'State',
-              property: 'State',
+              property: 'state',
               width: '25'
             },
             {
               label: 'Region Code',
-              property: 'RegionCode',
+              property: 'regioncode',
               width: '25'
             },
             {
               label: 'City',
-              property: 'City',
+              property: 'city',
               width: '25'
             }];
         },

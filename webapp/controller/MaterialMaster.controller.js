@@ -1,8 +1,9 @@
 sap.ui.define(
   ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/ui/model/json/JSONModel", "sap/ui/model/Filter", "sap/ui/model/FilterOperator",
 	"sap/ui/export/Spreadsheet",
-	"sap/m/MessageToast"],
-  function (Controller, formatter, JSONModel, Filter, FilterOperator, Spreadsheet, MessageToast) {
+	"sap/m/MessageToast",
+  "com/ifb/invoicegenerator/model/models"],
+  function (Controller, formatter, JSONModel, Filter, FilterOperator, Spreadsheet, MessageToast, models) {
     "use strict";
 
     return Controller.extend(
@@ -11,6 +12,15 @@ sap.ui.define(
         formatter: formatter,
 
         onInit: function () {
+          // Get Router Info
+          this.oRouter = this.getOwnerComponent().getRouter();
+          // Calling _handleRouteMatched before UI Rendering
+          this.oRouter.getRoute("material").attachPatternMatched(this._handleRouteMatched, this);
+        },
+        _handleRouteMatched: function(oEvent){
+          if(!this.getOwnerComponent().getModel("LoginDataModel")){
+            this.getOwnerComponent().getRouter().navTo("admin");
+          }
           var dataModel = this.getOwnerComponent().getModel("localData");
 			    this.getView().setModel(dataModel, "MaterialModel");
         },
@@ -30,8 +40,8 @@ sap.ui.define(
         },
         onSearchMaterial: function(oEvent){
           var sValue = oEvent.getSource().getValue().trim();
-          var oFilter1 = new Filter("ProductId",FilterOperator.Contains, sValue);
-          var oFilter2 = new Filter("ProductDescription",FilterOperator.Contains, sValue);
+          var oFilter1 = new Filter("productid",FilterOperator.Contains, sValue);
+          var oFilter2 = new Filter("materialdesc",FilterOperator.Contains, sValue);
 					
           var oBinding = this.byId("materialList").getBinding("items");
           var oFilter = new Filter([oFilter1,oFilter2]);
@@ -41,42 +51,42 @@ sap.ui.define(
           return [
             {
               label: 'Product ID',
-              property: 'ProductId',
+              property: 'productid',
               width: 25
             },
             {
               label: 'Product Description',
-              property: 'ProductDescription',
+              property: 'materialdesc',
               width: '35'
             },
             {
               label: 'Material Category',
-              property: 'MaterialCategory',
+              property: 'materialcat',
               width: '25'
             },
             {
               label: 'Category Hierarchy ID',
-              property: 'CategoryHierarchyID',
+              property: 'categoryhierarchyid',
               width: '18'
             },
             {
               label: 'Tax Tariff Code',
-              property: 'TaxTariffCode',
+              property: 'taxtariffcode',
               width: '10'
             },
             {
               label: 'Tax Type',
-              property: 'TaxType',
+              property: 'taxtype',
               width: '18'
             },
             {
               label: 'Group Id',
-              property: 'GroupId',
+              property: 'groupid',
               width: '18'
             },
             {
               label: 'UOM',
-              property: 'UOM',
+              property: 'uom',
               width: '10'
             }];
         },

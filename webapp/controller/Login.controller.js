@@ -1,18 +1,23 @@
 sap.ui.define(
-  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/m/MessageToast", "sap/ui/model/json/JSONModel"],
-  function (Controller, formatter, MessageToast, JSONModel) {
+  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "sap/m/MessageToast", "sap/ui/model/json/JSONModel", "com/ifb/invoicegenerator/model/models"],
+  function (Controller, formatter, MessageToast, JSONModel, models) {
     "use strict";
 
     return Controller.extend("com.ifb.invoicegenerator.controller.Login", {
       formatter: formatter,
 
       onInit: function () {
-        // Attaches validation handlers
+        // Get Router Info
+        this.oRouter = this.getOwnerComponent().getRouter();
+        // Calling _handleRouteMatched before UI Rendering
+        this.oRouter.getRoute("login").attachPatternMatched(this._handleRouteMatched, this);
+      },
+      _handleRouteMatched: function(oEvent){
         if(localStorage.getItem("email") && localStorage.getItem("password")){
-          this.getOwnerComponent().getRouter().navTo("admin");
+          this._login(localStorage.getItem("email"), localStorage.getItem("password"));
         }
       },
-      onLoginPressed: function (oEvent) {
+      onLoginPressed: async function (oEvent) {
         if (!this.byId("loginEmailId").getValue()) {
           this.byId("loginEmailId").setValueState("Error");
           this.byId("loginEmailId").setValueStateText("Email Id is blank");
@@ -35,20 +40,7 @@ sap.ui.define(
             localStorage.setItem("password" , this.byId("loginPassword").getValue());
           }
 
-          var sloginData = {
-            email: this.byId("loginEmailId").getValue(),
-            firstname: "Dhananjay",
-            lastname: "Choubey",
-            usertype: "C"
-          }
-
-          var loginDataModel = new JSONModel(sloginData);
-
-          this.getOwnerComponent().setModel(loginDataModel, "LoginDataModel");
-
-          this.getOwnerComponent().getRouter().navTo("admin");
-
-
+          this._login(this.byId("loginEmailId").getValue(), this.byId("loginPassword").getValue());
 
           this.byId("loginEmailId").setValue("");
           this.byId("loginPassword").setValue("");
@@ -60,6 +52,12 @@ sap.ui.define(
         } else {
           MessageToast.show("Plese provide valid email and password");
         }
+      },
+      _login: async function (sEmail, sPassword){
+        const loginData = await models.login(sEmail, sPassword);
+        var loginDataModel = new JSONModel(loginData);
+        this.getOwnerComponent().setModel(loginDataModel, "LoginDataModel");
+        this.getOwnerComponent().getRouter().navTo("admin");
       },
       onLiveEmailChange: function (oEvent) {
         var mailRegex =

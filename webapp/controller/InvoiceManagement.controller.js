@@ -5,8 +5,9 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/Sorter",
     "sap/ui/model/FilterOperator",
+    "com/ifb/invoicegenerator/model/models"
   ],
-  function (Controller, formatter, Filter, Sorter, FilterOperator) {
+  function (Controller, formatter, Filter, Sorter, FilterOperator, models) {
     "use strict";
 
     return Controller.extend(
@@ -18,11 +19,12 @@ sap.ui.define(
           // Get Router Info
           this.oRouter = this.getOwnerComponent().getRouter();
           // Calling _handleRouteMatched before UI Rendering
-          this.oRouter
-            .getRoute("invoices")
-            .attachPatternMatched(this._handleRouteMatched, this);
+          this.oRouter.getRoute("invoices").attachPatternMatched(this._handleRouteMatched, this);
         },
         _handleRouteMatched: function (oEvent) {
+          if(!this.getOwnerComponent().getModel("LoginDataModel")){
+            this.getOwnerComponent().getRouter().navTo("admin");
+          }
           // Binding based on Model defined in Manifest
           var oDataModel = this.getOwnerComponent().getModel("localData");
           // Country Log Table Binding
