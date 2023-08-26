@@ -16,8 +16,12 @@ sap.ui.define(
         },
         _handleRouteMatched: function(oEvent){
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
-            this.getOwnerComponent().getRouter().navTo("admin");
+            this.getOwnerComponent().getRouter().navTo("login");
           }
+        },
+        onDeactivateMaterial: function(oEvent){
+          var sMaterial = this.getOwnerComponent().getModel("MaterialDetailModel").getProperty("/materialcode");
+          models.deactivateMaterial(sMaterial);
         }
       }
     );

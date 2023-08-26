@@ -19,10 +19,21 @@ sap.ui.define(
         },
         _handleRouteMatched: function(oEvent){
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
-            this.getOwnerComponent().getRouter().navTo("admin");
+            this.getOwnerComponent().getRouter().navTo("login");
           }
-          var dataModel = this.getOwnerComponent().getModel("localData");
-			    this.getView().setModel(dataModel, "VendorModel");
+          this._getVendors();
+        },
+        _getVendors: async function(){
+          var sBranchCode, sVendorCode;
+          var sLoginModel = this.getOwnerComponent().getModel("LoginDataModel");
+          if(sLoginModel.getProperty("/usertype") == "V"){
+            sVendorCode = sLoginModel.getProperty("/refid")
+          }else if(sLoginModel.getProperty("/usertype") == "C"){
+            sBranchCode = sLoginModel.getProperty("/refid")
+          }
+          var sData = await models.getVendorList(sBranchCode, sVendorCode);
+          var oModel = new JSONModel(sData);
+			    this.getView().setModel(oModel, "VendorModel");
         },
         onListItemPress: function(oEvent){
           var sData = oEvent.getParameter("listItem").getBindingContext("VendorModel").getObject();

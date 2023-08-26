@@ -37,6 +37,9 @@ sap.ui.define(
         
       },
       _handleRouteMatched: function(oEvent){
+        if(!this.getOwnerComponent().getModel("LoginDataModel")){
+          this.getOwnerComponent().getRouter().navTo("login");
+        }
         this._bindUserData();
       },
       _bindUserData: async function(){
@@ -79,14 +82,12 @@ sap.ui.define(
           regioncode: "",
           region_desc: "",
           isActive: "",
-          branchcode: "",
-          branchdesc: "",
-          segment: "",
+          branchcode: ""
         };
         var oModel = new JSONModel(sData);
         sControl.setModel(oModel, "createModel");
       },
-      onSubmitDialog: function (oEvent) {
+      onSubmitDialog: async function (oEvent) {
 
         var mailRegex =
           /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -125,35 +126,32 @@ sap.ui.define(
 
         if (this.byId("rbg3").getSelectedIndex() == 0) {
           oEvent.getSource().getParent().getModel("createModel").setProperty("/usertype", "C");
-          var sCustomerData = this.getOwnerComponent().getModel("localData").getData().Customers;
-          var sCustomer = sCustomerData.filter(function(item){
-            return item.BranchCode == sData.refid;         
-        })
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/region", "Kolkata");
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/branchdesc", "Test");
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/segment", "1234");
+          var sCustomer = this._customerlist.filter(function(item){
+            return item.branchcode == sData.refid;         
+          })
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/branchcode", "");
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/isActive", "X");
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/regioncode", sCustomer[0].regioncode);
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sCustomer[0].regiondesc);
+
         }else{
           oEvent.getSource().getParent().getModel("createModel").setProperty("/usertype", "V");
-          var sVendorData =  this.getOwnerComponent().getModel("localData").getData().Vendors;
-          var sVendor = sVendorData.filter(function(item){
-            return item.VendorCode == sData.refid;         
-        })
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/region", "Kolkata");
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/branchdesc", "Test");
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/segment", "1234");
+          var sVendor = this._vendorList.filter(function(item){
+            return item.vendorcode == sData.refid;         
+          })
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/branchcode", sVendor[0].branchcode);
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/isActive", "X");
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/regioncode", sVendor[0].regioncode);
+          //This needs to be changed based on logiv of Vendor Desc provided by client
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sVendor[0].state);
         }
-
-        
+   
         var sFinalData = oEvent.getSource().getParent().getModel("createModel").getData();
 
-        var sUserData = this.getView().getModel("UserModel").getData();
-        sUserData.Users.push(sFinalData);
-
-        var oModel = new JSONModel(sUserData);
-
-        this.getView().setModel(oModel, "UserModel");
-
-
+        const response = await models.createUser(sFinalData);
+        if(response){
+          this._bindUserData();
+        }
 
 
         this.byId("createUserDialog").close();
@@ -177,8 +175,9 @@ sap.ui.define(
                   this.getOwnerComponent().getContentDensityClass()
                 );
                 oView.addDependent(oValueHelpDialogCustomer);
-                var dataModel = await models.getVendorCustomerList("C");
-                this.getView().setModel(dataModel, "CustomerF4Model");
+                this._customerlist = await models.getCustomerList();
+                var oModel = new JSONModel(this._customerlist);
+                this.getView().setModel(oModel, "CustomerF4Model");
                 return oValueHelpDialogCustomer;
               }.bind(this)
             );
@@ -203,8 +202,9 @@ sap.ui.define(
                   this.getOwnerComponent().getContentDensityClass()
                 );
                 oView.addDependent(oValueHelpDialogVendor);
-                var dataModel = await models.getVendorCustomerList("V");
-                this.getView().setModel(dataModel, "VendorF4Model");
+                this._vendorList = await models.getVendorList();
+                var oModel = new JSONModel(this._vendorList);
+                this.getView().setModel(oModel, "VendorF4Model");
                 return oValueHelpDialogVendor;
               }.bind(this)
             );
@@ -219,12 +219,12 @@ sap.ui.define(
       _handleValueHelpCustomerSearch: function (oEvent) {
         var sValue = oEvent.getParameter("value").trim();
         var oFilter1 = new Filter(
-          "BranchCode",
+          "branchcode",
           FilterOperator.Contains,
           sValue
         );
         var oFilter2 = new Filter(
-          "BranchName",
+          "branchname",
           FilterOperator.Contains,
           sValue
         );
@@ -244,12 +244,12 @@ sap.ui.define(
       _handleValueHelpVendorSearch: function (oEvent) {
         var sValue = oEvent.getParameter("value").trim();
         var oFilter1 = new Filter(
-          "VendorCode",
+          "vendorcode",
           FilterOperator.Contains,
           sValue
         );
         var oFilter2 = new Filter(
-          "VendorName",
+          "vendorname",
           FilterOperator.Contains,
           sValue
         );

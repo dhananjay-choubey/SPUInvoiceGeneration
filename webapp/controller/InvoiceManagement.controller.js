@@ -23,7 +23,7 @@ sap.ui.define(
         },
         _handleRouteMatched: function (oEvent) {
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
-            this.getOwnerComponent().getRouter().navTo("admin");
+            this.getOwnerComponent().getRouter().navTo("login");
           }
           // Binding based on Model defined in Manifest
           var oDataModel = this.getOwnerComponent().getModel("localData");

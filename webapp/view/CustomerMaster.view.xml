@@ -54,6 +54,14 @@
                             visible="true"
                         />
                     </attributes>
+                    <firstStatus>
+                        <!-- title="{i18n>createdOn}" -->
+                        <ObjectStatus
+                            text="{path:'CustomerModel>isActive',formatter: '.formatter.getUserStatus'}"
+                            state="{path:'CustomerModel>isActive',formatter: '.formatter.getUserStatusState'}"
+                            icon="{path:'CustomerModel>isActive',formatter: '.formatter.getUserStatusIcon'}"
+                        />
+                    </firstStatus>
                 </ObjectListItem>
             </items>
         </List>

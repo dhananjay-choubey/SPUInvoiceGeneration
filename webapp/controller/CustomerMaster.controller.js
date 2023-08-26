@@ -18,13 +18,18 @@ sap.ui.define(
         },
         _handleRouteMatched: function(oEvent){
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
-            this.getOwnerComponent().getRouter().navTo("admin");
+            this.getOwnerComponent().getRouter().navTo("login");
           }
           this._getCustomers();
           
         },
         _getCustomers: async function(){
-          var sData = await models.getCustomers();
+          var sBranchCode;
+          var sLoginModel = this.getOwnerComponent().getModel("LoginDataModel");
+          if(sLoginModel.getProperty("/usertype") == "V"){
+            sBranchCode = sLoginModel.getProperty("/branchcode")
+          }
+          var sData = await models.getCustomerList(sBranchCode);
           var oModel = new JSONModel(sData);
 			    this.getView().setModel(oModel, "CustomerModel");
         },

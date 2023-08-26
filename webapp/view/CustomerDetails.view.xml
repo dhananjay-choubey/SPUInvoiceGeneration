@@ -20,7 +20,6 @@
                     id="SimpleFormDisplayCustomer"
                     editable="false"
                     layout="ResponsiveGridLayout"
-                    title="Customer"
                     labelSpanXL="3"
                     labelSpanL="3"
                     labelSpanM="3"
@@ -35,6 +34,14 @@
                     columnsM="1"
                     singleContainerFullSize="false"
                 >
+                <f:toolbar>
+                	<Toolbar>
+					<Title text="Customer"/>
+					<ToolbarSpacer />
+					<Button text="Deactivate" icon="sap-icon://cancel"
+                        visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }" press="onDeactivateCustomer"/>
+				</Toolbar>
+                </f:toolbar>
                     <f:content>
                         <Label text="Branch" />
                         <Text

@@ -34,9 +34,17 @@
                     columnsM="1"
                     singleContainerFullSize="false"
                 >
+                <f:toolbar>
+                	<Toolbar>
+					<Title text="Material"/>
+					<ToolbarSpacer />
+					<Button text="Deactivate" icon="sap-icon://cancel"
+                        visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }" press="onDeactivateMaterial"/>
+				</Toolbar>
+                </f:toolbar>
                     <f:content>
                         <Label text="Product ID" />
-                        <Text text="{MaterialDetailModel>/productid}" />
+                        <Text text="{MaterialDetailModel>/materialcode}" />
                         <Label text="Product Desc." />
                         <Text
                             text="{MaterialDetailModel>/materialdesc}"

@@ -42,7 +42,7 @@
         >
             <items>
                 <ObjectListItem
-                    intro="{MaterialModel>productid}"
+                    intro="{MaterialModel>materialcode}"
                     title="{MaterialModel>materialdesc}"
                     type="Active"
                 >
@@ -63,12 +63,19 @@
                     <firstStatus>
                         <!-- title="{i18n>createdOn}" -->
                         <ObjectStatus
+                            text="{path:'MaterialModel>isActive',formatter: '.formatter.getUserStatus'}"
+                            state="{path:'MaterialModel>isActive',formatter: '.formatter.getUserStatusState'}"
+                            icon="{path:'MaterialModel>isActive',formatter: '.formatter.getUserStatusIcon'}"
+                        />
+                    </firstStatus>
+                    <secondStatus>
+                        <!-- title="{i18n>createdOn}" -->
+                        <ObjectStatus
                             text="UOM: {MaterialModel>uom}"
                             state="Success"
                             visible="true"
                         />
-                    </firstStatus>
-                    <secondStatus />
+                    </secondStatus>
                 </ObjectListItem>
             </items>
         </List>

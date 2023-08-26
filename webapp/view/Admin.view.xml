@@ -30,7 +30,6 @@
                 </TileContent>
             </GenericTile>
             <GenericTile
-                visible="{= (${LoginDataModel>/usertype} === 'A' || ${LoginDataModel>/usertype} === 'V') ? true : false }"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                 header="{= (${LoginDataModel>/usertype} === 'V') ? 'My Branch' : 'Customers' }"
                 press="onBranchUserPress"

@@ -26,34 +26,40 @@ sap.ui.define(
 
         var promise = new Promise((resolve, reject) => {
           var url = this.component.baseURL + "registration";
-          var that = this;
-          var settings = {
-            "url": url,
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-              "Content-Type": "application/json"
-            },
-            "data": sData
-          };
-
           var sBusyDialog = new BusyDialog();
+
+          delete sData.userid;
+
           sBusyDialog.open();
-  
-          $.ajax(settings).done(function (response) {
-            sBusyDialog.close();
-            console.log(response)
-            try {
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              MessageToast.show("User Created successfully.");
               resolve(response);
-            } catch (e) {
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while creating user", {
+                title: "Error"
+              });
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while creating user", {
+                title: "Error"
+              });
+              console.log(response);
               resolve(false);
             }
-  
-          }.bind(this)).fail(function (error) {
-            sBusyDialog.close();
-            console.log(error);
-            reject(false);
-          }.bind(this));
+          })
         });
         return promise;
       },
@@ -170,22 +176,68 @@ sap.ui.define(
         });
         return promise;
       },
-      getVendorCustomerList: function (sType){
+      getCustomerList: function (sBranchCode){
         var promise = new Promise((resolve, reject) => {
-          var url = this.component.baseURL + "getcustomervendor";
+
+          var url;
           var sBusyDialog = new BusyDialog();
-          var sData = {
-            "code" : sType
-        }
+
+          if(sBranchCode){
+            url = this.component.baseURL + "customermaster?branchcode="+ sBranchCode;
+          }else{
+            url = this.component.baseURL + "customermaster";
+          }
+
 
           sBusyDialog.open();
 
           $.ajax({
-            type: "POST",  
+            type: "GET",  
             url: url,  
             contentType: "application/json; charset=utf-8",  
             dataType: "json",  
-            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;        
+      },
+      getVendorList: function (sBranchCode, sVendorCode){
+        var promise = new Promise((resolve, reject) => {
+
+          var url;
+          var sBusyDialog = new BusyDialog();
+
+          if(sBranchCode && sVendorCode){
+            url = this.component.baseURL + "vendormaster?branchcode="+ sBranchCode + "&vendorcode=" + sVendorCode;
+          }else if(sBranchCode && !sVendorCode){
+            url = this.component.baseURL + "vendormaster?branchcode="+ sBranchCode;
+          }else if(!sBranchCode && sVendorCode){
+            url = this.component.baseURL + "vendormaster?vendorcode="+ sVendorCode;
+          }else{
+            url = this.component.baseURL + "vendormaster";
+          }
+
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "GET",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
             success: function (response) {
               sBusyDialog.close();
               resolve(response);
@@ -239,8 +291,159 @@ sap.ui.define(
         });
         return promise;         
       },
-      getCustomers: function(){
-        
+      getMaterials: function(){
+        var promise = new Promise((resolve, reject) => {
+
+          var sBusyDialog = new BusyDialog();
+          var url = this.component.baseURL + "materialmaster";
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "GET",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (response) {
+              sBusyDialog.close();
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;          
+      },
+      deactivateVendor: function(sVendor){
+        var promise = new Promise((resolve, reject) => {
+          var url = this.component.baseURL + "vendordeactivation";
+          var sBusyDialog = new BusyDialog();
+          var sData = {
+            "vednorcode": sVendor
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              MessageToast.show(sVendor + " is deactivated successfully");
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while vendor deactivation", {
+                title: "Error"
+              });
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while vendor deactivation", {
+                title: "Error"
+              });
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;           
+      },
+      deactivateCustomer: function(sCustomer){
+        var promise = new Promise((resolve, reject) => {
+          var url = this.component.baseURL + "customerdeactivation";
+          var sBusyDialog = new BusyDialog();
+          var sData = {
+            "branchcode": sCustomer
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              MessageToast.show(sCustomer + " is deactivated successfully");
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while customer deactivation", {
+                title: "Error"
+              });
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while customer deactivation", {
+                title: "Error"
+              });
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;           
+      },
+      deactivateMaterial: function(sMaterialCode){
+        var promise = new Promise((resolve, reject) => {
+          var url = this.component.baseURL + "materialdeactivation";
+          var sBusyDialog = new BusyDialog();
+          var sData = {
+            "materialcode": sMaterialCode
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              MessageToast.show(sMaterialCode + " is deactivated successfully");
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while material deactivation", {
+                title: "Error"
+              });
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while material deactivation", {
+                title: "Error"
+              });
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;           
       }
     };
   }

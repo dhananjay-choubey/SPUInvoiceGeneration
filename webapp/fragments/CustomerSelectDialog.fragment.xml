@@ -4,14 +4,14 @@
 >
     <SelectDialog
         title="Customer"
-        items="{path : 'CustomerF4Model>/Customers'}"
+        items="{path : 'CustomerF4Model>/'}"
         search="_handleValueHelpCustomerSearch"
         confirm="_handleValueHelpCustomerClose"
         cancel="_handleValueHelpCustomerClose"
     >
         <StandardListItem
-            title="{CustomerF4Model>BranchName}"
-            description="{CustomerF4Model>BranchCode}"
+            title="{CustomerF4Model>branchcode}"
+            description="{CustomerF4Model>branchname}"
         />
     </SelectDialog>
 </core:FragmentDefinition>

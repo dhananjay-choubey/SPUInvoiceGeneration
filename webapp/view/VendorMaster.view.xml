@@ -63,9 +63,9 @@
                     <firstStatus>
                         <!-- title="{i18n>createdOn}" -->
                         <ObjectStatus
-                            text="{VendorModel>state}"
-                            state="Success"
-                            visible="true"
+                            text="{path:'VendorModel>isActive',formatter: '.formatter.getUserStatus'}"
+                            state="{path:'VendorModel>isActive',formatter: '.formatter.getUserStatusState'}"
+                            icon="{path:'VendorModel>isActive',formatter: '.formatter.getUserStatusIcon'}"
                         />
                     </firstStatus>
                     <secondStatus />

@@ -1,6 +1,7 @@
 sap.ui.define(
-  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter"],
-  function (Controller, formatter) {
+  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter",
+  "com/ifb/invoicegenerator/model/models"],
+  function (Controller, formatter, models) {
     "use strict";
 
     return Controller.extend(
@@ -16,8 +17,12 @@ sap.ui.define(
         },
         _handleRouteMatched: function(oEvent){
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
-            this.getOwnerComponent().getRouter().navTo("admin");
+            this.getOwnerComponent().getRouter().navTo("login");
           }
+        },
+        onDeactivateVendor: function(oEvent){
+          var sVendor = this.getOwnerComponent().getModel("VendorDetailModel").getProperty("/vendorcode");
+          models.deactivateVendor(sVendor);
         }
       }
     );

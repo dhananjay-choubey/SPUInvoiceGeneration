@@ -19,10 +19,15 @@ sap.ui.define(
         },
         _handleRouteMatched: function(oEvent){
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
-            this.getOwnerComponent().getRouter().navTo("admin");
+            this.getOwnerComponent().getRouter().navTo("login");
           }
-          var dataModel = this.getOwnerComponent().getModel("localData");
-			    this.getView().setModel(dataModel, "MaterialModel");
+          this._getMaterials();
+          
+        },
+        _getMaterials: async function(){
+          var sData = await models.getMaterials();
+          var oModel = new JSONModel(sData);
+			    this.getView().setModel(oModel, "MaterialModel");
         },
         onListItemPress: function(oEvent){
           var sData = oEvent.getParameter("listItem").getBindingContext("MaterialModel").getObject();
@@ -40,7 +45,7 @@ sap.ui.define(
         },
         onSearchMaterial: function(oEvent){
           var sValue = oEvent.getSource().getValue().trim();
-          var oFilter1 = new Filter("productid",FilterOperator.Contains, sValue);
+          var oFilter1 = new Filter("materialcode",FilterOperator.Contains, sValue);
           var oFilter2 = new Filter("materialdesc",FilterOperator.Contains, sValue);
 					
           var oBinding = this.byId("materialList").getBinding("items");
@@ -51,7 +56,7 @@ sap.ui.define(
           return [
             {
               label: 'Product ID',
-              property: 'productid',
+              property: 'materialcode',
               width: 25
             },
             {

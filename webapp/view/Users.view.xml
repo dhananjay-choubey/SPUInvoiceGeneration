@@ -75,7 +75,7 @@
                         minScreenWidth="Tablet"
                         demandPopin="true"
                     >
-                        <Text text="Branch (Segment)" />
+                        <Text text="Branch Code" />
                     </Column>
                     <Column
                         minScreenWidth="Desktop"
@@ -96,12 +96,13 @@
                                 text="{path:'UserModel>usertype',formatter: '.formatter.getUserType'}"
                             />
                             <ObjectStatus class="sapUiSmallMarginBottom" text="{path:'UserModel>isActive',formatter: '.formatter.getUserStatus'}"
-			                    icon="sap-icon://sys-enter-2" state="{path:'UserModel>isActive',formatter: '.formatter.getUserStatusState'}" />
+			                    icon="{path:'UserModel>isActive',formatter: '.formatter.getUserStatusIcon'}"
+                                 state="{path:'UserModel>isActive',formatter: '.formatter.getUserStatusState'}" />
                             <Text text="{UserModel>email}" />
                             <Text text="{UserModel>phnum}" />
                             <Text text="{UserModel>region_desc} ({UserModel>regioncode})" />
                             <Text
-                                text="{UserModel>branchdesc} ({UserModel>segment})"
+                                text="{UserModel>branchcode}"
                             />
                             <HBox>
                                 <core:Icon

@@ -21,8 +21,8 @@ sap.ui.define([], function () {
 				}else {
 					return sStatus;
 				}
-			}else{
-				return sStatus;
+			}else {
+				return "Inactive";
 			}
 		},
 		getUserStatusState: function(sStatus){
@@ -35,7 +35,7 @@ sap.ui.define([], function () {
 					return "Information";
 				}
 			}else{
-				return sStatus;
+				return "Error";
 			}
 
 		},
@@ -49,7 +49,7 @@ sap.ui.define([], function () {
 					return "sap-icon://information";
 				}
 			}else{
-				return sStatus;
+				return "sap-icon://error";
 			}
 
 		},
@@ -60,8 +60,6 @@ sap.ui.define([], function () {
 				}else {
 					return false;
 				}
-			}else{
-				return sStatus;
 			}
 
 		}

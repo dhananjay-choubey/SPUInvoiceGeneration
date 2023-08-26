@@ -4,14 +4,14 @@
 >
     <SelectDialog
         title="Franchisee"
-        items="{path : 'VendorF4Model>/Vendors'}"
+        items="{path : 'VendorF4Model>/'}"
         search="_handleValueHelpVendorSearch"
         confirm="_handleValueHelpVendorClose"
         cancel="_handleValueHelpVendorClose"
     >
         <StandardListItem
-            title="{VendorF4Model>VendorName}"
-            description="{VendorF4Model>VendorCode}"
+            title="{VendorF4Model>vendorname}"
+            description="{VendorF4Model>vendorcode}"
         />
     </SelectDialog>
 </core:FragmentDefinition>

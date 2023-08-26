@@ -19,7 +19,6 @@
                     id="SimpleFormDisplayVendor"
                     editable="false"
                     layout="ResponsiveGridLayout"
-                    title="Franchisee"
                     labelSpanXL="3"
                     labelSpanL="3"
                     labelSpanM="3"
@@ -34,6 +33,14 @@
                     columnsM="1"
                     singleContainerFullSize="false"
                 >
+                <f:toolbar>
+                	<Toolbar>
+					<Title text="Franchisee"/>
+					<ToolbarSpacer />
+					<Button text="Deactivate" icon="sap-icon://cancel"
+                        visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }" press="onDeactivateVendor"/>
+				</Toolbar>
+                </f:toolbar>
                     <f:content>
                         <Label text="Vendor" />
                         <Text
