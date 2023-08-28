@@ -10,7 +10,8 @@
                 type='XML'
         />
 	</tnt:ToolHeader>
-	<f:DynamicPage id="dynamicPageId" headerExpanded="true" showFooter="true" >
+	<f:DynamicPage id="dynamicPageId" headerExpanded="true" showFooter="true"
+	class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer" >
 		<f:header>
 			<f:DynamicPageHeader pinnable="true">
 				<f:content>
