@@ -20,9 +20,12 @@ sap.ui.define(
             this.getOwnerComponent().getRouter().navTo("login");
           }
         },
-        onDeactivateVendor: function(oEvent){
+        onDeactivateVendor: async function(oEvent){
           var sVendor = this.getOwnerComponent().getModel("VendorDetailModel").getProperty("/vendorcode");
-          models.deactivateVendor(sVendor);
+          var sResponse = await models.deactivateVendor(sVendor);
+          if(sResponse){
+            this._getVendors();
+          }
         }
       }
     );

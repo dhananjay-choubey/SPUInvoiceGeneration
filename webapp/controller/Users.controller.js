@@ -81,7 +81,7 @@ sap.ui.define(
           phnum: "",
           regioncode: "",
           region_desc: "",
-          isActive: "",
+          isactive: "",
           branchcode: ""
         };
         var oModel = new JSONModel(sData);
@@ -130,7 +130,7 @@ sap.ui.define(
             return item.branchcode == sData.refid;         
           })
           oEvent.getSource().getParent().getModel("createModel").setProperty("/branchcode", "");
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/isActive", "X");
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/isactive", "X");
           oEvent.getSource().getParent().getModel("createModel").setProperty("/regioncode", sCustomer[0].regioncode);
           oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sCustomer[0].regiondesc);
 
@@ -140,7 +140,7 @@ sap.ui.define(
             return item.vendorcode == sData.refid;         
           })
           oEvent.getSource().getParent().getModel("createModel").setProperty("/branchcode", sVendor[0].branchcode);
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/isActive", "X");
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/isactive", "X");
           oEvent.getSource().getParent().getModel("createModel").setProperty("/regioncode", sVendor[0].regioncode);
           //This needs to be changed based on logiv of Vendor Desc provided by client
           oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sVendor[0].state);
@@ -323,7 +323,7 @@ sap.ui.define(
         var selectedItem = oEvent.getSource().getParent().getBindingContext("UserModel").getObject();
         var that = this;
 
-        if(selectedItem.isActive.toUpperCase() == "YES" || selectedItem.isActive.toUpperCase() == "X") {
+        if(selectedItem.isactive.toUpperCase() == "YES" || selectedItem.isactive.toUpperCase() == "X") {
           MessageBox.confirm("Do you want to decativate " + selectedItem.firstname + " " + selectedItem.lastname + "?", {
             title: "Confirm",
             onClose: async function(sAction){

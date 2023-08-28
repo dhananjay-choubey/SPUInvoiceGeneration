@@ -19,9 +19,12 @@ sap.ui.define(
             this.getOwnerComponent().getRouter().navTo("login");
           }
         },
-        onDeactivateMaterial: function(oEvent){
+        onDeactivateMaterial: async function(oEvent){
           var sMaterial = this.getOwnerComponent().getModel("MaterialDetailModel").getProperty("/materialcode");
-          models.deactivateMaterial(sMaterial);
+          var sResponse = await models.deactivateMaterial(sMaterial);
+          if(sResponse){
+            this._getMaterials();
+          }
         }
       }
     );

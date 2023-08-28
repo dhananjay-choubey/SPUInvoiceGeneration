@@ -20,18 +20,9 @@ sap.ui.define(
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
             this.getOwnerComponent().getRouter().navTo("login");
           }
-          this._getCustomers();
-          
-        },
-        _getCustomers: async function(){
-          var sBranchCode;
-          var sLoginModel = this.getOwnerComponent().getModel("LoginDataModel");
-          if(sLoginModel.getProperty("/usertype") == "V"){
-            sBranchCode = sLoginModel.getProperty("/branchcode")
-          }
-          var sData = await models.getCustomerList(sBranchCode);
-          var oModel = new JSONModel(sData);
-			    this.getView().setModel(oModel, "CustomerModel");
+          var oModel = new JSONModel({});
+          this.getOwnerComponent().setModel(oModel, "CustomerDetailModel");
+          this._getCustomers(); 
         },
         onListItemPress: function(oEvent){
           var sData = oEvent.getParameter("listItem").getBindingContext("CustomerModel").getObject();

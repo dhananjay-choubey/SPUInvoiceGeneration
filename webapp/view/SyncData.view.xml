@@ -10,6 +10,7 @@
         showHeader="true"
         backgroundDesign="Transparent"
         title="Sync Data for Invoice Generation"
+        showNavButton="true" navButtonPress=".onNavBack"
     >
         <headerContent>
             <core:Fragment

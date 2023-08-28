@@ -20,9 +20,12 @@ sap.ui.define(
             this.getOwnerComponent().getRouter().navTo("login");
           }
         },
-        onDeactivateCustomer: function(oEvent){
+        onDeactivateCustomer: async function(oEvent){
           var sCustomer = this.getOwnerComponent().getModel("CustomerDetailModel").getProperty("/branchcode");
-          models.deactivateCustomer(sCustomer);
+          var sResponse = await models.deactivateCustomer(sCustomer);
+          if(sResponse){
+            this._getCustomers();
+          }
         }
       }
     );

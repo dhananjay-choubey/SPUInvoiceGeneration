@@ -4,7 +4,7 @@
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
 >
-    <Page title="Customer List">
+    <Page title="Customer List" showNavButton="true" navButtonPress=".onNavBack">
         <subHeader>
             <Bar id="headerBarCustomer">
                 <contentMiddle>
@@ -57,9 +57,9 @@
                     <firstStatus>
                         <!-- title="{i18n>createdOn}" -->
                         <ObjectStatus
-                            text="{path:'CustomerModel>isActive',formatter: '.formatter.getUserStatus'}"
-                            state="{path:'CustomerModel>isActive',formatter: '.formatter.getUserStatusState'}"
-                            icon="{path:'CustomerModel>isActive',formatter: '.formatter.getUserStatusIcon'}"
+                            text="{path:'CustomerModel>isactive',formatter: '.formatter.getUserStatus'}"
+                            state="{path:'CustomerModel>isactive',formatter: '.formatter.getUserStatusState'}"
+                            icon="{path:'CustomerModel>isactive',formatter: '.formatter.getUserStatusIcon'}"
                         />
                     </firstStatus>
                 </ObjectListItem>

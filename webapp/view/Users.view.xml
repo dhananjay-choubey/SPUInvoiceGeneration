@@ -6,7 +6,7 @@
 >
     <Page
         showHeader="true"
-        backgroundDesign="Transparent"
+        backgroundDesign="Transparent"  showNavButton="true" navButtonPress=".onNavBack"
     >
         <headerContent>
             <core:Fragment
@@ -95,9 +95,9 @@
                             <Text
                                 text="{path:'UserModel>usertype',formatter: '.formatter.getUserType'}"
                             />
-                            <ObjectStatus class="sapUiSmallMarginBottom" text="{path:'UserModel>isActive',formatter: '.formatter.getUserStatus'}"
-			                    icon="{path:'UserModel>isActive',formatter: '.formatter.getUserStatusIcon'}"
-                                 state="{path:'UserModel>isActive',formatter: '.formatter.getUserStatusState'}" />
+                            <ObjectStatus class="sapUiSmallMarginBottom" text="{path:'UserModel>isactive',formatter: '.formatter.getUserStatus'}"
+			                    icon="{path:'UserModel>isactive',formatter: '.formatter.getUserStatusIcon'}"
+                                 state="{path:'UserModel>isactive',formatter: '.formatter.getUserStatusState'}" />
                             <Text text="{UserModel>email}" />
                             <Text text="{UserModel>phnum}" />
                             <Text text="{UserModel>region_desc} ({UserModel>regioncode})" />
@@ -106,13 +106,13 @@
                             />
                             <HBox>
                                 <core:Icon
-                                    visible="{path:'UserModel>isActive',formatter: '.formatter.setIconVisibility'}"
+                                    visible="{path:'UserModel>isactive',formatter: '.formatter.setIconVisibility'}"
                                     src="sap-icon://show"
                                     class="sapUiSmallMarginEnd"
                                     press="handleChangePassword"
                                 />
                                 <core:Icon
-                                    visible="{path:'UserModel>isActive',formatter: '.formatter.setIconVisibility'}"
+                                    visible="{path:'UserModel>isactive',formatter: '.formatter.setIconVisibility'}"
                                     src="sap-icon://cancel"
                                     class="sapUiSmallMarginBeginEnd"
                                     press="handleDeactivateUser"

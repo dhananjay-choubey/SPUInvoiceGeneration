@@ -21,13 +21,10 @@ sap.ui.define(
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
             this.getOwnerComponent().getRouter().navTo("login");
           }
+          var oModel = new JSONModel({});
+          this.getOwnerComponent().setModel(oModel, "MaterialDetailModel");
           this._getMaterials();
           
-        },
-        _getMaterials: async function(){
-          var sData = await models.getMaterials();
-          var oModel = new JSONModel(sData);
-			    this.getView().setModel(oModel, "MaterialModel");
         },
         onListItemPress: function(oEvent){
           var sData = oEvent.getParameter("listItem").getBindingContext("MaterialModel").getObject();

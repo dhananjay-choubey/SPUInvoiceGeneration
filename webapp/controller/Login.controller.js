@@ -55,9 +55,13 @@ sap.ui.define(
       },
       _login: async function (sEmail, sPassword){
         const loginData = await models.login(sEmail, sPassword);
-        var loginDataModel = new JSONModel(loginData);
-        this.getOwnerComponent().setModel(loginDataModel, "LoginDataModel");
-        this.getOwnerComponent().getRouter().navTo("admin");
+        if(loginData){
+          var loginDataModel = new JSONModel(loginData);
+          this.getOwnerComponent().setModel(loginDataModel, "LoginDataModel");
+          this.getOwnerComponent().getRouter().navTo("admin");
+        }else{
+          MessageToast.show("Please enter valid credentials");
+        }
       },
       onLiveEmailChange: function (oEvent) {
         var mailRegex =

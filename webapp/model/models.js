@@ -40,7 +40,7 @@ sap.ui.define(
             data: JSON.stringify(sData),
             success: function (response) {
               sBusyDialog.close();
-              MessageToast.show("User Created successfully.");
+              MessageToast.show(response);
               resolve(response);
             },
             failure: function (response) {

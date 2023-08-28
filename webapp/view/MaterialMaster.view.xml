@@ -4,7 +4,7 @@
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
 >
-    <Page title="Materials List">
+    <Page title="Materials List" showNavButton="true" navButtonPress=".onNavBack">
         <subHeader>
             <Bar id="headerBar">
                 <contentMiddle>
@@ -63,9 +63,9 @@
                     <firstStatus>
                         <!-- title="{i18n>createdOn}" -->
                         <ObjectStatus
-                            text="{path:'MaterialModel>isActive',formatter: '.formatter.getUserStatus'}"
-                            state="{path:'MaterialModel>isActive',formatter: '.formatter.getUserStatusState'}"
-                            icon="{path:'MaterialModel>isActive',formatter: '.formatter.getUserStatusIcon'}"
+                            text="{path:'MaterialModel>isactive',formatter: '.formatter.getUserStatus'}"
+                            state="{path:'MaterialModel>isactive',formatter: '.formatter.getUserStatusState'}"
+                            icon="{path:'MaterialModel>isactive',formatter: '.formatter.getUserStatusIcon'}"
                         />
                     </firstStatus>
                     <secondStatus>
