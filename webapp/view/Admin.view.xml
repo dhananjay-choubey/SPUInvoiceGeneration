@@ -11,6 +11,7 @@
         showHeader="true"
         backgroundDesign="Transparent"
         title="Dashboard"
+        class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer"
     >
         <headerContent>
             <core:Fragment
