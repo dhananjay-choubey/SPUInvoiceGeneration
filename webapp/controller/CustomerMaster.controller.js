@@ -35,6 +35,9 @@ sap.ui.define(
           var sData = oEvent.getSource().getItems()[0].getBindingContext("CustomerModel").getObject();
           var oModel = new JSONModel(sData);
           this.getOwnerComponent().setModel(oModel, "CustomerDetailModel");
+        }else{
+          var oModel = new JSONModel({});
+          this.getOwnerComponent().setModel(oModel, "CustomerDetailModel");
         }
         
         },

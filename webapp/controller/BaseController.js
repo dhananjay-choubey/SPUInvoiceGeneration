@@ -13,18 +13,24 @@ sap.ui.define([
         },
         _getCustomers: async function(){
           var sBranchCode;
+          var oModel;
           var sLoginModel = this.getOwnerComponent().getModel("LoginDataModel");
           if(sLoginModel.getProperty("/usertype") == "V"){
             sBranchCode = sLoginModel.getProperty("/branchcode")
           }
           var sData = await models.getCustomerList(sBranchCode);
-          var oModel = new JSONModel(sData);
-			    this.getView().setModel(oModel, "CustomerModel");
+          oModel = new JSONModel(sData);
+          this.getOwnerComponent().setModel(oModel, "CustomerModel");
+          var oModel1 = new JSONModel({});
+          this.getOwnerComponent().setModel(oModel1, "CustomerDetailModel");
+          
         },
         _getMaterials: async function(){
           var sData = await models.getMaterials();
           var oModel = new JSONModel(sData);
-		  this.getView().setModel(oModel, "MaterialModel");
+		      this.getOwnerComponent().setModel(oModel, "MaterialModel");
+          var oModel1 = new JSONModel({});
+          this.getOwnerComponent().setModel(oModel1, "MaterialDetailModel");
         },
         _getVendors: async function(){
           var sBranchCode, sVendorCode;
@@ -36,7 +42,9 @@ sap.ui.define([
           }
           var sData = await models.getVendorList(sBranchCode, sVendorCode);
           var oModel = new JSONModel(sData);
-			    this.getView().setModel(oModel, "VendorModel");
+			    this.getOwnerComponent().setModel(oModel, "VendorModel");
+          var oModel1 = new JSONModel({});
+          this.getOwnerComponent().setModel(oModel, "VendorDetailModel");
         },
 
         onNavBack: function () {
