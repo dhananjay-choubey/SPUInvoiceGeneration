@@ -133,6 +133,7 @@ sap.ui.define(
           oEvent.getSource().getParent().getModel("createModel").setProperty("/isactive", "X");
           oEvent.getSource().getParent().getModel("createModel").setProperty("/regioncode", sCustomer[0].regioncode);
           oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sCustomer[0].regiondesc);
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/segment", "");
 
         }else{
           oEvent.getSource().getParent().getModel("createModel").setProperty("/usertype", "V");
@@ -144,17 +145,19 @@ sap.ui.define(
           oEvent.getSource().getParent().getModel("createModel").setProperty("/regioncode", sVendor[0].regioncode);
           //This needs to be changed based on logiv of Vendor Desc provided by client
           oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sVendor[0].state);
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/segment", "");
         }
    
         var sFinalData = oEvent.getSource().getParent().getModel("createModel").getData();
 
         const response = await models.createUser(sFinalData);
-        if(response){
+        if(response.messageCode == "S"){
           this._bindUserData();
+          this.byId("createUserDialog").close();
+        }else {
+          MessageBox.error(response.messageString);
         }
 
-
-        this.byId("createUserDialog").close();
       },
       onCancelDialog: function () {
         this.byId("createUserDialog").close();

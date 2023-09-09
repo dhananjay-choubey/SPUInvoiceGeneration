@@ -34,23 +34,30 @@
             >
                 <f:content>
                     <Label
-                        text="Start Date"
+                        text="Sync Data for"
                         required="true"
                         design="Bold"
                     />
-                    <DatePicker id="idStartDate" />
-                    <Label
+                    <DatePicker id="idStartDate" displayFormat="MM-y" valueFormat="yyyyMM"/>
+                    <!-- <Label
                         text="End Date"
                         required="true"
                         design="Bold"
                     />
-                    <DatePicker id="idEndDate" />
+                    <DatePicker id="idEndDate" /> -->
                     <Label />
                     <Button
                         text="Sync Records"
                         icon="sap-icon://synchronize"
                         press="onSyncPress"
                         type="Emphasized"
+                    />
+                    <Label />
+                    <Button
+                        text="Generate Invoices"
+                        icon="sap-icon://my-sales-order"
+                        press="onGenerateInvoicePress"
+                        type="Accept"
                     />
                 </f:content>
             </f:SimpleForm>

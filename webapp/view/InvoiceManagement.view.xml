@@ -20,7 +20,7 @@
 						<fb:filterGroupItems>
 							<fb:FilterGroupItem name="invoiceDateRangeLabel" label="Invoice Date" groupName="__$INTERNAL$" visibleInFilterBar="true">
 								<fb:control>
-									<DatePicker id="invoiceDateRange" change="handleChange"/>
+									<DateRangeSelection id="invoiceDateRange" change="handleChange"/>
 								</fb:control>
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem name="invoiceFreeSearchLabel" label="Invoice Number" groupName="__$INTERNAL$" visibleInFilterBar="true">
@@ -53,7 +53,7 @@
 		<f:content>
 			<smartTable:SmartTable id="invoiceTable" entitySet="Invoices" enableAutoBinding="false" beforeRebindTable="onBeforeRebindTable"
 				tableType="ResponsiveTable" showRowCount="true" header="Invoices" showFullScreenButton="true" showTablePersonalisation="false"
-				initiallyVisibleFields="invoicenumber,invoiceDate,SPUNumber,ticketNo,referenceNo,referenceDate,orgId,orgName,partyCode,partyName,consignee,subTotal,sgst,cgst,igst,roundoff,grandTotal"
+				initiallyVisibleFields="InvoiceNumber,InvoiceDate,SPUNumber,CRMTicketNumber,DocumentNumber,DocumentDate,VendorName,VendorCode,CustomerName,CustomerCode,ShipToPartyNumber,ShipToPartyName,SubTotal,SGST,CGST,IGST,RoundOff,GrandTotal"
 				class="sapUiResponsiveContentPadding sapUiLargeMarginBottom" placeToolbarInTable="true">
 				<smartTable:customData>
 					<core:CustomData key="p13nDialogSettings"
@@ -88,14 +88,14 @@
 						<Column>
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "invoicenumber", "type": "string","columnKey": "invoicenumber", "leadingProperty": "invoicenumber"}'/>
+									value='\{"sortProperty": "InvoiceNumber", "type": "string","columnKey": "InvoiceNumber", "leadingProperty": "InvoiceNumber"}'/>
 							</customData>
 							<Text text="Invoice Number"/>
 						</Column>
 						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "invoiceDate", "type": "string", "leadingProperty": "invoiceDate","columnKey": "invoiceDate"}'/>
+									value='\{"sortProperty": "InvoiceDate", "type": "string", "leadingProperty": "invoiceDate","columnKey": "invoiceDate"}'/>
 							</customData>
 							<Text text="Invoice Date"/>
 						</Column>
@@ -108,84 +108,84 @@
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "ticketNo", "type": "string","columnKey": "ticketNo", "leadingProperty": "ticketNo"}'/>
+									value='\{"sortProperty": "CRMTicketNumber", "type": "string","columnKey": "CRMTicketNumber", "leadingProperty": "CRMTicketNumber"}'/>
 							</customData>
 							<Text text="Ticket No"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "referenceNo", "type": "string","columnKey": "referenceNo", "leadingProperty": "referenceNo"}'/>
+									value='\{"sortProperty": "DocumentNumber", "type": "string","columnKey": "DocumentNumber", "leadingProperty": "DocumentNumber"}'/>
 							</customData>
 							<Text text="Ref Number"/>
 						</Column>
 						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "referenceDate", "type": "date","columnKey": "referenceDate", "leadingProperty": "referenceDate"}'/>
+									value='\{"sortProperty": "DocumentDate", "type": "date","columnKey": "DocumentDate", "leadingProperty": "DocumentDate"}'/>
 							</customData>
 							<Text text="Ref Date"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "orgName", "type": "string","columnKey": "orgName", "leadingProperty": "orgName"}'/>
+									value='\{"sortProperty": "CustomerName", "type": "string","columnKey": "CustomerName", "leadingProperty": "CustomerName"}'/>
 							</customData>
 							<Text text="Organization"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "partyName", "type": "string", "columnKey": "partyName", "leadingProperty": "partyName"}'/>
+									value='\{"sortProperty": "VendorName", "type": "string", "columnKey": "VendorName", "leadingProperty": "VendorName"}'/>
 							</customData>
 							<Text text="Party Name"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "consignee", "type": "string", "columnKey": "consignee", "leadingProperty": "consignee"}'/>
+									value='\{"sortProperty": "ShipToPartyName", "type": "string", "columnKey": "ShipToPartyName", "leadingProperty": "ShipToPartyName"}'/>
 							</customData>
 							<Text text="Consignee"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "subTotal", "type": "string","columnKey": "subTotal", "leadingProperty": "subTotal"}'/>
+									value='\{"sortProperty": "SubTotal", "type": "string","columnKey": "SubTotal", "leadingProperty": "SubTotal"}'/>
 							</customData>
 							<Text text="Sub Total"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "sgst", "type": "string", "columnKey": "sgst", "leadingProperty": "sgst"}'/>
+									value='\{"sortProperty": "SGST", "type": "string", "columnKey": "SGST", "leadingProperty": "SGST"}'/>
 							</customData>
 							<Text text="SGST"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "cgst", "type": "string", "columnKey": "cgst", "leadingProperty": "cgst"}'/>
+									value='\{"sortProperty": "CGST", "type": "string", "columnKey": "CGST", "leadingProperty": "CGST"}'/>
 							</customData>
 							<Text text="CGST"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "igst", "type": "string", "columnKey": "igst", "leadingProperty": "igst"}'/>
+									value='\{"sortProperty": "IGST", "type": "string", "columnKey": "IGST", "leadingProperty": "IGST"}'/>
 							</customData>
 							<Text text="IGST"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "roundoff", "type": "string", "columnKey": "roundoff", "leadingProperty": "roundoff"}'/>
+									value='\{"sortProperty": "RoundOff", "type": "string", "columnKey": "RoundOff", "leadingProperty": "RoundOff"}'/>
 							</customData>
 							<Text text="RoundOff"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "grandTotal", "type": "string", "columnKey": "grandTotal", "leadingProperty": "grandTotal"}'/>
+									value='\{"sortProperty": "GrandTotal", "type": "string", "columnKey": "GrandTotal", "leadingProperty": "GrandTotal"}'/>
 							</customData>
 							<Text text="Grand Total"/>
 						</Column>
@@ -198,21 +198,21 @@
 					</columns>
 					<items>
 						<ColumnListItem type="Inactive">
-							<ObjectIdentifier title="{invoicenumber}"/>
-							<ObjectIdentifier title="{invoiceDate}"/>
+							<ObjectIdentifier title="{InvoiceNumber}"/>
+							<ObjectIdentifier title="{InvoiceDate}"/>
 							<Text text="{SPUNumber}"/>
-							<Text text="{ticketNo}"/>
-							<Text text="{referenceNo}"/>
-							<Text text="{referenceDate}"/>
-							<Text text="{orgName}"/>
-							<Text text="{partyName}"/>
-							<Text text="{consignee}"/>
-							<Text text="{subTotal}" textAlign="End"/>
-							<Text text="{sgst}" textAlign="End"/>
-							<Text text="{cgst}" textAlign="End"/>
-							<Text text="{igst}" textAlign="End"/>
-							<Text text="{roundoff}" textAlign="End"/>
-							<Text text="{grandTotal}"  textAlign="End"/>
+							<Text text="{CRMTicketNumber}"/>
+							<Text text="{DocumentNumber}"/>
+							<Text text="{DocumentDate}"/>
+							<Text text="{CustomerName}"/>
+							<Text text="{VendorName}"/>
+							<Text text="{ShipToPartyName}"/>
+							<Text text="{SubTotal}" textAlign="End"/>
+							<Text text="{SGST}" textAlign="End"/>
+							<Text text="{CGST}" textAlign="End"/>
+							<Text text="{IGST}" textAlign="End"/>
+							<Text text="{RoundOff}" textAlign="End"/>
+							<Text text="{GrandTotal}"  textAlign="End"/>
 							<HBox>
 								<Button tooltip="View" icon="sap-icon://display" press="onViewPress" class="sapUiTinyMarginEnd"/>
 								<Button tooltip="Print" icon="sap-icon://print" press="onPrintPress"/>

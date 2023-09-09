@@ -20,20 +20,58 @@ sap.ui.define(
               this.getOwnerComponent().getRouter().navTo("login");
             }
           },
-          onSyncPress: function(oEvent){
-            if(this.byId("idStartDate").getDateValue() == null || this.byId("idEndDate").getDateValue() == null){
-              MessageToast.show("Please enter valid dates");
+          onSyncPress: async function(oEvent){
+            if(this.byId("idStartDate").getDateValue() == null){
+              MessageToast.show("Please enter valid date");
               return;
             }
 
-            var Difference_In_Time = this.byId("idEndDate").getDateValue().getTime() - this.byId("idStartDate").getDateValue().getTime();
+            const date = this.getFirstAndLastDay(this.byId("idStartDate").getDateValue(), "Sync");
+            const userDetails = this.getOwnerComponent().getModel("LoginDataModel").getData();
 
-            var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+            const sStatusCode = await models.getStatusBeforeSync(this.byId("idStartDate").getValue(), userDetails);
+            if(sStatusCode && sStatusCode.messageCode == "00"){
+              const response = await models.syncSAPtoDBInvoice(date, userDetails);
+            }else {
+              MessageToast.show(sStatusCode.messageString)
+            }
 
-            if(Difference_In_Days >= 31){
-              MessageToast.show("Date interval cannot be more than 31 days");
+          },
+          onGenerateInvoicePress: async function (oEvent){
+            if(this.byId("idStartDate").getDateValue() == null){
+              MessageToast.show("Please enter valid date");
               return;
             }
+
+            const date = this.getFirstAndLastDay(this.byId("idStartDate").getDateValue());
+            const userDetails = this.getOwnerComponent().getModel("LoginDataModel").getData();
+
+            const sStatusCode = await models.getStatusBeforeSync(this.byId("idStartDate").getValue(), userDetails);
+            if(sStatusCode && sStatusCode.messageCode == "02"){
+              const response = await models.generateInvoices(date.firstDay, date.lastDay, userDetails.regioncode);
+            }else {
+              MessageToast.show(sStatusCode.messageString)
+            }
+
+          },
+          
+          getFirstAndLastDay: function(sDate, sOperation) {
+            let firstDay = new Date(sDate.getFullYear(), sDate.getMonth(), 1);
+            let lastDay = new Date(sDate.getFullYear(), sDate.getMonth() + 1, 0);
+            console.log("First day=" + firstDay)
+            console.log("Last day = " + lastDay);
+             if(sOperation == "Sync"){
+              return {
+                firstDay: formatter.formatDate(firstDay),
+                lastDay: formatter.formatDate(lastDay),
+                fiscalYear: sDate.getFullYear()
+              }
+             }else{
+              return {
+                firstDay: formatter.formatDateyyyMMdd(firstDay),
+                lastDay: formatter.formatDateyyyMMdd(lastDay)
+              }
+             }
           }
         }
       );

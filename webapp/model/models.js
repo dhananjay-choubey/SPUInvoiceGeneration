@@ -444,6 +444,197 @@ sap.ui.define(
           })
         });
         return promise;           
+      },
+      syncSAPtoDBInvoice: function (sDate, sUserData){
+        var promise = new Promise((resolve, reject) => {
+          var url = this.component.baseURL + "saptodbinvoice";
+          var sBusyDialog = new BusyDialog();
+          var sData = {
+            "CompanyCode": "1000",
+            "DocumentNumber": "",
+            "EndDate": sDate.lastDay,
+            "FiscalYear": sDate.fiscalYear,
+            "SegmentCode": "1103",
+            "StartDate": sDate.firstDay
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              MessageToast.show("Data synced successfully successfully");
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during data sync", {
+                title: "Error"
+              });
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during data sync", {
+                title: "Error"
+              });
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise; 
+      },
+      getStatusBeforeSync: function(sDate, userDetails){
+        var promise = new Promise((resolve, reject) => {
+
+          var sBusyDialog = new BusyDialog();
+          var url = this.component.baseURL + "invoicestatus?monthyear="+sDate+"&region="+userDetails.regioncode;
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "GET",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (response) {
+              sBusyDialog.close();
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;        
+      },
+      syncMasterData: function(sOption){
+        var promise = new Promise((resolve, reject) => {
+
+          var sBusyDialog = new BusyDialog(), url;
+          if(sOption == "Materials"){
+            url = this.component.baseURL + "SapToDbMaterial";
+          }else if(sOption == "Vendors"){
+            url = this.component.baseURL + "SapToDbVendor";
+          }else {
+            url = this.component.baseURL + "SapToDbCustomer";
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "GET",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (response) {
+              sBusyDialog.close();
+              MessageToast.show( sOption + " synced successfully")
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error( "Error occurred while syncing "+ sOption);
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error( "Error occurred while syncing "+ sOption);
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;
+      },
+      getInvoiceData: function(startdate, enddate, region, vendorcode){
+        var promise = new Promise((resolve, reject) => {
+
+          var sBusyDialog = new BusyDialog(), url;
+            url = this.component.baseURL + "/GetInvoiceGeneration?startdate=" + startdate + "&enddate=" + enddate + "&region=" +region+ "&vendorcode=" + vendorcode;
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "GET",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (response) {
+              sBusyDialog.close();
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;       
+      },
+      generateInvoices: function(startDate, endDate, regionCode){
+        var promise = new Promise((resolve, reject) => {
+          var url = this.component.baseURL + "invoicegeneration";
+          var sBusyDialog = new BusyDialog();
+          var sData = {
+            "startDate": startDate,
+            "endDate": endDate,
+            "regionCode": regionCode
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              MessageToast.show("Invoice generated successfully");
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during invoice generation", {
+                title: "Error"
+              });
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during invoice generation", {
+                title: "Error"
+              });
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;         
       }
     };
   }

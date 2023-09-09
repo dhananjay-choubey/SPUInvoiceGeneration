@@ -56,10 +56,10 @@ sap.ui.define(
           oValueHelpDialogMDSync.open();
         });
       },
-      _handleValueHelpMDSyncClose: function (oEvent) {
+      _handleValueHelpMDSyncClose: async function (oEvent) {
         var oSelectedItem = oEvent.getParameter("selectedItem");
         if (oSelectedItem) {
-          MessageToast.show(oSelectedItem.getTitle() + " Sync is in progress.");
+          await models.syncMasterData(oSelectedItem.getTitle());
         }
       },
       onSalesTransactionsPress: function(oEvent){

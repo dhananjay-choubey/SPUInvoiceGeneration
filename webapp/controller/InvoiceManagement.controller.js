@@ -5,9 +5,10 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/Sorter",
     "sap/ui/model/FilterOperator",
-    "com/ifb/invoicegenerator/model/models"
+    "com/ifb/invoicegenerator/model/models",
+    "sap/ui/model/json/JSONModel"
   ],
-  function (Controller, formatter, Filter, Sorter, FilterOperator, models) {
+  function (Controller, formatter, Filter, Sorter, FilterOperator, models, JSONModel) {
     "use strict";
 
     return Controller.extend(
@@ -25,18 +26,48 @@ sap.ui.define(
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
             this.getOwnerComponent().getRouter().navTo("login");
           }
+
+          this.setTableData();
+
+          //var oDataModel = new JSONModel(data);
           // Binding based on Model defined in Manifest
-          var oDataModel = this.getOwnerComponent().getModel("localData");
+         // var oDataModel = this.getOwnerComponent().getModel("localData");
           // Country Log Table Binding
+          // var invoiceTable;
+          // invoiceTable = this.byId("invoiceTable");
+          // invoiceTable.setModel(oDataModel);
+          // invoiceTable.setTableBindingPath("/");
+          // invoiceTable.setRequestAtLeastFields(
+          //   "InvoiceNumber,InvoiceDate,SPUNumber,CRMTicketNumber,DocumentNumber,DocumentDate,VendorName,VendorCode,CustomerName,CustomerCode,ShipToPartyNumber,ShipToPartyName,SubTotal,SGST,CGST,IGST,RoundOff,GrandTotal");
+          
+          // invoiceTable.rebindTable();
+        },
+        setTableData: async function(){
+          var sDate = new Date(), firstDay, lastDay;
+          if (oView.byId("invoiceDateRange").getDateValue()) {
+            var startDate = this.getView().byId("gmDateRange").getTo();
+            var endDate = this.getView().byId("gmDateRange").getFrom();
+            firstDay = formatter.formatDateyyyMMdd(new Date(startDate.getFullYear(), startDate.getMonth(), 1));
+            lastDay = formatter.formatDateyyyMMdd(new Date(endDate.getFullYear(), endDate.getMonth() + 1, 0));
+          }else{
+            firstDay = formatter.formatDateyyyMMdd(new Date(sDate.getFullYear(), sDate.getMonth(), 1));
+            lastDay = formatter.formatDateyyyMMdd(new Date(sDate.getFullYear(), sDate.getMonth() + 1, 0));
+          }
+          
+
+          var response = await models.getInvoiceData(firstDay, lastDay, "", "");
+          var oDataModel = new JSONModel(response);
           var invoiceTable;
           invoiceTable = this.byId("invoiceTable");
           invoiceTable.setModel(oDataModel);
-          invoiceTable.setTableBindingPath("/Invoices");
+          invoiceTable.setTableBindingPath("/");
           invoiceTable.setRequestAtLeastFields(
-            "invoicenumber,invoiceDate,SPUNumber,ticketNo,referenceNo,referenceDate,orgId,orgName,partyCode,partyName,consignee,subTotal,sgst,cgst,igst,roundoff,grandTotal");
+            "InvoiceNumber,InvoiceDate,SPUNumber,CRMTicketNumber,DocumentNumber,DocumentDate,VendorName,VendorCode,CustomerName,CustomerCode,ShipToPartyNumber,ShipToPartyName,SubTotal,SGST,CGST,IGST,RoundOff,GrandTotal");
+          
           invoiceTable.rebindTable();
         },
         onBeforeRebindTable: function (oEvt) {
+          this.setTableData();
           //get filters
           var aFilters = this.getFilters();
           var oBindingParams = oEvt.getParameter("bindingParams");
@@ -50,7 +81,7 @@ sap.ui.define(
             oSorter = new Sorter(oEvtSorter.sPath, oEvtSorter.bDescending);
             oBindingParams.sorter = oSorter;
           } else {
-            oSorter = new Sorter("invoicenumber", true);
+            oSorter = new Sorter("InvoiceNumber", true);
             oBindingParams.sorter = oSorter;
           }
         },
@@ -105,27 +136,28 @@ sap.ui.define(
 
 			//Invoice Date
 			if (oView.byId("invoiceDateRange").getDateValue()) {
-				aFilter.push(new Filter("invoiceDate", "EQ", oView.byId("gmDateRange").getValue()));
+				aFilter.push(new Filter("InvoiceDate", "GE", oView.byId("gmDateRange").getTo()));
+        aFilter.push(new Filter("InvoiceDate", "LE", oView.byId("gmDateRange").getFrom()));
 			}
 
 			//Invoice Id
 			if (oView.byId("invoiceFreeSearch").getValue() !== "") {
-				aFilter.push(new Filter("invoicenumber", "Contains", oView.byId("invoiceFreeSearch").getValue()));
+				aFilter.push(new Filter("InvoiceNumber", "Contains", oView.byId("invoiceFreeSearch").getValue()));
 			}
 
 			//Ticket No
 			if (oView.byId("invoiceFreeTicketSearch").getValue() !== "") {
-				aFilter.push(new Filter("ticketNo", "Contains", oView.byId("invoiceFreeTicketSearch").getValue()));
+				aFilter.push(new Filter("CRMTicketNumber", "Contains", oView.byId("invoiceFreeTicketSearch").getValue()));
 			}
 
       //Reference No
 			if (oView.byId("invoiceFreeRefSearch").getValue() !== "") {
-				aFilter.push(new Filter("referenceNo", "Contains", oView.byId("invoiceFreeRefSearch").getValue()));
+				aFilter.push(new Filter("DocumentNumber", "Contains", oView.byId("invoiceFreeRefSearch").getValue()));
 			}
 
 			//Party
 			if (oView.byId("invoiceParty").getSelectedKey() !== "") {
-					aFilter.push(new Filter("partyCode", "EQ", oView.byId("invoiceParty").getSelectedKey()));
+					aFilter.push(new Filter("VendorCode", "EQ", oView.byId("invoiceParty").getSelectedKey()));
 			}
 
 			return aFilter;
