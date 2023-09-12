@@ -10,8 +10,8 @@
         cancel="_handleValueHelpCustomerClose"
     >
         <StandardListItem
-            title="{CustomerF4Model>branchcode}"
-            description="{CustomerF4Model>branchname}"
+            title="{CustomerF4Model>branchname}"
+            description="{CustomerF4Model>branchcode}"
         />
     </SelectDialog>
 </core:FragmentDefinition>

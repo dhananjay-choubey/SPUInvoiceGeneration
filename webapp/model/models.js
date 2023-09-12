@@ -455,7 +455,8 @@ sap.ui.define(
             "EndDate": sDate.lastDay,
             "FiscalYear": sDate.fiscalYear,
             "SegmentCode": "1103",
-            "StartDate": sDate.firstDay
+            "StartDate": sDate.firstDay,
+            "Region": sUserData.regioncode
           }
 
           sBusyDialog.open();

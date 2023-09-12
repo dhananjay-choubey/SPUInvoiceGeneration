@@ -26,7 +26,7 @@ sap.ui.define(
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
             this.getOwnerComponent().getRouter().navTo("login");
           }
-
+          this.getVendorList();
           this.setTableData();
 
           //var oDataModel = new JSONModel(data);
@@ -42,11 +42,23 @@ sap.ui.define(
           
           // invoiceTable.rebindTable();
         },
+        getVendorList: async function(){
+          var sBranchCode, sVendorCode;
+          var sLoginModel = this.getOwnerComponent().getModel("LoginDataModel");
+          if(sLoginModel.getProperty("/usertype") == "V"){
+            sVendorCode = sLoginModel.getProperty("/refid")
+          }else if(sLoginModel.getProperty("/usertype") == "C"){
+            sBranchCode = sLoginModel.getProperty("/refid")
+          }
+          var sData = await models.getVendorList(sBranchCode, sVendorCode);
+          var oModel = new JSONModel(sData);
+			    this.getOwnerComponent().setModel(oModel, "VendorListModel");
+        },
         setTableData: async function(){
           var sDate = new Date(), firstDay, lastDay;
-          if (oView.byId("invoiceDateRange").getDateValue()) {
-            var startDate = this.getView().byId("gmDateRange").getTo();
-            var endDate = this.getView().byId("gmDateRange").getFrom();
+          if (this.getView().byId("invoiceDateRange").getDateValue()) {
+            var startDate = this.getView().byId("invoiceDateRange").getTo();
+            var endDate = this.getView().byId("invoiceDateRange").getFrom();
             firstDay = formatter.formatDateyyyMMdd(new Date(startDate.getFullYear(), startDate.getMonth(), 1));
             lastDay = formatter.formatDateyyyMMdd(new Date(endDate.getFullYear(), endDate.getMonth() + 1, 0));
           }else{
@@ -54,8 +66,14 @@ sap.ui.define(
             lastDay = formatter.formatDateyyyMMdd(new Date(sDate.getFullYear(), sDate.getMonth() + 1, 0));
           }
           
-
-          var response = await models.getInvoiceData(firstDay, lastDay, "", "");
+          const userDetails = this.getOwnerComponent().getModel("LoginDataModel").getData();
+          var sVendorCode;
+          if(userDetails.usertype == "V"){
+            sVendorCode = userDetails.refid;
+          }else {
+            sVendorCode = "";
+          }
+          var response = await models.getInvoiceData(firstDay, lastDay, userDetails.regioncode, sVendorCode);
           var oDataModel = new JSONModel(response);
           var invoiceTable;
           invoiceTable = this.byId("invoiceTable");
@@ -67,7 +85,7 @@ sap.ui.define(
           invoiceTable.rebindTable();
         },
         onBeforeRebindTable: function (oEvt) {
-          this.setTableData();
+          //this.setTableData();
           //get filters
           var aFilters = this.getFilters();
           var oBindingParams = oEvt.getParameter("bindingParams");
@@ -86,6 +104,7 @@ sap.ui.define(
           }
         },
         onSearch: function () {
+          this.setTableData();
           this.getView().byId("invoiceTable").rebindTable();
         },
         onSort: function () {
@@ -136,8 +155,8 @@ sap.ui.define(
 
 			//Invoice Date
 			if (oView.byId("invoiceDateRange").getDateValue()) {
-				aFilter.push(new Filter("InvoiceDate", "GE", oView.byId("gmDateRange").getTo()));
-        aFilter.push(new Filter("InvoiceDate", "LE", oView.byId("gmDateRange").getFrom()));
+				aFilter.push(new Filter("InvoiceDate", "GE", oView.byId("invoiceDateRange").getTo()));
+        aFilter.push(new Filter("InvoiceDate", "LE", oView.byId("invoiceDateRange").getFrom()));
 			}
 
 			//Invoice Id

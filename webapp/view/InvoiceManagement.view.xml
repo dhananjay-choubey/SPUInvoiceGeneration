@@ -40,8 +40,8 @@
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem name="gmPartyLabel" label="Party Name" groupName="__$INTERNAL$" visibleInFilterBar="true">
 								<fb:control>
-									<Select id="invoiceParty" forceSelection="false" change="onSearch" items="{ path: 'localData>/Customers' }">
-										<core:Item key="{localData>BranchCode}" text="{localData>BranchName}"/>
+									<Select id="invoiceParty" forceSelection="false" change="onSearch" items="{ path: 'VendorListModel>/' }">
+										<core:Item key="{VendorListModel>vendorcode}" text="{VendorListModel>vendorname}"/>
 									</Select>
 								</fb:control>
 							</fb:FilterGroupItem>
