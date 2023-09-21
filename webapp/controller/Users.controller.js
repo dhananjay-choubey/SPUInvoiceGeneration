@@ -133,7 +133,7 @@ sap.ui.define(
           oEvent.getSource().getParent().getModel("createModel").setProperty("/isactive", "X");
           oEvent.getSource().getParent().getModel("createModel").setProperty("/regioncode", sCustomer[0].regioncode);
           oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sCustomer[0].regiondesc);
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/segment", "");
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/segment", sCustomer[0].segment);
 
         }else{
           oEvent.getSource().getParent().getModel("createModel").setProperty("/usertype", "V");

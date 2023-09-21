@@ -64,6 +64,8 @@
                         <Text
                             text="{CustomerDetailModel>/regiondesc} ({CustomerDetailModel>/regioncode})"
                         />
+                        <Label text="Segment" />
+                        <Text text="{CustomerDetailModel>/segment}" />
                     </f:content>
                 </f:SimpleForm>
             </VBox>

@@ -1,6 +1,6 @@
 sap.ui.define(
-  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter"],
-  function (Controller, formatter) {
+  ["com/ifb/invoicegenerator/controller/BaseController", "../model/formatter", "com/ifb/invoicegenerator/model/models"],
+  function (Controller, formatter, models) {
     "use strict";
 
     return Controller.extend(

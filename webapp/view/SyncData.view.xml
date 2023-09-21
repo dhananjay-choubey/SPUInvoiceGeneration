@@ -38,7 +38,7 @@
                         required="true"
                         design="Bold"
                     />
-                    <DatePicker id="idStartDate" displayFormat="MM-y" valueFormat="yyyyMM"/>
+                    <DatePicker id="idStartDate" displayFormat="MM-y" valueFormat="yyyyMM" change="onDatePickerChange"/>
                     <!-- <Label
                         text="End Date"
                         required="true"
@@ -51,6 +51,7 @@
                         icon="sap-icon://synchronize"
                         press="onSyncPress"
                         type="Emphasized"
+                        enabled="{buttonDisability>/syncRecords}"
                     />
                     <Label />
                     <Button
@@ -58,16 +59,18 @@
                         icon="sap-icon://my-sales-order"
                         press="onGenerateInvoicePress"
                         type="Accept"
+                        enabled="{buttonDisability>/invoiceGenerate}"
+                    />
+                    <Label />
+                    <Button
+                        text="Generate PDF"
+                        icon="sap-icon://pdf-attachment"
+                        press="onGeneratePDFPress"
+                        type="Reject"
+                        enabled="{buttonDisability>/pdfGenerate}"
                     />
                 </f:content>
             </f:SimpleForm>
-            <MessageStrip
-                text="Last Data was synced on 18-08-2023"
-                type="Warning"
-                showIcon="true"
-                customIcon="sap-icon://information"
-                class="sapUiSmallMarginTopBottom"
-            />
         </content>
     </Page>
 </mvc:View>
