@@ -45,17 +45,17 @@ sap.ui.define(
             },
             failure: function (response) {
               sBusyDialog.close();
-              MessageBox.error("Error occurred while creating user", {
-                title: "Error"
-              });
+              // MessageBox.error("Error occurred while creating user", {
+              //   title: "Error"
+              // });
               console.log(response)
               resolve(false);
             },
             error: function (response){
               sBusyDialog.close();
-              MessageBox.error("Error occurred while creating user", {
-                title: "Error"
-              });
+              // MessageBox.error("Error occurred while creating user", {
+              //   title: "Error"
+              // });
               console.log(response);
               resolve(false);
             }
@@ -153,7 +153,7 @@ sap.ui.define(
             data: JSON.stringify(sData),
             success: function (response) {
               sBusyDialog.close();
-              MessageToast.show("User Status has been changed successfully.");
+              MessageToast.show("User is deactivated.");
               resolve(response);
             },
             failure: function (response) {
@@ -448,7 +448,10 @@ sap.ui.define(
       syncSAPtoDBInvoice: function (sDate, sUserData){
         var promise = new Promise((resolve, reject) => {
           var url = this.component.baseURL + "saptodbinvoice";
-          var sBusyDialog = new BusyDialog();
+          var sBusyDialog = new BusyDialog({
+            text: "Data sync is in progress from SAP to Franchisee Invoice Generation app.",
+            title: "Data sync is in progress!"
+          });
           var sData = {
             "CompanyCode": "1000",
             "DocumentNumber": "",
@@ -469,7 +472,7 @@ sap.ui.define(
             data: JSON.stringify(sData),
             success: function (response) {
               sBusyDialog.close();
-              MessageToast.show("Data synced successfully successfully");
+              MessageToast.show(response.messageString);
               resolve(response);
             },
             failure: function (response) {
@@ -570,10 +573,7 @@ sap.ui.define(
       getInvoiceData: function(startdate, enddate, region, vendorcode){
         var promise = new Promise((resolve, reject) => {
 
-          var sBusyDialog = new BusyDialog({
-            text: "Data sync from SAP to the SPU Invoice Generation app is in progress...",
-            title: "Data sync in progress!"
-          }), url;
+          var sBusyDialog = new BusyDialog(), url;
             url = this.component.baseURL + "/GetInvoiceGeneration?startdate=" + startdate + "&enddate=" + enddate + "&region=" +region+ "&vendorcode=" + vendorcode;
 
           sBusyDialog.open();
@@ -624,7 +624,7 @@ sap.ui.define(
             data: JSON.stringify(sData),
             success: function (response) {
               sBusyDialog.close();
-              MessageToast.show("Invoice generated successfully");
+              MessageToast.show("Invoice generated successfully.");
               resolve(response);
             },
             failure: function (response) {
@@ -670,7 +670,7 @@ sap.ui.define(
             data: JSON.stringify(sData),
             success: function (response) {
               sBusyDialog.close();
-              MessageToast.show("PDF generated for all invoices.");
+              MessageToast.show("PDF generation is in progress in the background, please check the generated PDFs from the Invoice Management Page");
               resolve(response);
             },
             failure: function (response) {

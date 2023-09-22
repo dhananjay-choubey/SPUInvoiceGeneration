@@ -101,9 +101,9 @@
                                  state="{path:'UserModel>isactive',formatter: '.formatter.getUserStatusState'}" />
                             <Text text="{UserModel>email}" />
                             <Text text="{UserModel>phnum}" />
-                            <Text text="{UserModel>region_desc} ({UserModel>regioncode})" />
+                            <Text text="{parts: [{path: 'UserModel>region_desc'}, {path: 'UserModel>regioncode'}, {path: 'UserModel>usertype'}],formatter: '.formatter.getRegion'}" />
                             <Text
-                                text="{UserModel>branchcode}"
+                                text="{parts: [{path: 'UserModel>branchcode'}, {path: 'UserModel>usertype'}],formatter: '.formatter.getBranch'}"
                             />
                             <HBox>
                                 <core:Icon

@@ -87,6 +87,20 @@ sap.ui.define([], function () {
 				day = '0' + day;
 		
 			return [year, month, day].join('');
+		},
+		getBranch: function(sBranch, sUserType){
+			if(sUserType == "A" || sUserType == "C"){
+				return 'NA';
+			}else{
+				return sBranch;
+			}
+		},
+		getRegion: function(regionDesc, regionCode, userType){
+			if(userType == "A"){
+				return "NA";
+			}else{
+				return regionDesc + " (" + regionCode + ")";
+			}
 		}
 
 	};

@@ -26,6 +26,8 @@ sap.ui.define(
 
             var oModel = new JSONModel(sDisable);
             this.getView().setModel(oModel, "buttonDisability");
+
+            this.byId("idStartDate").setValue("");
           },
           onSyncPress: async function(oEvent){
             if(this.byId("idStartDate").getDateValue() == null){

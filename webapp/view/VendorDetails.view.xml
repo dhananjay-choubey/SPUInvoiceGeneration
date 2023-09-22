@@ -50,7 +50,7 @@
                         <Text text="{VendorDetailModel>/address}" />
                         <Label text="Branch" />
                         <Text
-                            text="{VendorDetailModel>/branchdesc} ({VendorDetailModel>/branchcode})"
+                            text="{VendorDetailModel>/branchname} ({VendorDetailModel>/branchcode})"
                         />
                         <Label text="GSTN" />
                         <Text text="{VendorDetailModel>/gstinnum}" />
@@ -67,9 +67,9 @@
                         <Label text="Effective Date" />
                         <Text text="{VendorDetailModel>/effectivedate}" />
                         <Label text="State" />
-                        <Text text="{VendorDetailModel>/state}" />
-                        <Label text="Region Code" />
-                        <Text text="{VendorDetailModel>/regioncode}" />
+                        <Text text="{VendorDetailModel>/statedesc} ({VendorDetailModel>/state})" />
+                        <Label text="Region" />
+                        <Text text="{VendorDetailModel>/regiondesc} ({VendorDetailModel>/regioncode})" />
                         <Label text="City" />
                         <Text text="{VendorDetailModel>/city}" />
                     </f:content>
