@@ -9,3 +9,48 @@
 .mdSyncSelectDialog .sapMSFF {
     display: none;
 }
+
+.backgroundImage{
+    animation-name: example;
+    animation-duration: 24s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes example{
+    0%{
+      background-image: url(../images/living_solutions.jpg);
+      background-size: 100% 100%;
+      background-color: grey;
+      opacity: 0.6;
+    }
+    20%{
+      background-image: url(../images/laundry_solutions.jpg);
+      background-size: 100% 100%;
+      background-color: grey;
+      opacity: 0.6;
+    }
+    40%{
+      background-image: url(../images/kitchen_solutions.jpg);
+      background-size: 100% 100%;
+      background-color: grey;
+      opacity: 0.6;
+    }
+    60%{
+      background-image: url(../images/living_solutions.jpg);
+      background-size: 100% 100%;
+      background-color: grey;
+      opacity: 0.6;
+    }
+    80%{
+      background-image: url(../images/laundry_solutions.jpg);
+      background-size: 100% 100%;
+      background-color: grey;
+      opacity: 0.6;
+    }
+    100%{
+        background-image: url(../images/kitchen_solutions.jpg);
+        background-size: 100% 100%;
+        background-color: grey;
+        opacity: 0.6;
+      }
+ }

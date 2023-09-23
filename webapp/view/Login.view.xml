@@ -10,7 +10,7 @@
         showHeader="false"
         id="page"
         backgroundDesign="Transparent"
-        class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer"
+        class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer backgroundImage"
     >
         <content>
             <FlexBox
