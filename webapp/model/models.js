@@ -5,9 +5,10 @@ sap.ui.define(
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "com/ifb/invoicegenerator/model/formatter",
-    "sap/m/BusyDialog"
+    "sap/m/BusyDialog",
+    "sap/m/PDFViewer"
   ],
-  function (JSONModel, Device, MessageBox, MessageToast, formatter, BusyDialog) {
+  function (JSONModel, Device, MessageBox, MessageToast, formatter, BusyDialog, PDFViewer) {
     "use strict";
 
     return {
@@ -574,7 +575,12 @@ sap.ui.define(
         var promise = new Promise((resolve, reject) => {
 
           var sBusyDialog = new BusyDialog(), url;
+          if(vendorcode){
             url = this.component.baseURL + "/GetInvoiceGeneration?startdate=" + startdate + "&enddate=" + enddate + "&region=" +region+ "&vendorcode=" + vendorcode;
+          }else{
+            url = this.component.baseURL + "/GetInvoiceGeneration?startdate=" + startdate + "&enddate=" + enddate + "&region=" +region;
+          }
+            
 
           sBusyDialog.open();
 
@@ -692,6 +698,72 @@ sap.ui.define(
           })
         });
         return promise;          
+      },
+      getPDF: function(sPath, sDocumentNumber, sOption){
+        var promise = new Promise((resolve, reject) => {
+          var url = this.component.baseURL + "getpdf";
+          var sData = JSON.stringify({
+            "InvoicePdfLocation": sPath
+          });
+
+          var xhr = new XMLHttpRequest(); 
+          xhr.open("POST", url);
+          xhr.setRequestHeader("Content-Type", "application/json");
+  
+          //Here we are modifying responseType dynamically on readystatechanged event
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 2) {
+              if (xhr.status == 200) {
+                xhr.responseType = "arraybuffer";
+              } else {
+                xhr.responseType = "text";
+              }
+            }
+          };
+  
+          xhr.onload = function () {
+            if (this.status === 200) {
+              var sFileNameheader;
+              sFileNameheader = sDocumentNumber;
+              //get file extension
+              var mimetype;
+              mimetype = "application/pdf";
+              var blob = new Blob([xhr.response], {
+                type: mimetype
+              });
+              if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                window.navigator.msSaveBlob(blob, sFileNameheader);
+                resolve(true);
+              } else {
+                var objectUrl = URL.createObjectURL(blob);
+                if(sOption == "download"){
+                  var a = document.createElement('a');
+                  a.download = sFileNameheader;
+                  a.href = objectUrl;
+                  a.click();
+                  window.URL.revokeObjectURL(objectUrl);
+                }else{
+                  jQuery.sap.addUrlWhitelist("blob");
+                  var oPDFViewer = new PDFViewer({
+                    source: objectUrl,
+                    title: "Invoice for Document - " + sDocumentNumber,
+                    showDownloadButton: false
+                  });
+                  oPDFViewer.open();
+                }
+                
+                resolve(true);
+              }
+            } else if (this.status === 500) {
+              MessageBox.error(JSON.parse(this.responseText).message);
+            } else {
+              MessageToast.show(JSON.parse(this.responseText).error.message);
+            }
+          };
+          xhr.send(sData);
+
+        });
+        return promise;  
       }
     };
   }

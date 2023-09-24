@@ -42,12 +42,7 @@ sap.ui.define(
             if(sStatusCode && sStatusCode.messageCode == "00"){
               const response = await models.syncSAPtoDBInvoice(date, userDetails);
               if(response){
-                var sDisable = {};
-                sDisable.syncRecords = false;
-                sDisable.invoiceGenerate = true;
-                sDisable.pdfGenerate = false;
-                var oModel = new JSONModel(sDisable);
-                this.getView().setModel(oModel, "buttonDisability");
+                this.checkButtonDisability(this.byId("idStartDate"));
               }
             }else {
               MessageToast.show(sStatusCode.messageString)
@@ -67,12 +62,7 @@ sap.ui.define(
             if(sStatusCode && sStatusCode.messageCode == "02"){
               const response = await models.generateInvoices(date.firstDay, date.lastDay, userDetails.regioncode);
               if(response){
-                var sDisable = {};
-                sDisable.syncRecords = false;
-                sDisable.invoiceGenerate = false;
-                sDisable.pdfGenerate = true;
-                var oModel = new JSONModel(sDisable);
-                this.getView().setModel(oModel, "buttonDisability");
+                this.checkButtonDisability(this.byId("idStartDate"));
               }
             }else {
               MessageToast.show(sStatusCode.messageString)
@@ -111,20 +101,18 @@ sap.ui.define(
             if(sStatusCode && sStatusCode.messageCode == "04"){
               const response = await models.generatePDF(date.firstDay, date.lastDay, userDetails.regioncode);
               if(response){
-                var sDisable = {};
-                sDisable.syncRecords = false;
-                sDisable.invoiceGenerate = false;
-                sDisable.pdfGenerate = false;
-                var oModel = new JSONModel(sDisable);
-                this.getView().setModel(oModel, "buttonDisability");
+                this.checkButtonDisability(this.byId("idStartDate"));
               }
             }else {
               MessageToast.show(sStatusCode.messageString)
             }            
           },
-          onDatePickerChange: async function(oEvent){
+          onDatePickerChange: function(oEvent){
+            this.checkButtonDisability(oEvent.getSource());
+          },
+          checkButtonDisability: async function(sDateControl){
             var sDisable = {};
-            if(oEvent.getSource().getDateValue() == null){
+            if(sDateControl.getDateValue() == null){
               
               sDisable.syncRecords = false;
               sDisable.invoiceGenerate = false;
@@ -135,7 +123,7 @@ sap.ui.define(
               return;
             }
             const userDetails = this.getOwnerComponent().getModel("LoginDataModel").getData();
-            const sStatusCode = await models.getStatusBeforeSync(this.byId("idStartDate").getValue(), userDetails);
+            const sStatusCode = await models.getStatusBeforeSync(sDateControl.getValue(), userDetails);
             if(sStatusCode && (sStatusCode.messageCode == "00" || sStatusCode.messageCode == "01")){
               sDisable.syncRecords = true;
               sDisable.invoiceGenerate = false;

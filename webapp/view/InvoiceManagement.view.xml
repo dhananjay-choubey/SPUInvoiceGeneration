@@ -66,11 +66,11 @@
 							    <MenuButton text="Action">
 									<menu>
 										<Menu>
-											<MenuItem
+											<!-- <MenuItem
 												text="Download"
 												icon="sap-icon://download"
 												press="onBulkDownloadPress"
-											/>
+											/> -->
 											<MenuItem
 												text="Bulk Print"
 												icon="sap-icon://print"
@@ -214,8 +214,8 @@
 							<Text text="{RoundOff}" textAlign="End"/>
 							<Text text="{GrandTotal}"  textAlign="End"/>
 							<HBox>
-								<Button tooltip="View" icon="sap-icon://display" press="onViewPress" class="sapUiTinyMarginEnd"/>
-								<Button tooltip="Print" icon="sap-icon://print" press="onPrintPress"/>
+								<Button tooltip="View" type="{=${InvoicePdfStatus} === 'X' ? 'Accept' : 'Reject'}" enabled="{=${InvoicePdfStatus} === 'X' ? true : false}" icon="sap-icon://display" press="onPrintPreviewPress" class="sapUiTinyMarginEnd"/>
+								<Button tooltip="Print" type="{=${InvoicePdfStatus} === 'X' ? 'Accept' : 'Reject'}" enabled="{=${InvoicePdfStatus} === 'X' ? true : false}" icon="sap-icon://print" press="onPrintPress"/>
 							</HBox>
 							
 						</ColumnListItem>

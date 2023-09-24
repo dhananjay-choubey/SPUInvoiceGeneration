@@ -6,9 +6,11 @@ sap.ui.define(
     "sap/ui/model/Sorter",
     "sap/ui/model/FilterOperator",
     "com/ifb/invoicegenerator/model/models",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox",
+    "sap/m/MessageToast",
   ],
-  function (Controller, formatter, Filter, Sorter, FilterOperator, models, JSONModel) {
+  function (Controller, formatter, Filter, Sorter, FilterOperator, models, JSONModel, MessageBox, MessageToast) {
     "use strict";
 
     return Controller.extend(
@@ -181,6 +183,28 @@ sap.ui.define(
 
 			return aFilter;
 
+        },
+        onPrintPreviewPress: async function(oEvent){
+          var sPath = oEvent.getSource().getBindingContext().getPath();
+          var selectedItem = oEvent.getSource().getBindingContext().getModel().getProperty(sPath);
+          var sFilePath = selectedItem.InvoicePdfLocation;
+          var sDocumentNum = selectedItem.DocumentNumber;;
+          if(sFilePath){
+            var sResponse = await models.getPDF(sFilePath, sDocumentNum, "preview");
+          }else{
+            MessageBox.error("PDF File doesn't exist");
+          }
+        },
+        onPrintPress: async function(oEvent){
+          var sPath = oEvent.getSource().getBindingContext().getPath();
+          var selectedItem = oEvent.getSource().getBindingContext().getModel().getProperty(sPath);
+          var sFilePath = selectedItem.InvoicePdfLocation;
+          var sDocumentNum = selectedItem.DocumentNumber;;
+          if(sFilePath){
+            var sResponse = await models.getPDF(sFilePath, sDocumentNum, "download");
+          }else{
+            MessageBox.error("PDF File doesn't exist");
+          }          
         }
       }
     );

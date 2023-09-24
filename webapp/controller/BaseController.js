@@ -9,7 +9,9 @@ sap.ui.define([
 	return Controller.extend("com.ifb.invoicegenerator.controller.BaseController", {
 		formatter: formatter,
         onLogoffPress: function(oEvent){
-            this.getOwnerComponent().getRouter().navTo("login");
+          localStorage.removeItem("email");
+          localStorage.removeItem("password");
+          this.getOwnerComponent().getRouter().navTo("login");
         },
         _getCustomers: async function(){
           var sBranchCode;
