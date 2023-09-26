@@ -28,6 +28,11 @@ sap.ui.define(
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
             this.getOwnerComponent().getRouter().navTo("login");
           }
+          var sToday = new Date();
+          var firstDay = new Date(sToday.getFullYear(), sToday.getMonth(), 1);
+          var lastDay = new Date(sToday.getFullYear(), sToday.getMonth() + 1, 0);
+          this.byId("invoiceDateRange").setDateValue(firstDay);
+          this.byId("invoiceDateRange").setSecondDateValue(lastDay);
           this.getVendorList();
           this.setTableData();
 
@@ -76,15 +81,19 @@ sap.ui.define(
             sVendorCode = "";
           }
           var response = await models.getInvoiceData(firstDay, lastDay, userDetails.regioncode, sVendorCode);
-          var oDataModel = new JSONModel(response);
-          var invoiceTable;
-          invoiceTable = this.byId("invoiceTable");
-          invoiceTable.setModel(oDataModel);
-          invoiceTable.setTableBindingPath("/");
-          invoiceTable.setRequestAtLeastFields(
-            "InvoiceNumber,InvoiceDate,SPUNumber,CRMTicketNumber,DocumentNumber,DocumentDate,VendorName,VendorCode,CustomerName,CustomerCode,ShipToPartyNumber,ShipToPartyName,SubTotal,SGST,CGST,IGST,RoundOff,GrandTotal");
-          
-          invoiceTable.rebindTable();
+          if(response){
+            var oDataModel = new JSONModel(response);
+            var invoiceTable;
+            invoiceTable = this.byId("invoiceTable");
+            invoiceTable.setModel(oDataModel);
+            invoiceTable.setTableBindingPath("/");
+            invoiceTable.setRequestAtLeastFields(
+              "InvoiceNumber,InvoiceDate,SPUNumber,CRMTicketNumber,DocumentNumber,DocumentDate,VendorName,VendorCode,CustomerName,CustomerCode,ShipToPartyNumber,ShipToPartyName,SubTotal,SGST,CGST,IGST,RoundOff,GrandTotal");
+            
+            invoiceTable.rebindTable();
+          }else{
+            MessageBox.error(response.messageString);
+          }
         },
         onBeforeRebindTable: function (oEvt) {
           //this.setTableData();
@@ -205,6 +214,22 @@ sap.ui.define(
           }else{
             MessageBox.error("PDF File doesn't exist");
           }          
+        },
+        onBulkPrintPress: async function(oEvent){
+          var sSelectedContexts = this.byId("invoiceTable").getTable().getSelectedContexts();
+          var sFilePaths = [];
+          if(sSelectedContexts.length > 0){
+            for(var i=0; i<sSelectedContexts.length; i++){
+              if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation){
+                sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation);
+              }
+            }
+            var sResponse = await models.getBulkPDF(sFilePaths);
+          }else{
+            MessageBox.error("Please select a row for bulk printing");
+          }
+          debugger;
+          this.byId("invoiceTable").getTable().getSelectedContexts()[0].getModel().getProperty(this.byId("invoiceTable").getTable().getSelectedContexts()[0].getPath())
         }
       }
     );

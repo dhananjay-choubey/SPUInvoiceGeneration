@@ -41,7 +41,7 @@
                         >
                             <RadioButton
                                 id="RB3-1"
-                                text="Customer"
+                                text="Region Head"
                             />
                             <RadioButton
                                 id="RB3-2"

@@ -177,7 +177,7 @@ sap.ui.define(
         });
         return promise;
       },
-      getCustomerList: function (sBranchCode){
+      getCustomerList: function (sBranchCode, sRegionCode){
         var promise = new Promise((resolve, reject) => {
 
           var url;
@@ -185,6 +185,8 @@ sap.ui.define(
 
           if(sBranchCode){
             url = this.component.baseURL + "customermaster?branchcode="+ sBranchCode;
+          }else if(sRegionCode){
+            url = this.component.baseURL + "customermaster?regioncode="+ sRegionCode;
           }else{
             url = this.component.baseURL + "customermaster";
           }
@@ -706,6 +708,8 @@ sap.ui.define(
             "InvoicePdfLocation": sPath
           });
 
+          var sBusyDialog = new BusyDialog()
+
           var xhr = new XMLHttpRequest(); 
           xhr.open("POST", url);
           xhr.setRequestHeader("Content-Type", "application/json");
@@ -720,8 +724,9 @@ sap.ui.define(
               }
             }
           };
-  
+          sBusyDialog.open();
           xhr.onload = function () {
+            sBusyDialog.close();
             if (this.status === 200) {
               var sFileNameheader;
               sFileNameheader = sDocumentNumber;
@@ -764,6 +769,64 @@ sap.ui.define(
 
         });
         return promise;  
+      },
+      getBulkPDF: function(sPaths){
+        var promise = new Promise((resolve, reject) => {
+          var url = this.component.baseURL + "getbulkpdf";
+          var sData = JSON.stringify({
+            "FileLocations": sPaths
+          });
+          var sBusyDialog = new BusyDialog();
+
+          var xhr = new XMLHttpRequest(); 
+          xhr.open("POST", url);
+          xhr.setRequestHeader("Content-Type", "application/json");
+  
+          //Here we are modifying responseType dynamically on readystatechanged event
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 2) {
+              if (xhr.status == 200) {
+                xhr.responseType = "arraybuffer";
+              } else {
+                xhr.responseType = "text";
+              }
+            }
+          };
+          sBusyDialog.open();
+          xhr.onload = function () {
+            sBusyDialog.close();
+            if (this.status === 200) {
+              var sFileNameheader;
+              sFileNameheader = "MultipleInvoicesDownloadFile";
+              //get file extension
+              var mimetype;
+              mimetype = "application/pdf";
+              var blob = new Blob([xhr.response], {
+                type: mimetype
+              });
+              if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                window.navigator.msSaveBlob(blob, sFileNameheader);
+                resolve(true);
+              } else {
+                var objectUrl = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.download = sFileNameheader;
+                a.href = objectUrl;
+                a.click();
+                window.URL.revokeObjectURL(objectUrl);
+                
+                resolve(true);
+              }
+            } else if (this.status === 500) {
+              MessageBox.error(JSON.parse(this.responseText).message);
+            } else {
+              MessageToast.show(JSON.parse(this.responseText).error.message);
+            }
+          };
+          xhr.send(sData);
+
+        });
+        return promise;         
       }
     };
   }

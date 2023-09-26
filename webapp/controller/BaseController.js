@@ -14,13 +14,17 @@ sap.ui.define([
           this.getOwnerComponent().getRouter().navTo("login");
         },
         _getCustomers: async function(){
-          var sBranchCode;
+          var sBranchCode, sRegionCode;
           var oModel;
           var sLoginModel = this.getOwnerComponent().getModel("LoginDataModel");
           if(sLoginModel.getProperty("/usertype") == "V"){
-            sBranchCode = sLoginModel.getProperty("/branchcode")
+            sBranchCode = sLoginModel.getProperty("/branchcode");
+          }else if(sLoginModel.getProperty("/usertype") == "C"){
+            sRegionCode = sLoginModel.getProperty("/regioncode");
           }
-          var sData = await models.getCustomerList(sBranchCode);
+
+          var sData = await models.getCustomerList(sBranchCode, sRegionCode);
+          
           oModel = new JSONModel(sData);
           this.getOwnerComponent().setModel(oModel, "CustomerModel");
           var oModel1 = new JSONModel({});

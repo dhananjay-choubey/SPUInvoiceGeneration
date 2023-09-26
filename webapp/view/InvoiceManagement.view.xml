@@ -83,7 +83,7 @@
 						</content>
 					</OverflowToolbar>
 				</smartTable:customToolbar>
-				<Table mode="MultiSelect" sticky="HeaderToolbar,ColumnHeaders" growing="true" width="100%" updateFinished="onTableUpdateFinished">
+				<Table mode="MultiSelect" sticky="HeaderToolbar,ColumnHeaders" growing="true" growingThreshold="100" width="100%" updateFinished="onTableUpdateFinished">
 					<columns>
 						<Column>
 							<customData>
@@ -95,7 +95,7 @@
 						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "InvoiceDate", "type": "string", "leadingProperty": "invoiceDate","columnKey": "invoiceDate"}'/>
+									value='\{"sortProperty": "InvoiceDate", "type": "string", "leadingProperty": "InvoiceDate","columnKey": "InvoiceDate"}'/>
 							</customData>
 							<Text text="Invoice Date"/>
 						</Column>
