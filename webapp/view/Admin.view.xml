@@ -84,14 +84,14 @@
             </GenericTile>
 
             <GenericTile
-                visible="{= (${LoginDataModel>/usertype} === 'V') ? true : false }"
+                visible="{= (${LoginDataModel>/usertype} === 'C') ? true : false }"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                header="Digital Signatures"
-                subheader="of Invoices"
-                press="onDigitalSignaturePress"
+                header="Sync Failed for Invoices"
+                subheader="to SAP"
+                press="onFailedInvoicesToSAP"
             >
                 <TileContent>
-                    <ImageContent src="sap-icon://signature" />
+                    <ImageContent src="sap-icon://error" />
                 </TileContent>
             </GenericTile>
             <GenericTile

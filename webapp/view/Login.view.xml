@@ -12,6 +12,8 @@
         backgroundDesign="Transparent"
         class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer backgroundImage"
     >
+
+    <!-- <Button text="Test Button" press="onDigitalSignPress"/> -->
         <content>
             <FlexBox
                 alignItems="Center"

@@ -1,0 +1,113 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt"
+	xmlns:f="sap.f" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.ifb.invoicegenerator.controller.InvoiceManagement" displayBlock="true"
+	height="{='calc(100% - 3rem)' }">
+	<tnt:ToolHeader visible="true">
+		<Button  icon="sap-icon://nav-back" press=".onNavBack" class="sapUismallMarginEnd" />
+		<Title text="Failed Invoices Sync to SAP" class="sapUiSmallMarginBegin" />
+		<ToolbarSpacer/>
+		<core:Fragment
+                fragmentName='com.ifb.invoicegenerator.fragments.Menu'
+                type='XML'
+        />
+	</tnt:ToolHeader>
+	<f:DynamicPage id="dynamicPageId" headerExpanded="true" showFooter="true"
+	class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer" >
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<fb:FilterBar id="filterbarsync" clear="onClear" reset="onReset" search="onSearch" useToolbar="false" showRestoreButton="true" showFilterConfiguration="false"
+						showClearButton="true" showClearOnFB="true" filterBarExpanded="true">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem name="invoiceDateRangeLabel" label="Invoice Date" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<DateRangeSelection id="invoiceDateRangesync" change="handleChange"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="invoiceFreeSearchLabel" label="Invoice Number" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="invoiceFreeSearchsync" placeholder="Invoice Number" submit="onSearch"></Input>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="invoiceFreeSearchFiscalLabel" label="Fiscal Year" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="invoiceFreeFiscalSearchsync" placeholder="Ticket Number" submit="onSearch"></Input>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="invoiceFreeSearchRefLabel" label="Reference Number" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="invoiceFreeRefSearchsync" placeholder="Reference Number" submit="onSearch"></Input>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<smartTable:SmartTable id="invoiceTablesync" entitySet="FailedInvoices" enableAutoBinding="false" beforeRebindTable="onBeforeRebindTable"
+				tableType="ResponsiveTable" showRowCount="true" header="Failed Invoices Sync To SAP" showFullScreenButton="true" showTablePersonalisation="false"
+				initiallyVisibleFields="InvoiceNumber,InvoiceDate,DocumentNumber,DocumentDate,FiscalYear"
+				class="sapUiResponsiveContentPadding sapUiLargeMarginBottom" placeToolbarInTable="true">
+				<smartTable:customData>
+					<core:CustomData key="p13nDialogSettings"
+						value='\{ "filter": \{ "visible": true},"sort": \{ "visible": true}, "group": \{ "visible": false} }'/>
+				</smartTable:customData>
+				<smartTable:customToolbar>
+					<OverflowToolbar design="Transparent">
+						<content>
+							<ToolbarSpacer/>
+						</content>
+					</OverflowToolbar>
+				</smartTable:customToolbar>
+				<Table mode="None" sticky="HeaderToolbar,ColumnHeaders" growing="true" growingThreshold="100" width="100%" updateFinished="onTableUpdateFinished">
+					<columns>
+						<Column>
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "InvoiceNumber", "type": "string","columnKey": "InvoiceNumber", "leadingProperty": "InvoiceNumber"}'/>
+							</customData>
+							<Text text="Invoice Number"/>
+						</Column>
+						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "InvoiceDate", "type": "string", "leadingProperty": "InvoiceDate","columnKey": "InvoiceDate"}'/>
+							</customData>
+							<Text text="Invoice Date"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "DocumentNumber", "type": "string","columnKey": "DocumentNumber", "leadingProperty": "DocumentNumber"}'/>
+							</customData>
+							<Text text="Ref Number"/>
+						</Column>
+						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "DocumentDate", "type": "date","columnKey": "DocumentDate", "leadingProperty": "DocumentDate"}'/>
+							</customData>
+							<Text text="Ref Date"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "FiscalYear", "type": "string","columnKey": "FiscalYear", "leadingProperty": "FiscalYear"}'/>
+							</customData>
+							<Text text="Fiscal Year"/>
+						</Column>
+                    </columns>
+					<items>
+						<ColumnListItem type="Inactive">
+							<ObjectIdentifier title="{InvoiceNumber}"/>
+							<ObjectIdentifier title="{InvoiceDate}"/>
+							<Text text="{DocumentNumber}"/>
+							<Text text="{DocumentDate}"/>
+							<Text text="{FiscalYear}"/>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</smartTable:SmartTable>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

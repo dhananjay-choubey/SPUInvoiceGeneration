@@ -83,6 +83,12 @@ sap.ui.define(
       },
       onForgotPasswordClicked: function(oEvent){
         window.location.href = "mailto:user@example.com?subject=Request for password reset&body=";
+      },
+      onDigitalSignPress: async function(oEvent){
+        const response = await models.callDIgitalSignApi();
+        if(response){
+          await models.callEMSignerGateway(response);
+        }
       }
     });
   }

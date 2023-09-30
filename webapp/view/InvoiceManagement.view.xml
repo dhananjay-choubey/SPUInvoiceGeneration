@@ -63,14 +63,17 @@
 					<OverflowToolbar design="Transparent">
 						<content>
 							<ToolbarSpacer/>
-							    <MenuButton text="Action">
+							<Button text="Bulk Print" icon="sap-icon://print" press="onBulkPrintPress" />
+							<Button text="Digital Signature" icon="sap-icon://signature" press="onDigitalSignature" 
+								type="Accept" visible="{= (${LoginDataModel>/usertype} === 'V') ? true : false }"/>
+							    <!-- <MenuButton text="Action">
 									<menu>
 										<Menu>
-											<!-- <MenuItem
+											 <MenuItem
 												text="Download"
 												icon="sap-icon://download"
 												press="onBulkDownloadPress"
-											/> -->
+											/>
 											<MenuItem
 												text="Bulk Print"
 												icon="sap-icon://print"
@@ -78,7 +81,7 @@
 											/>
 										</Menu>
 									</menu>
-								</MenuButton>
+								</MenuButton> -->
 							<OverflowToolbarButton icon="sap-icon://sort" tooltip="{i18n>sort}" text="{i18n>sort}" press="onSort"/>
 						</content>
 					</OverflowToolbar>

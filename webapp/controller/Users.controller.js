@@ -152,6 +152,7 @@ sap.ui.define(
 
         const response = await models.createUser(sFinalData);
         if(response.messageCode == "S"){
+          MessageToast.show(response.messageString);
           this._bindUserData();
           this.byId("createUserDialog").close();
         }else {

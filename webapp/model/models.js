@@ -41,7 +41,7 @@ sap.ui.define(
             data: JSON.stringify(sData),
             success: function (response) {
               sBusyDialog.close();
-              MessageToast.show(response.messageString);
+              //MessageToast.show(response.messageString);
               resolve(response);
             },
             failure: function (response) {
@@ -609,7 +609,7 @@ sap.ui.define(
         });
         return promise;       
       },
-      generateInvoices: function(startDate, endDate, regionCode){
+      generateInvoices: function(startDate, endDate, segment){
         var promise = new Promise((resolve, reject) => {
           var url = this.component.baseURL + "invoicegeneration";
           var sBusyDialog = new BusyDialog({
@@ -619,7 +619,7 @@ sap.ui.define(
           var sData = {
             "startDate": startDate,
             "endDate": endDate,
-            "regionCode": regionCode
+            "segment": segment
           }
 
           sBusyDialog.open();
@@ -655,7 +655,7 @@ sap.ui.define(
         });
         return promise;         
       },
-      generatePDF: function (startDate, endDate, regionCode){
+      generatePDF: function (startDate, endDate, segment){
         var promise = new Promise((resolve, reject) => {
           var url = this.component.baseURL + "pdfgeneration";
           var sBusyDialog = new BusyDialog({
@@ -665,7 +665,7 @@ sap.ui.define(
           var sData = {
             "startDate": startDate,
             "endDate": endDate,
-            "regionCode": regionCode
+            "segment": segment
           }
 
           sBusyDialog.open();
@@ -827,6 +827,103 @@ sap.ui.define(
 
         });
         return promise;         
+      },
+      callDIgitalSignApi: function (){
+ 
+        var promise = new Promise((resolve, reject) => {
+          var url = "http://172.17.3.111:44361/api/SendPayloadToEmSigner";
+
+          var sData = {
+            "FileLocations": [
+              "C:/Invoices/08201910/7000224111.PDF"
+            ],
+            "vendorcode": "12345",
+            "vendorname": "Sample Vendor",
+            "OrderId": [
+              "12345"
+            ]
+          }
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              MessageToast.show("PDF generation is in progress in the background, please check the generated PDFs from the Invoice Management Page");
+              resolve(response);
+            },
+            failure: function (response) {
+              MessageBox.error("Error occurred during invoice generation", {
+                title: "Error"
+              });
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              MessageBox.error("Error occurred during invoice generation", {
+                title: "Error"
+              });
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;              
+      },
+      callEMSignerGateway: function(sPayload){
+
+        var promise = new Promise((resolve, reject) => {
+          var url = "https://gateway.emsigner.com/eMsecure/V3_0/Index";
+          // var sData = JSON.stringify(
+          //   {
+          //     Parameter1: sPayload.encryptedSessionKey,
+          //     Parameter2: sPayload.encryptedJsonData,
+          //     Parameter3: sPayload.encryptedHash
+          //   }
+          // );
+
+          var sData = 
+            {
+              "Parameter1": sPayload.encryptedSessionKey,
+              "Parameter2": sPayload.encryptedJsonData,
+              "Parameter3": sPayload.encryptedHash
+            }
+
+
+          var sBusyDialog = new BusyDialog()
+
+          var xhr = new XMLHttpRequest(); 
+          xhr.open("POST", url);
+          xhr.setRequestHeader("Content-Type", "application/json");
+  
+          //Here we are modifying responseType dynamically on readystatechanged event
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 2) {
+             // if (xhr.status == 200) {
+             //   xhr.responseType = "arraybuffer";
+             // } else {
+                xhr.responseType = "text";
+            //  }
+            }
+          };
+          sBusyDialog.open();
+          xhr.onload = function () {
+            sBusyDialog.close();
+            if (this.status === 200) {
+              debugger;
+              resolve(true);
+            } else if (this.status === 500) {
+              MessageBox.error(JSON.parse(this.responseText).message);
+            } else {
+              MessageToast.show(JSON.parse(this.responseText).error.message);
+            }
+          };
+          xhr.send(sData);
+
+        });
+        return promise;          
       }
     };
   }

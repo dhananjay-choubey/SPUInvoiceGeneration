@@ -119,6 +119,11 @@
 					"target": ["invoices"]
 				},
 				{
+					"pattern": "failedinvoices",
+					"name": "failedinvoices",
+					"target": ["failedinvoices"]
+				},
+				{
 					"pattern": "material",
 					"name": "material",
 					"target": ["materialmaster", "materialdetail"]
@@ -157,6 +162,10 @@
 				"invoices": {
 					"viewName": "InvoiceManagement",
 					"viewId": "invoicemanagement"
+				},
+				"failedinvoices": {
+					"viewName": "FailedInvoices",
+					"viewId": "failedinvoices"
 				},
 				"customermaster": {
 					"viewName": "CustomerMaster",

@@ -64,6 +64,9 @@ sap.ui.define(
       },
       onSalesTransactionsPress: function(oEvent){
         this.getOwnerComponent().getRouter().navTo("invoices");
+      },
+      onFailedInvoicesToSAP: function(oEvent){
+        this.getOwnerComponent().getRouter().navTo("failedinvoices");
       }
     });
   }
