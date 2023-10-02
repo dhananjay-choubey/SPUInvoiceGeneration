@@ -81,8 +81,11 @@ sap.ui.define(
           oEvent.getSource().setValueStateText("");
         }
       },
-      onForgotPasswordClicked: function(oEvent){
-        window.location.href = "mailto:user@example.com?subject=Request for password reset&body=";
+      onForgotPasswordClicked: async function(oEvent){
+        var oResponse = await models.getAdminUserDetails();
+        if(oResponse && oResponse[0].email){
+          window.location.href = "mailto:"+oResponse[0].email+"?subject=Request for password reset&body=";
+        }
       },
       onDigitalSignPress: async function(oEvent){
         const response = await models.callDIgitalSignApi();

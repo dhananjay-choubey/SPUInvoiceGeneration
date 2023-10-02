@@ -529,6 +529,37 @@ sap.ui.define(
         });
         return promise;        
       },
+      getAdminUserDetails: function(){
+        var promise = new Promise((resolve, reject) => {
+
+          var sBusyDialog = new BusyDialog();
+          var url = this.component.baseURL + "GetAdminDetails";
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "GET",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (response) {
+              sBusyDialog.close();
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise; 
+      },
       syncMasterData: function(sOption){
         var promise = new Promise((resolve, reject) => {
 
