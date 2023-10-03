@@ -144,7 +144,7 @@ sap.ui.define(
           oEvent.getSource().getParent().getModel("createModel").setProperty("/isactive", "X");
           oEvent.getSource().getParent().getModel("createModel").setProperty("/regioncode", sVendor[0].regioncode);
           //This needs to be changed based on logiv of Vendor Desc provided by client
-          oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sVendor[0].state);
+          oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sVendor[0].regiondesc);
           oEvent.getSource().getParent().getModel("createModel").setProperty("/segment", "");
         }
    

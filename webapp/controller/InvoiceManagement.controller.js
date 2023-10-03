@@ -57,7 +57,7 @@ sap.ui.define(
           }else if(sLoginModel.getProperty("/usertype") == "C"){
             sBranchCode = sLoginModel.getProperty("/refid")
           }
-          var sData = await models.getVendorList(sBranchCode, sVendorCode);
+          var sData = await models.getVendorList(sBranchCode, sVendorCode, 'X');
           var oModel = new JSONModel(sData);
 			    this.getOwnerComponent().setModel(oModel, "VendorListModel");
         },
@@ -80,7 +80,7 @@ sap.ui.define(
           }else {
             sVendorCode = "";
           }
-          var response = await models.getInvoiceData(firstDay, lastDay, userDetails.regioncode, sVendorCode);
+          var response = await models.getInvoiceData(firstDay, lastDay, userDetails.segment, sVendorCode, userDetails.regioncode);
           if(response){
             var oDataModel = new JSONModel(response);
             var invoiceTable;

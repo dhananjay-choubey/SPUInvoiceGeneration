@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt"
-	xmlns:f="sap.f" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.ifb.invoicegenerator.controller.InvoiceManagement" displayBlock="true"
+	xmlns:f="sap.f" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.ifb.invoicegenerator.controller.FailedInvoices" displayBlock="true"
 	height="{='calc(100% - 3rem)' }">
 	<tnt:ToolHeader visible="true">
 		<Button  icon="sap-icon://nav-back" press=".onNavBack" class="sapUismallMarginEnd" />
@@ -30,7 +30,7 @@
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem name="invoiceFreeSearchFiscalLabel" label="Fiscal Year" groupName="__$INTERNAL$" visibleInFilterBar="true">
 								<fb:control>
-									<Input id="invoiceFreeFiscalSearchsync" placeholder="Ticket Number" submit="onSearch"></Input>
+									<Input id="invoiceFreeFiscalSearchsync" placeholder="Fiscal Year" submit="onSearch"></Input>
 								</fb:control>
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem name="invoiceFreeSearchRefLabel" label="Reference Number" groupName="__$INTERNAL$" visibleInFilterBar="true">
@@ -82,13 +82,6 @@
 							</customData>
 							<Text text="Ref Number"/>
 						</Column>
-						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
-							<customData>
-								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "DocumentDate", "type": "date","columnKey": "DocumentDate", "leadingProperty": "DocumentDate"}'/>
-							</customData>
-							<Text text="Ref Date"/>
-						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
@@ -102,7 +95,6 @@
 							<ObjectIdentifier title="{InvoiceNumber}"/>
 							<ObjectIdentifier title="{InvoiceDate}"/>
 							<Text text="{DocumentNumber}"/>
-							<Text text="{DocumentDate}"/>
 							<Text text="{FiscalYear}"/>
 						</ColumnListItem>
 					</items>

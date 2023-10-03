@@ -7,7 +7,7 @@
     <Page
         showHeader="true"
         backgroundDesign="Standard"  showNavButton="true" navButtonPress=".onNavBack"
-        class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer"
+        class="sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer"
     >
         <headerContent>
             <core:Fragment
@@ -20,6 +20,8 @@
                 id="idUsersTable"
                 inset="false"
                 items="{path : 'UserModel>/'}"
+                alternateRowColors="true"
+                sticky="ColumnHeaders,HeaderToolbar"
             >
                 <headerToolbar>
                     <OverflowToolbar>

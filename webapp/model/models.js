@@ -217,7 +217,7 @@ sap.ui.define(
         });
         return promise;        
       },
-      getVendorList: function (sBranchCode, sVendorCode){
+      getVendorList: function (sBranchCode, sVendorCode, addAll){
         var promise = new Promise((resolve, reject) => {
 
           var url;
@@ -243,6 +243,28 @@ sap.ui.define(
             dataType: "json",  
             success: function (response) {
               sBusyDialog.close();
+              if(addAll == "X"){
+                response.unshift({
+                  "vendorcode": "",
+                  "vendorname": "All",
+                  "address": "",
+                  "branchcode": "",
+                  "gstinnum": "",
+                  "pannum": "",
+                  "mobilenum": "",
+                  "emailid": "",
+                  "pincode": "",
+                  "gstinregtype": "",
+                  "effectivedate": "",
+                  "state": "",
+                  "regioncode": "",
+                  "city": "",
+                  "isactive": "X",
+                  "branchname": "",
+                  "regiondesc": "",
+                  "statedesc": ""
+              })
+              }
               resolve(response);
             },
             failure: function (response) {
@@ -330,7 +352,7 @@ sap.ui.define(
           var url = this.component.baseURL + "vendordeactivation";
           var sBusyDialog = new BusyDialog();
           var sData = {
-            "vednorcode": sVendor
+            "vendorcode": sVendor
           }
 
           sBusyDialog.open();
@@ -604,14 +626,14 @@ sap.ui.define(
         });
         return promise;
       },
-      getInvoiceData: function(startdate, enddate, region, vendorcode){
+      getInvoiceData: function(startdate, enddate, segment, vendorcode, region){
         var promise = new Promise((resolve, reject) => {
 
           var sBusyDialog = new BusyDialog(), url;
           if(vendorcode){
-            url = this.component.baseURL + "/GetInvoiceGeneration?startdate=" + startdate + "&enddate=" + enddate + "&region=" +region+ "&vendorcode=" + vendorcode;
+            url = this.component.baseURL + "/GetInvoiceGeneration?startdate=" + startdate + "&enddate=" + enddate + "&region=" +region + "&vendorcode=" + vendorcode;
           }else{
-            url = this.component.baseURL + "/GetInvoiceGeneration?startdate=" + startdate + "&enddate=" + enddate + "&region=" +region;
+            url = this.component.baseURL + "/GetInvoiceGeneration?startdate=" + startdate + "&enddate=" + enddate + "&segment=" +segment;
           }
             
 
@@ -663,8 +685,13 @@ sap.ui.define(
             data: JSON.stringify(sData),
             success: function (response) {
               sBusyDialog.close();
-              MessageToast.show("Invoice generated successfully.");
-              resolve(response);
+              if(response.messageCode == "E"){
+                MessageBox.error(response.messageString);
+                resolve(false);
+              }else{
+                MessageToast.show("Invoice generated successfully.");
+                resolve(response);
+              }     
             },
             failure: function (response) {
               sBusyDialog.close();
@@ -955,6 +982,42 @@ sap.ui.define(
 
         });
         return promise;          
+      },
+      getFailedInvoiceData: function(startDate, endDate, segment){
+        var promise = new Promise((resolve, reject) => {
+          var url = this.component.baseURL + "getinvoicegenerror";
+          var sBusyDialog = new BusyDialog();
+          var sData = {
+            "startDate": startDate,
+            "endDate": endDate,
+            "segment": segment
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise; 
       }
     };
   }

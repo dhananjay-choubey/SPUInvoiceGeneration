@@ -49,21 +49,22 @@ sap.ui.define(
               lastDay = formatter.formatDateyyyMMdd(new Date(sDate.getFullYear(), sDate.getMonth() + 1, 0));
             }
 
-            // var response = await models.getFailedInvoiceData(firstDay, lastDay);
-            //if(response){
-              //var oDataModel = new JSONModel(response);
-              var oDataModel = new JSONModel({});
+            const userDetails = this.getOwnerComponent().getModel("LoginDataModel").getData();
+
+            var response = await models.getFailedInvoiceData(firstDay, lastDay, userDetails.segment);
+            if(response){
+              var oDataModel = new JSONModel(response);
               var invoiceTable;
               invoiceTable = this.byId("invoiceTablesync");
               invoiceTable.setModel(oDataModel);
               invoiceTable.setTableBindingPath("/");
               invoiceTable.setRequestAtLeastFields(
-                "InvoiceNumber,InvoiceDate,DocumentNumber,DocumentDate,FiscalYear");
+                "InvoiceNumber,InvoiceDate,DocumentNumber,FiscalYear");
               
               invoiceTable.rebindTable();
-            // }else{
-            //   MessageBox.error(response.messageString);
-            // }
+             }else{
+               MessageBox.error(response.messageString);
+             }
           },
           onBeforeRebindTable: function (oEvt) {
             //this.setTableData();
