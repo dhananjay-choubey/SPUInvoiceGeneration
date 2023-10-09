@@ -1018,6 +1018,48 @@ sap.ui.define(
           })
         });
         return promise; 
+      },
+      syncFailedInvoices: function(sList){
+        var promise = new Promise((resolve, reject) => {
+          var url = this.component.baseURL + "syncfailedinvoices";
+          var sBusyDialog = new BusyDialog();
+          var sData = {
+            "invoices": sList
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              if(response && response.messageCode == "E"){
+                MessageBox.error(response.messageString);
+              }else{
+                MessageToast.show("Invoices Synced Successfully");
+              }
+              
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during invoice syncing");
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during invoice syncing");
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;         
       }
     };
   }

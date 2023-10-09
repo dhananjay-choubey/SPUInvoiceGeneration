@@ -72,11 +72,6 @@ sap.ui.define(
               width: '18'
             },
             {
-              label: 'Tax Tariff Code',
-              property: 'taxtariffcode',
-              width: '10'
-            },
-            {
               label: 'Tax Type',
               property: 'taxtype',
               width: '18'

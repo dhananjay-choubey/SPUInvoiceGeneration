@@ -56,8 +56,8 @@
                         <Text
                             text="{MaterialDetailModel>/categoryhierarchyid}"
                         />
-                        <Label text="Tax Tariff Code" />
-                        <Text text="{MaterialDetailModel>/taxtariffcode}" />
+                        <!-- <Label text="Tax Tariff Code" />
+                        <Text text="{MaterialDetailModel>/taxtariffcode}" /> -->
                         <Label text="Tax Type" />
                         <Text text="{MaterialDetailModel>/taxtype}" />
                         <Label text="Units of Measure of Product" />

@@ -101,6 +101,11 @@ sap.ui.define(
               label: 'Region Description',
               property: 'regiondesc',
               width: '25'
+            },
+            {
+              label: 'Segment',
+              property: 'segment',
+              width: '25'
             }];
         },
         onCustomerExport: function(oEvent){

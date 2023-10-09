@@ -41,11 +41,9 @@ sap.ui.define(
             const sStatusCode = await models.getStatusBeforeSync(this.byId("idStartDate").getValue(), userDetails);
             if(sStatusCode && sStatusCode.messageCode == "00"){
               const response = await models.syncSAPtoDBInvoice(date, userDetails);
-              if(response){
-                this.checkButtonDisability(this.byId("idStartDate"));
-              }
+              this.checkButtonDisability(this.byId("idStartDate"));
             }else {
-              MessageToast.show(sStatusCode.messageString)
+              MessageToast.show(sStatusCode.messageString);
             }
 
           },
@@ -61,11 +59,9 @@ sap.ui.define(
             const sStatusCode = await models.getStatusBeforeSync(this.byId("idStartDate").getValue(), userDetails);
             if(sStatusCode && sStatusCode.messageCode == "02"){
               const response = await models.generateInvoices(date.firstDay, date.lastDay, userDetails.segment);
-              if(response){
-                this.checkButtonDisability(this.byId("idStartDate"));
-              }
+              this.checkButtonDisability(this.byId("idStartDate"));
             }else {
-              MessageToast.show(sStatusCode.messageString)
+              MessageToast.show(sStatusCode.messageString);
             }
 
           },
@@ -100,11 +96,9 @@ sap.ui.define(
             const sStatusCode = await models.getStatusBeforeSync(this.byId("idStartDate").getValue(), userDetails);
             if(sStatusCode && sStatusCode.messageCode == "04"){
               const response = await models.generatePDF(date.firstDay, date.lastDay, userDetails.segment);
-              if(response){
-                this.checkButtonDisability(this.byId("idStartDate"));
-              }
+              this.checkButtonDisability(this.byId("idStartDate"));
             }else {
-              MessageToast.show(sStatusCode.messageString)
+              MessageToast.show(sStatusCode.messageString);
             }            
           },
           onDatePickerChange: function(oEvent){

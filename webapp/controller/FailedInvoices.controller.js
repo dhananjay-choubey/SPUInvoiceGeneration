@@ -28,6 +28,7 @@ sap.ui.define(
             if(!this.getOwnerComponent().getModel("LoginDataModel")){
               this.getOwnerComponent().getRouter().navTo("login");
             }
+            this.clearFilters();
             var sToday = new Date();
             var firstDay = new Date(sToday.getFullYear(), sToday.getMonth(), 1);
             var lastDay = new Date(sToday.getFullYear(), sToday.getMonth() + 1, 0);
@@ -40,8 +41,8 @@ sap.ui.define(
           setTableData: async function(){
             var sDate = new Date(), firstDay, lastDay;
             if (this.getView().byId("invoiceDateRangesync").getDateValue()) {
-              var startDate = this.getView().byId("invoiceDateRangesync").getTo();
-              var endDate = this.getView().byId("invoiceDateRangesync").getFrom();
+              var startDate = this.getView().byId("invoiceDateRangesync").getFrom();
+              var endDate = this.getView().byId("invoiceDateRangesync").getTo();
               firstDay = formatter.formatDateyyyMMdd(new Date(startDate.getFullYear(), startDate.getMonth(), 1));
               lastDay = formatter.formatDateyyyMMdd(new Date(endDate.getFullYear(), endDate.getMonth() + 1, 0));
             }else{
@@ -131,8 +132,8 @@ sap.ui.define(
   
               //Invoice Date
               if (oView.byId("invoiceDateRangesync").getDateValue()) {
-                  aFilter.push(new Filter("InvoiceDate", "GE", oView.byId("invoiceDateRangesync").getTo()));
-                  aFilter.push(new Filter("InvoiceDate", "LE", oView.byId("invoiceDateRangesync").getFrom()));
+                  aFilter.push(new Filter("InvoiceDate", "GE", oView.byId("invoiceDateRangesync").getFrom()));
+                  aFilter.push(new Filter("InvoiceDate", "LE", oView.byId("invoiceDateRangesync").getTo()));
               }
   
               //Invoice Id
@@ -152,6 +153,25 @@ sap.ui.define(
   
               return aFilter;
   
+          },
+          onSyncToSAPPress: async function(oEvent){
+            var sSelectedContexts = this.byId("invoiceTablesync").getTable().getSelectedContexts();
+          var sInvoices = [];
+          if(sSelectedContexts.length > 0){
+            for(var i=0; i<sSelectedContexts.length; i++){
+              if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).DocumentNumber){
+                sInvoices.push({
+                  DocumentNumber: sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).DocumentNumber,
+                  InvoiceNumber: sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoiceNumber,
+                  FiscalYear: sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).FiscalYear
+                })
+              }
+            }
+            var sResponse = await models.syncFailedInvoices(sInvoices);
+          }else{
+            MessageBox.error("Please select a row to Sync");
+          }
+        
           }
         }
       );

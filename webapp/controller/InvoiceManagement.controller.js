@@ -28,6 +28,7 @@ sap.ui.define(
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
             this.getOwnerComponent().getRouter().navTo("login");
           }
+          this.clearFilters();
           var sToday = new Date();
           var firstDay = new Date(sToday.getFullYear(), sToday.getMonth(), 1);
           var lastDay = new Date(sToday.getFullYear(), sToday.getMonth() + 1, 0);
@@ -64,8 +65,8 @@ sap.ui.define(
         setTableData: async function(){
           var sDate = new Date(), firstDay, lastDay;
           if (this.getView().byId("invoiceDateRange").getDateValue()) {
-            var startDate = this.getView().byId("invoiceDateRange").getTo();
-            var endDate = this.getView().byId("invoiceDateRange").getFrom();
+            var startDate = this.getView().byId("invoiceDateRange").getFrom();
+            var endDate = this.getView().byId("invoiceDateRange").getTo();
             firstDay = formatter.formatDateyyyMMdd(new Date(startDate.getFullYear(), startDate.getMonth(), 1));
             lastDay = formatter.formatDateyyyMMdd(new Date(endDate.getFullYear(), endDate.getMonth() + 1, 0));
           }else{
@@ -166,8 +167,8 @@ sap.ui.define(
 
 			//Invoice Date
 			if (oView.byId("invoiceDateRange").getDateValue()) {
-				aFilter.push(new Filter("InvoiceDate", "GE", oView.byId("invoiceDateRange").getTo()));
-        aFilter.push(new Filter("InvoiceDate", "LE", oView.byId("invoiceDateRange").getFrom()));
+				aFilter.push(new Filter("InvoiceDate", "GE", oView.byId("invoiceDateRange").getFrom()));
+        aFilter.push(new Filter("InvoiceDate", "LE", oView.byId("invoiceDateRange").getTo()));
 			}
 
 			//Invoice Id
@@ -228,8 +229,6 @@ sap.ui.define(
           }else{
             MessageBox.error("Please select a row for bulk printing");
           }
-          debugger;
-          this.byId("invoiceTable").getTable().getSelectedContexts()[0].getModel().getProperty(this.byId("invoiceTable").getTable().getSelectedContexts()[0].getPath())
         }
       }
     );

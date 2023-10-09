@@ -106,6 +106,11 @@ sap.ui.define(
               width: '25'
             },
             {
+              label: 'GSTN Reg Type Desc',
+              property: 'gstinregtypedesc',
+              width: '25'
+            },
+            {
               label: 'Effective Date',
               property: 'effectivedate',
               width: '25'
