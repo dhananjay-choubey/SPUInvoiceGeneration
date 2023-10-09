@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog class="mdSyncSelectDialog"
+        multiSelect="true"
+        title="Select Invoices to Print"
+        confirm="_handleValueHelpInvoiceSelectClose"
+        cancel="_handleValueHelpInvoiceSelectClose"
+        
+    >
+        <StandardListItem title="Original" />
+        <StandardListItem title="Duplicate" />
+        <StandardListItem title="Triplicate" />
+    </SelectDialog>
+</core:FragmentDefinition>

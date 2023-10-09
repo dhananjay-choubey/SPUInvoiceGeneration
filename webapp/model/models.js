@@ -1021,11 +1021,8 @@ sap.ui.define(
       },
       syncFailedInvoices: function(sList){
         var promise = new Promise((resolve, reject) => {
-          var url = this.component.baseURL + "syncfailedinvoices";
+          var url = this.component.baseURL + "InvoiceUpdateSAP";
           var sBusyDialog = new BusyDialog();
-          var sData = {
-            "invoices": sList
-          }
 
           sBusyDialog.open();
 
@@ -1034,7 +1031,7 @@ sap.ui.define(
             url: url,  
             contentType: "application/json; charset=utf-8",  
             dataType: "json",  
-            data: JSON.stringify(sData),
+            data: JSON.stringify(sList),
             success: function (response) {
               sBusyDialog.close();
               if(response && response.messageCode == "E"){

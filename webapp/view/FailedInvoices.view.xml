@@ -60,7 +60,7 @@
 						</content>
 					</OverflowToolbar>
 				</smartTable:customToolbar>
-				<Table mode="None" sticky="HeaderToolbar,ColumnHeaders" growing="true" growingThreshold="100" width="100%" updateFinished="onTableUpdateFinished">
+				<Table mode="MultiSelect" sticky="HeaderToolbar,ColumnHeaders" growing="true" growingThreshold="100" width="100%" updateFinished="onTableUpdateFinished">
 					<columns>
 						<Column>
 							<customData>

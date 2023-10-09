@@ -161,9 +161,9 @@ sap.ui.define(
             for(var i=0; i<sSelectedContexts.length; i++){
               if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).DocumentNumber){
                 sInvoices.push({
-                  DocumentNumber: sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).DocumentNumber,
-                  InvoiceNumber: sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoiceNumber,
-                  FiscalYear: sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).FiscalYear
+                  document: sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).DocumentNumber,
+                  invoice: sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoiceNumber,
+                  fy: sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).FiscalYear
                 })
               }
             }

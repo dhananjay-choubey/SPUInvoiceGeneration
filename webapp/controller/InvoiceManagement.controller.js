@@ -9,8 +9,9 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
     "sap/m/MessageToast",
+    "sap/ui/core/Fragment"
   ],
-  function (Controller, formatter, Filter, Sorter, FilterOperator, models, JSONModel, MessageBox, MessageToast) {
+  function (Controller, formatter, Filter, Sorter, FilterOperator, models, JSONModel, MessageBox, MessageToast, Fragment) {
     "use strict";
 
     return Controller.extend(
@@ -217,19 +218,86 @@ sap.ui.define(
           }          
         },
         onBulkPrintPress: async function(oEvent){
+
           var sSelectedContexts = this.byId("invoiceTable").getTable().getSelectedContexts();
-          var sFilePaths = [];
           if(sSelectedContexts.length > 0){
-            for(var i=0; i<sSelectedContexts.length; i++){
-              if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation){
-                sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation);
-              }
-            }
-            var sResponse = await models.getBulkPDF(sFilePaths);
-          }else{
-            MessageBox.error("Please select a row for bulk printing");
+          var oView = this.getView();
+          // create value help dialog
+          if (!this._pInvoiceDownload) {
+            this._pInvoiceDownload = Fragment.load({
+              id: oView.getId(),
+              name: "com.ifb.invoicegenerator.fragments.SelectInvoices",
+              controller: this,
+            }).then(
+              function (oValueHelpDialogInvoiceDownload) {
+                oValueHelpDialogInvoiceDownload.addStyleClass(
+                  this.getOwnerComponent().getContentDensityClass()
+                );
+                oView.addDependent(oValueHelpDialogInvoiceDownload);
+                return oValueHelpDialogInvoiceDownload;
+              }.bind(this)
+            );
           }
+  
+          // open value help dialog
+          this._pInvoiceDownload.then(function (oValueHelpDialogInvoiceDownload) {
+            oValueHelpDialogInvoiceDownload.open();
+          });
+        }else{
+          MessageBox.error("Please select a row for bulk printing");
         }
+
+
+          // var sSelectedContexts = this.byId("invoiceTable").getTable().getSelectedContexts();
+          // var sFilePaths = [];
+          // if(sSelectedContexts.length > 0){
+          //   for(var i=0; i<sSelectedContexts.length; i++){
+          //     if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation){
+          //       sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation);
+          //     }
+          //   }
+          //   var sResponse = await models.getBulkPDF(sFilePaths);
+          // }else{
+          //   MessageBox.error("Please select a row for bulk printing");
+          // }
+        },
+        _handleValueHelpInvoiceSelectClose: async function (oEvent) {
+
+          var oSelectedItems = oEvent.getParameter("selectedItems");
+          if (oSelectedItems) {
+            var sSelectedContexts = this.byId("invoiceTable").getTable().getSelectedContexts();
+            var sFilePaths = [];
+            for(var j = 0; j<oSelectedItems.length; j++){
+                if(oSelectedItems[j].getTitle() == "Original"){
+                  for(var i=0; i<sSelectedContexts.length; i++){
+                    if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation){
+                      sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation);
+                    }
+                  }
+                }
+
+                if(oSelectedItems[j].getTitle() == "Duplicate"){
+                  for(var i=0; i<sSelectedContexts.length; i++){
+                    if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfDuplicateLocation){
+                      sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfDuplicateLocation);
+                    }
+                  }
+                }
+
+                if(oSelectedItems[j].getTitle() == "Triplicate"){
+                  for(var i=0; i<sSelectedContexts.length; i++){
+                    if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfTriplicateLocation){
+                      sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfTriplicateLocation);
+                    }
+                  }
+                }
+            }
+
+            await models.getBulkPDF(sFilePaths);
+          }else {
+            MessageToast.show("No new item was selected.");
+          }
+        },
       }
     );
   }
