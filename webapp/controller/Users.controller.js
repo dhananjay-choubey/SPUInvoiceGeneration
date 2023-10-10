@@ -36,9 +36,13 @@ sap.ui.define(
           .attachPatternMatched(this._handleRouteMatched, this);
         
       },
-      _handleRouteMatched: function(oEvent){
+      _handleRouteMatched: async function(oEvent){
         if(!this.getOwnerComponent().getModel("LoginDataModel")){
-          this.getOwnerComponent().getRouter().navTo("login");
+          if(localStorage.getItem("email") && localStorage.getItem("password")){
+            await this._login(localStorage.getItem("email"), localStorage.getItem("password"));
+          }else{
+            this.getOwnerComponent().getRouter().navTo("login");
+          }
         }
         this._bindUserData();
       },

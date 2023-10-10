@@ -67,7 +67,7 @@
                                     press="onForgotPasswordClicked"
                                 />
                             </HBox>
-                            <CheckBox text="Keep me logged in" id="keepMeLoggedInId"/>
+                            <!-- <CheckBox text="Keep me logged in" id="keepMeLoggedInId"/> -->
                             <Button
                                 text="Sign In"
                                 type="Emphasized"

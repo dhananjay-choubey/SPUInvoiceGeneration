@@ -70,6 +70,19 @@ sap.ui.define([
             
             
           }
-        }
+        },
+        _login: async function (sEmail, sPassword, dashboardFlag){
+          const loginData = await models.login(sEmail, sPassword);
+          if(loginData){
+            var loginDataModel = new JSONModel(loginData);
+            this.getOwnerComponent().setModel(loginDataModel, "LoginDataModel");
+            if(dashboardFlag == "X"){
+              this.getOwnerComponent().getRouter().navTo("admin");
+            }
+            
+          }else{
+            MessageToast.show("Please enter valid credentials");
+          }
+        },
 	});
 });

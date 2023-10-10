@@ -12,9 +12,9 @@ sap.ui.define(
         // Calling _handleRouteMatched before UI Rendering
         this.oRouter.getRoute("login").attachPatternMatched(this._handleRouteMatched, this);
       },
-      _handleRouteMatched: function(oEvent){
+      _handleRouteMatched: async function(oEvent){
         if(localStorage.getItem("email") && localStorage.getItem("password")){
-          this._login(localStorage.getItem("email"), localStorage.getItem("password"));
+          await this._login(localStorage.getItem("email"), localStorage.getItem("password"), "X");
         }
       },
       onLoginPressed: async function (oEvent) {
@@ -35,10 +35,10 @@ sap.ui.define(
           this.byId("loginPassword").getValue() &&
           mailRegex.test(this.byId("loginEmailId").getValue())
         ) {
-          if(this.byId("keepMeLoggedInId").getSelected()){
+          //if(this.byId("keepMeLoggedInId").getSelected()){
             localStorage.setItem("email" , this.byId("loginEmailId").getValue());
             localStorage.setItem("password" , this.byId("loginPassword").getValue());
-          }
+          //}
 
           this._login(this.byId("loginEmailId").getValue(), this.byId("loginPassword").getValue());
 
@@ -51,16 +51,6 @@ sap.ui.define(
 
         } else {
           MessageToast.show("Plese provide valid email and password");
-        }
-      },
-      _login: async function (sEmail, sPassword){
-        const loginData = await models.login(sEmail, sPassword);
-        if(loginData){
-          var loginDataModel = new JSONModel(loginData);
-          this.getOwnerComponent().setModel(loginDataModel, "LoginDataModel");
-          this.getOwnerComponent().getRouter().navTo("admin");
-        }else{
-          MessageToast.show("Please enter valid credentials");
         }
       },
       onLiveEmailChange: function (oEvent) {

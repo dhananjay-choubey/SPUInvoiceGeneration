@@ -63,7 +63,7 @@
                         <Label text="Pin Code" />
                         <Text text="{VendorDetailModel>/pincode}" />
                         <Label text="GSTN Registration Type" />
-                        <Text text="{VendorDetailModel>/gstinregtypedesc} ({VendorDetailModel>/gstinregtype})" />
+                        <Text text="{VendorDetailModel>/gstinregtype}" />
                         <Label text="Effective Date" />
                         <Text text="{VendorDetailModel>/effectivedate}" />
                         <Label text="State" />

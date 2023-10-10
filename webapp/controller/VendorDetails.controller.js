@@ -15,9 +15,13 @@ sap.ui.define(
           // Calling _handleRouteMatched before UI Rendering
           this.oRouter.getRoute("vendor").attachPatternMatched(this._handleRouteMatched, this);
         },
-        _handleRouteMatched: function(oEvent){
+        _handleRouteMatched: async function(oEvent){
           if(!this.getOwnerComponent().getModel("LoginDataModel")){
-            this.getOwnerComponent().getRouter().navTo("login");
+            if(localStorage.getItem("email") && localStorage.getItem("password")){
+              await this._login(localStorage.getItem("email"), localStorage.getItem("password"));
+            }else{
+              this.getOwnerComponent().getRouter().navTo("login");
+            }
           }
         },
         onDeactivateVendor: async function(oEvent){
