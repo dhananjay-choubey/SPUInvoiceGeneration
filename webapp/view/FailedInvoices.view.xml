@@ -94,7 +94,10 @@
 					<items>
 						<ColumnListItem type="Inactive">
 							<ObjectIdentifier title="{InvoiceNumber}"/>
-							<ObjectIdentifier title="{InvoiceDate}"/>
+							<ObjectIdentifier title="{path : 'InvoiceDate', type:'sap.ui.model.type.Date', 
+							formatOptions:{source : { pattern: 'yyyyMMdd'},
+							style: 'long'
+							}}"/>
 							<Text text="{DocumentNumber}"/>
 							<Text text="{FiscalYear}"/>
 						</ColumnListItem>

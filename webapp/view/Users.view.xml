@@ -1,130 +1,142 @@
-<mvc:View
-    controllerName="com.ifb.invoicegenerator.controller.Users"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:core="sap.ui.core"
-    xmlns="sap.m"
->
-    <Page
-        showHeader="true"
-        backgroundDesign="Standard"  showNavButton="true" navButtonPress=".onNavBack"
-        class="sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer"
-    >
-        <headerContent>
-            <core:Fragment
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt"
+	xmlns:f="sap.f" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.ifb.invoicegenerator.controller.Users" displayBlock="true"
+	height="{='calc(100% - 3rem)' }">
+	<tnt:ToolHeader visible="true">
+		<Button  icon="sap-icon://nav-back" press=".onNavBack" class="sapUismallMarginEnd" />
+		<Title text="Users" class="sapUiSmallMarginBegin" />
+		<ToolbarSpacer/>
+		<core:Fragment
                 fragmentName='com.ifb.invoicegenerator.fragments.Menu'
                 type='XML'
-            />
-        </headerContent>
-        <content>
-            <Table
-                id="idUsersTable"
-                inset="false"
-                items="{path : 'UserModel>/'}"
-                alternateRowColors="true"
-                sticky="ColumnHeaders,HeaderToolbar"
-            >
-                <headerToolbar>
-                    <OverflowToolbar>
-                        <content>
-                            <Title
-                                text="Users"
-                                level="H2"
-                            />
-                            <ToolbarSpacer />
-                            <Button
-                                text="Create User"
-                                type="Transparent"
-                                icon="sap-icon://create"
-                                press="handleCreatePress"
-                            />
-                        </content>
-                    </OverflowToolbar>
-                </headerToolbar>
-                <columns>
-                    <Column demandPopin="true">
-                        <Text text="Name" />
-                    </Column>
-                    <Column
-                        minScreenWidth="Tablet"
-                        demandPopin="true"
-                    >
-                        <Text text="User Type" />
-                    </Column>
-                    <Column
-                        minScreenWidth="Tablet"
-                        demandPopin="true"
-                    >
-                        <Text text="User Status" />
-                    </Column>
-                    <Column
-                        minScreenWidth="Desktop"
-                        demandPopin="true"
-                    >
-                        <Text text="Email ID" />
-                    </Column>
-                    <Column
-                        minScreenWidth="Desktop"
-                        demandPopin="true"
-                    >
-                        <Text text="Phone No." />
-                    </Column>
-                    <Column
-                        minScreenWidth="Tablet"
-                        demandPopin="true"
-                    >
-                        <Text text="Region" />
-                    </Column>
-                    <Column
-                        minScreenWidth="Tablet"
-                        demandPopin="true"
-                    >
-                        <Text text="Branch Code" />
-                    </Column>
-                    <Column
-                        minScreenWidth="Desktop"
-                        demandPopin="true"
-                        hAlign="Left"
-                    >
-                        <Text text="Change Password / Deactivate" />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <ObjectIdentifier
-                                title="{UserModel>firstname} {UserModel>lastname}"
-                                text="{UserModel>refid}"
-                            />
-                            <Text
-                                text="{path:'UserModel>usertype',formatter: '.formatter.getUserType'}"
-                            />
-                            <ObjectStatus class="sapUiSmallMarginBottom" text="{path:'UserModel>isactive',formatter: '.formatter.getUserStatus'}"
-			                    icon="{path:'UserModel>isactive',formatter: '.formatter.getUserStatusIcon'}"
-                                 state="{path:'UserModel>isactive',formatter: '.formatter.getUserStatusState'}" />
-                            <Text text="{UserModel>email}" />
-                            <Text text="{UserModel>phnum}" />
-                            <Text text="{parts: [{path: 'UserModel>region_desc'}, {path: 'UserModel>regioncode'}, {path: 'UserModel>usertype'}],formatter: '.formatter.getRegion'}" />
-                            <Text
-                                text="{parts: [{path: 'UserModel>branchcode'}, {path: 'UserModel>usertype'}],formatter: '.formatter.getBranch'}"
-                            />
+        />
+	</tnt:ToolHeader>
+	<f:DynamicPage id="dynamicPageIduser" headerExpanded="true" showFooter="true"
+	class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer" >
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<fb:FilterBar id="filterbaruser" clear="onClear" reset="onReset" search="onSearch" useToolbar="false" showRestoreButton="true" showFilterConfiguration="false"
+						showClearButton="true" showClearOnFB="true" filterBarExpanded="true">
+						<fb:filterGroupItems>
+                        	<fb:FilterGroupItem name="userTypeLabel" label="User Type" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Select id="userTypeSelectId" forceSelection="false" change="onSearch">
+										<core:Item key="A" text="Admin"/>
+                                        <core:Item key="C" text="Customer"/>
+                                        <core:Item key="V" text="Franchisee"/>
+									</Select>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<!-- <fb:FilterGroupItem name="nameLabel" label="Name" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="nameFreeSearch" placeholder="Name" submit="onSearch"></Input>
+								</fb:control>
+							</fb:FilterGroupItem> -->
+							<fb:FilterGroupItem name="referenceIdLabel" label="Reference ID" groupName="__$INTERNAL$" visibleInFilterBar="true">
+								<fb:control>
+									<Input id="refFreeSearch" placeholder="Reference Number" submit="onSearch"></Input>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<smartTable:SmartTable id="invoiceTableuser" entitySet="Users" enableAutoBinding="false" beforeRebindTable="onBeforeRebindTable"
+				tableType="ResponsiveTable" showRowCount="true" header="Users" showFullScreenButton="true" showTablePersonalisation="false"
+				initiallyVisibleFields="userid,firstname,lastname,refid,usertype,email,phnum,region_desc,regioncode,branchcode,isactive"
+				enableExport="false" class="sapUiResponsiveContentPadding sapUiLargeMarginBottom" placeToolbarInTable="true">
+				<smartTable:customData>
+					<core:CustomData key="p13nDialogSettings"
+						value='\{ "filter": \{ "visible": true},"sort": \{ "visible": true}, "group": \{ "visible": false} }'/>
+				</smartTable:customData>
+				<smartTable:customToolbar>
+					<OverflowToolbar design="Transparent">
+						<content>
+							<ToolbarSpacer/>
+							<Button text="Create User" icon="sap-icon://create" press="handleCreatePress" type="Transparent"/>
+                            <OverflowToolbarButton icon="sap-icon://sort" tooltip="{i18n>sort}" text="{i18n>sort}" press="onSort"/>
+						</content>
+					</OverflowToolbar>
+				</smartTable:customToolbar>
+				<Table mode="None" sticky="HeaderToolbar,ColumnHeaders" growing="true" growingThreshold="100" width="100%" updateFinished="onTableUpdateFinished">
+					<columns>
+						<Column>
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "userid", "type": "string","columnKey": "refid", "leadingProperty": "firstname"}'/>
+							</customData>
+							<Text text="Name"/>
+						</Column>
+						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "usertype", "type": "string", "leadingProperty": "usertype","columnKey": "usertype"}'/>
+							</customData>
+							<Text text="User Type"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData" value='\{"sortProperty": "isactive", "type": "string","columnKey": "isactive", "leadingProperty": "isactive"}'/>
+							</customData>
+							<Text text="User Status"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "email", "type": "string","columnKey": "email", "leadingProperty": "email"}'/>
+							</customData>
+							<Text text="Email ID"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "phnum", "type": "string","columnKey": "phnum", "leadingProperty": "phnum"}'/>
+							</customData>
+							<Text text="Phone No."/>
+						</Column>
+						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "region_desc", "type": "string","columnKey": "region_desc", "leadingProperty": "region_desc"}'/>
+							</customData>
+							<Text text="Region"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "branchcode", "type": "string","columnKey": "branchcode", "leadingProperty": "branchcode"}'/>
+							</customData>
+							<Text text="Branch Code"/>
+						</Column>
+						<Column  id="userActionColumn" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+							<customData>
+								<core:CustomData id="userCustomDataActionCol" key="p13nData" value='\{"columnKey": "Action"}'/>
+							</customData>
+							<Text text="Change Password / Deactivate"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Inactive">
+
+                            <ObjectIdentifier title="{firstname} {lastname}" text="{refid}" />
+                            <Text text="{path:'usertype',formatter: '.formatter.getUserType'}" />
+                            <ObjectStatus class="sapUiSmallMarginBottom" text="{path:'isactive',formatter: '.formatter.getUserStatus'}"
+			                    icon="{path:'isactive',formatter: '.formatter.getUserStatusIcon'}" state="{path:'isactive',formatter: '.formatter.getUserStatusState'}" />
+                            <Text text="{email}" />
+                            <Text text="{phnum}" />
+                            <Text text="{parts: [{path: 'region_desc'}, {path: 'regioncode'}, {path: 'usertype'}],formatter: '.formatter.getRegion'}" />
+                            <Text text="{parts: [{path: 'branchcode'}, {path: 'usertype'}],formatter: '.formatter.getBranch'}" />
                             <HBox>
-                                <core:Icon
-                                    visible="{path:'UserModel>isactive',formatter: '.formatter.setIconVisibility'}"
-                                    src="sap-icon://show"
-                                    class="sapUiSmallMarginEnd"
-                                    press="handleChangePassword"
-                                />
-                                <core:Icon
-                                    visible="{path:'UserModel>isactive',formatter: '.formatter.setIconVisibility'}"
-                                    src="sap-icon://cancel"
-                                    class="sapUiSmallMarginBeginEnd"
-                                    press="handleDeactivateUser"
-                                />
+                                <core:Icon visible="{path:'isactive',formatter: '.formatter.setIconVisibility'}" src="sap-icon://show" class="sapUiSmallMarginEnd" press="handleChangePassword" />
+                                <core:Icon visible="{path:'isactive',formatter: '.formatter.setIconVisibility'}" src="sap-icon://cancel" class="sapUiSmallMarginBeginEnd" press="handleDeactivateUser" />
                             </HBox>
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-        </content>
-    </Page>
+							
+						</ColumnListItem>
+					</items>
+				</Table>
+			</smartTable:SmartTable>
+		</f:content>
+	</f:DynamicPage>
 </mvc:View>

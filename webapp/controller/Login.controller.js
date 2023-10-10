@@ -40,7 +40,7 @@ sap.ui.define(
             localStorage.setItem("password" , this.byId("loginPassword").getValue());
           //}
 
-          this._login(this.byId("loginEmailId").getValue(), this.byId("loginPassword").getValue());
+          this._login(this.byId("loginEmailId").getValue(), this.byId("loginPassword").getValue(), "X");
 
           this.byId("loginEmailId").setValue("");
           this.byId("loginPassword").setValue("");

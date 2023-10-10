@@ -11,7 +11,8 @@ sap.ui.define([
         onLogoffPress: function(oEvent){
           localStorage.removeItem("email");
           localStorage.removeItem("password");
-          this.getOwnerComponent().getRouter().navTo("login");
+          location.replace(location.href.split("#")[0]);
+          //this.getOwnerComponent().getRouter().navTo("login");
         },
         _getCustomers: async function(){
           var sBranchCode, sRegionCode;

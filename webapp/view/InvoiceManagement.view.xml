@@ -125,7 +125,7 @@
 						<Column  minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "DocumentDate", "type": "date","columnKey": "DocumentDate", "leadingProperty": "DocumentDate"}'/>
+									value='\{"sortProperty": "DocumentDate", "type": "string","columnKey": "DocumentDate", "leadingProperty": "DocumentDate"}'/>
 							</customData>
 							<Text text="Ref Date"/>
 						</Column>
@@ -202,11 +202,17 @@
 					<items>
 						<ColumnListItem type="Inactive">
 							<ObjectIdentifier title="{InvoiceNumber}"/>
-							<ObjectIdentifier title="{InvoiceDate}"/>
+							<ObjectIdentifier title="{path : 'InvoiceDate', type:'sap.ui.model.type.Date', 
+							formatOptions:{source : { pattern: 'yyyyMMdd'},
+							style: 'long'
+							}}"/>
 							<Text text="{SPUNumber}"/>
 							<Text text="{CRMTicketNumber}"/>
 							<Text text="{DocumentNumber}"/>
-							<Text text="{DocumentDate}"/>
+							<Text text="{path : 'DocumentDate', type:'sap.ui.model.type.Date', 
+							formatOptions:{source : { pattern: 'yyyyMMdd'},
+							style: 'long'
+							}}"/>
 							<Text text="{CustomerName}"/>
 							<Text text="{VendorName}"/>
 							<Text text="{ShipToPartyName}"/>
