@@ -266,31 +266,29 @@ sap.ui.define(
           var oSelectedItems = oEvent.getParameter("selectedItems");
           if (oSelectedItems) {
             var sSelectedContexts = this.byId("invoiceTable").getTable().getSelectedContexts();
-            var sFilePaths = [];
-            for(var j = 0; j<oSelectedItems.length; j++){
+            var sFilePaths = [];                   
+
+            for(var i=0; i<sSelectedContexts.length; i++){
+              for(var j = 0; j<oSelectedItems.length; j++){
                 if(oSelectedItems[j].getTitle() == "Original"){
-                  for(var i=0; i<sSelectedContexts.length; i++){
-                    if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation){
-                      sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation);
-                    }
+                  if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation){
+                    sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfLocation);
                   }
                 }
 
                 if(oSelectedItems[j].getTitle() == "Duplicate"){
-                  for(var i=0; i<sSelectedContexts.length; i++){
                     if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfDuplicateLocation){
                       sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfDuplicateLocation);
                     }
-                  }
                 }
 
                 if(oSelectedItems[j].getTitle() == "Triplicate"){
-                  for(var i=0; i<sSelectedContexts.length; i++){
                     if(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfTriplicateLocation){
                       sFilePaths.push(sSelectedContexts[i].getModel().getProperty(sSelectedContexts[i].getPath()).InvoicePdfTriplicateLocation);
                     }
-                  }
                 }
+
+              }
             }
 
             await models.getBulkPDF(sFilePaths);
