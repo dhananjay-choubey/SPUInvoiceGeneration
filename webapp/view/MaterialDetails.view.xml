@@ -58,8 +58,8 @@
                         />
                         <!-- <Label text="Tax Tariff Code" />
                         <Text text="{MaterialDetailModel>/taxtariffcode}" /> -->
-                        <Label text="Tax Type" />
-                        <Text text="{MaterialDetailModel>/taxtype}" />
+                        <!-- <Label text="Tax Type" />
+                        <Text text="{MaterialDetailModel>/taxtype}" /> -->
                         <Label text="Units of Measure of Product" />
                         <Text text="{MaterialDetailModel>/uom}" />
                         <Label text="Group ID" />

@@ -21,8 +21,10 @@ sap.ui.define(
                 await this._login(localStorage.getItem("email"), localStorage.getItem("password"));
               }else{
                 this.getOwnerComponent().getRouter().navTo("login");
+                return;
               }
             }
+            this.setMaxDate(new Date());
             var sDisable = {};
             sDisable.syncRecords = false;
             sDisable.invoiceGenerate = false;
@@ -32,6 +34,11 @@ sap.ui.define(
             this.getView().setModel(oModel, "buttonDisability");
 
             this.byId("idStartDate").setValue("");
+          },
+          setMaxDate: function(sDate){
+            sDate.setDate(1); // going to 1st of the month
+            sDate.setHours(-1); // going to last hour before this date even started.
+            this.byId("idStartDate").setMaxDate(sDate);
           },
           onSyncPress: async function(oEvent){
             if(this.byId("idStartDate").getDateValue() == null){

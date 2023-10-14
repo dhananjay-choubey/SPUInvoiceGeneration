@@ -21,6 +21,7 @@ sap.ui.define(
               await this._login(localStorage.getItem("email"), localStorage.getItem("password"));
             }else{
               this.getOwnerComponent().getRouter().navTo("login");
+              return;
             }
           }
         },

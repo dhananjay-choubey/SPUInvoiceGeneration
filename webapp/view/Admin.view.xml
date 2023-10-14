@@ -32,7 +32,7 @@
             </GenericTile>
             <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                header="{= (${LoginDataModel>/usertype} === 'V') ? 'My Branch' : 'Customers' }"
+                header="{= (${LoginDataModel>/usertype} === 'V') ? 'IFB Customer' : 'Customers' }"
                 press="onBranchUserPress"
             >
                 <TileContent>

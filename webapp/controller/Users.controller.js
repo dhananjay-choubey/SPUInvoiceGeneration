@@ -9,9 +9,10 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
     "sap/m/MessageToast",
-    "sap/ui/core/Fragment"
+    "sap/ui/core/Fragment",
+    "sap/m/Dialog"
   ],
-  function (Controller, formatter, Filter, Sorter, FilterOperator, models, JSONModel, MessageBox, MessageToast, Fragment) {
+  function (Controller, formatter, Filter, Sorter, FilterOperator, models, JSONModel, MessageBox, MessageToast, Fragment, Dialog) {
     "use strict";
 
     return Controller.extend(
@@ -407,22 +408,61 @@ sap.ui.define(
         },
         handleDeactivateUser: function(oEvent){
           var selectedItem = oEvent.getSource().getParent().getParent().getBindingContext().getObject();
-          var that = this;
   
           if(selectedItem.isactive.toUpperCase() == "YES" || selectedItem.isactive.toUpperCase() == "X") {
-            MessageBox.confirm("Do you want to decativate " + selectedItem.firstname + " " + selectedItem.lastname + "?", {
-              title: "Confirm",
-              onClose: async function(sAction){
-                if(sAction == "OK"){
-                  await models.deactivateUser(selectedItem.email);
-                  that.onSearch();
-                }
-              },
-              actions: [ sap.m.MessageBox.Action.OK,
-                        sap.m.MessageBox.Action.CANCEL ], 
-              emphasizedAction: sap.m.MessageBox.Action.OK,
-              initialFocus: null
-            });
+            // MessageBox.confirm("Do you want to decativate " + selectedItem.firstname + " " + selectedItem.lastname + "?", {
+            //   title: "Confirm",
+            //   onClose: async function(sAction){
+            //     if(sAction == "OK"){
+            //       await models.deactivateUser(selectedItem.email);
+            //       that.onSearch();
+            //     }
+            //   },
+            //   actions: [ sap.m.MessageBox.Action.OK,
+            //             sap.m.MessageBox.Action.CANCEL ], 
+            //   emphasizedAction: sap.m.MessageBox.Action.OK,
+            //   initialFocus: null
+            // });
+
+            if (!this.oDeactivateDialog) {
+              this.oDeactivateDialog = new Dialog({
+                title: "Deactivate",
+                type: DialogType.Message,
+                content: [
+                  new Label({
+                    text: "Do you want to decativate " + selectedItem.firstname + " " + selectedItem.lastname + "?",
+                    labelFor: "rejectionNote"
+                  }),
+                  new TextArea("rejectionNote", {
+                    width: "100%",
+                    placeholder: "Add note (Mandatory)"
+                  })
+                ],
+                beginButton: new Button({
+                  type: ButtonType.Emphasized,
+                  text: "Deactivate",
+                  press: async function () {
+                    var sText = Core.byId("rejectionNote").getValue();
+                    if(sText){
+                      await models.deactivateUser(selectedItem.email, sText);
+                      this.onSearch();
+                      this.oDeactivateDialog.close();
+                    }else{
+                      MessageToast.show("Please provide a note for deactivation.")
+                    }
+                    
+                  }.bind(this)
+                }),
+                endButton: new Button({
+                  text: "Cancel",
+                  press: function () {
+                    this.oDeactivateDialog.close();
+                  }.bind(this)
+                })
+              });
+            }
+      
+            this.oDeactivateDialog.open();
           }
         }
       }

@@ -136,7 +136,7 @@ sap.ui.define(
         });
         return promise;
       },
-      deactivateUser: function(sEmail){
+      deactivateUser: function(sEmail, sReason){
         var promise = new Promise((resolve, reject) => {
           var url = this.component.baseURL + "userdeactivation";
           var sBusyDialog = new BusyDialog();
