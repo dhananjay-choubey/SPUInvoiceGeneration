@@ -218,7 +218,7 @@ sap.ui.define(
               return;
             }
   
-            if(!sData.phnum || sData.phnum.length != 15){
+            if(!sData.phnum || sData.phnum.length != 10){
               MessageToast.show("Enter Valid Mobile Number");
               return;
             }
@@ -443,7 +443,10 @@ sap.ui.define(
             //   initialFocus: null
             // });
 
-            if (!this.oDeactivateDialog) {
+            if(Core.byId("rejectionNote")){
+              Core.byId("rejectionNote").setValue("");
+            }
+
               this.oDeactivateDialog = new Dialog({
                 title: "Deactivate",
                 type: DialogType.Message,
@@ -466,6 +469,7 @@ sap.ui.define(
                       await models.deactivateUser(selectedItem.email, sText);
                       this.onSearch();
                       this.oDeactivateDialog.close();
+                      this.oDeactivateDialog.destroy();
                     }else{
                       MessageToast.show("Please provide a note for deactivation.")
                     }
@@ -476,10 +480,10 @@ sap.ui.define(
                   text: "Cancel",
                   press: function () {
                     this.oDeactivateDialog.close();
+                    this.oDeactivateDialog.destroy();
                   }.bind(this)
                 })
               });
-            }
       
             this.oDeactivateDialog.open();
           }

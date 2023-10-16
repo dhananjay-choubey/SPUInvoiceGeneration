@@ -136,6 +136,13 @@
 							</customData>
 							<Text text="Organization"/>
 						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="Begin">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "branchgstin", "type": "string", "columnKey": "branchgstin", "leadingProperty": "branchgstin"}'/>
+							</customData>
+							<Text text="IFB GSTIN"/>
+						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData key="p13nData"
@@ -149,6 +156,13 @@
 									value='\{"sortProperty": "ShipToPartyName", "type": "string", "columnKey": "ShipToPartyName", "leadingProperty": "ShipToPartyName"}'/>
 							</customData>
 							<Text text="Consignee"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="Begin">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "shiptopartyaddress", "type": "string", "columnKey": "shiptopartyaddress", "leadingProperty": "shiptopartyaddress"}'/>
+							</customData>
+							<Text text="Consignee Address"/>
 						</Column>
 						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="End">
 							<customData>
@@ -192,20 +206,6 @@
 							</customData>
 							<Text text="Grand Total"/>
 						</Column>
-						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="Begin">
-							<customData>
-								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "branchgstin", "type": "string", "columnKey": "branchgstin", "leadingProperty": "branchgstin"}'/>
-							</customData>
-							<Text text="IFB GSTIN"/>
-						</Column>
-						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="Begin">
-							<customData>
-								<core:CustomData key="p13nData"
-									value='\{"sortProperty": "shiptopartyaddress", "type": "string", "columnKey": "shiptopartyaddress", "leadingProperty": "shiptopartyaddress"}'/>
-							</customData>
-							<Text text="Consignee Address"/>
-						</Column>
 						<Column  id="invoiceActionColumn" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData id="invoiceCustomDataActionCol" key="p13nData" value='\{"columnKey": "Action"}'/>
@@ -228,16 +228,16 @@
 							style: 'long'
 							}}"/>
 							<Text text="{CustomerName}"/>
+							<Text text="{branchgstin}"/>
 							<Text text="{VendorName}"/>
 							<Text text="{ShipToPartyName}"/>
+							<Text text="{shiptopartyaddress}"/>
 							<Text text="{SubTotal}" textAlign="End"/>
 							<Text text="{SGST}" textAlign="End"/>
 							<Text text="{CGST}" textAlign="End"/>
 							<Text text="{IGST}" textAlign="End"/>
 							<Text text="{RoundOff}" textAlign="End"/>
 							<Text text="{GrandTotal}"  textAlign="End"/>
-							<Text text="{branchgstin}"/>
-							<Text text="{shiptopartyaddress}"/>
 							<HBox>
 								<Button tooltip="View" type="{=${InvoicePdfStatus} === 'X' ? 'Accept' : 'Reject'}" enabled="{=${InvoicePdfStatus} === 'X' ? true : false}" icon="sap-icon://display" press="onPrintPreviewPress" class="sapUiTinyMarginEnd"/>
 								<Button tooltip="Print" type="{=${InvoicePdfStatus} === 'X' ? 'Accept' : 'Reject'}" enabled="{=${InvoicePdfStatus} === 'X' ? true : false}" icon="sap-icon://print" press="onPrintPress"/>
