@@ -39,8 +39,8 @@
                 	<Toolbar>
 					<Title text="Customer"/>
 					<ToolbarSpacer />
-					<Button text="Deactivate" icon="sap-icon://cancel"
-                        visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }" press="onDeactivateCustomer"/>
+					<!-- <Button text="Deactivate" icon="sap-icon://cancel"
+                        visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }" press="onDeactivateCustomer"/> -->
 				</Toolbar>
                 </f:toolbar>
                     <f:content>
@@ -48,6 +48,8 @@
                         <Text
                             text="{CustomerDetailModel>/branchname} ({CustomerDetailModel>/branchcode})"
                         />
+                        <Label text="Plant Desc." />
+                        <Text text="{CustomerDetailModel>/plantdesc}" />
                         <Label text="Customer Address" />
                         <Text text="{CustomerDetailModel>/address}" />
                         <Label text="Pin Code" />

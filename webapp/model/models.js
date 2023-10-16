@@ -141,7 +141,8 @@ sap.ui.define(
           var url = this.component.baseURL + "userdeactivation";
           var sBusyDialog = new BusyDialog();
           var sData = {
-            "email" : sEmail
+            "email" : sEmail,
+            "deactivationreason": sReason
         }
 
           sBusyDialog.open();

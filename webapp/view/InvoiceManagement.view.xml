@@ -53,7 +53,7 @@
 		<f:content>
 			<smartTable:SmartTable id="invoiceTable" entitySet="Invoices" enableAutoBinding="false" beforeRebindTable="onBeforeRebindTable"
 				tableType="ResponsiveTable" showRowCount="true" header="Invoices" showFullScreenButton="true" showTablePersonalisation="false"
-				initiallyVisibleFields="InvoiceNumber,InvoiceDate,SPUNumber,CRMTicketNumber,DocumentNumber,DocumentDate,VendorName,VendorCode,CustomerName,CustomerCode,ShipToPartyNumber,ShipToPartyName,SubTotal,SGST,CGST,IGST,RoundOff,GrandTotal"
+				initiallyVisibleFields="InvoiceNumber,InvoiceDate,SPUNumber,CRMTicketNumber,DocumentNumber,DocumentDate,VendorName,VendorCode,CustomerName,CustomerCode,ShipToPartyNumber,ShipToPartyName,SubTotal,SGST,CGST,IGST,RoundOff,GrandTotal,branchgstin,shiptopartyaddress"
 				class="sapUiResponsiveContentPadding sapUiLargeMarginBottom" placeToolbarInTable="true">
 				<smartTable:customData>
 					<core:CustomData key="p13nDialogSettings"
@@ -192,6 +192,20 @@
 							</customData>
 							<Text text="Grand Total"/>
 						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="Begin">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "branchgstin", "type": "string", "columnKey": "branchgstin", "leadingProperty": "branchgstin"}'/>
+							</customData>
+							<Text text="IFB GSTIN"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" hAlign="Begin">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"sortProperty": "shiptopartyaddress", "type": "string", "columnKey": "shiptopartyaddress", "leadingProperty": "shiptopartyaddress"}'/>
+							</customData>
+							<Text text="Consignee Address"/>
+						</Column>
 						<Column  id="invoiceActionColumn" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
 							<customData>
 								<core:CustomData id="invoiceCustomDataActionCol" key="p13nData" value='\{"columnKey": "Action"}'/>
@@ -222,6 +236,8 @@
 							<Text text="{IGST}" textAlign="End"/>
 							<Text text="{RoundOff}" textAlign="End"/>
 							<Text text="{GrandTotal}"  textAlign="End"/>
+							<Text text="{branchgstin}"/>
+							<Text text="{shiptopartyaddress}"/>
 							<HBox>
 								<Button tooltip="View" type="{=${InvoicePdfStatus} === 'X' ? 'Accept' : 'Reject'}" enabled="{=${InvoicePdfStatus} === 'X' ? true : false}" icon="sap-icon://display" press="onPrintPreviewPress" class="sapUiTinyMarginEnd"/>
 								<Button tooltip="Print" type="{=${InvoicePdfStatus} === 'X' ? 'Accept' : 'Reject'}" enabled="{=${InvoicePdfStatus} === 'X' ? true : false}" icon="sap-icon://print" press="onPrintPress"/>

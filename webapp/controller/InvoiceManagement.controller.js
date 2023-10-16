@@ -95,7 +95,7 @@ sap.ui.define(
             invoiceTable.setModel(oDataModel);
             invoiceTable.setTableBindingPath("/");
             invoiceTable.setRequestAtLeastFields(
-              "InvoiceNumber,InvoiceDate,SPUNumber,CRMTicketNumber,DocumentNumber,DocumentDate,VendorName,VendorCode,CustomerName,CustomerCode,ShipToPartyNumber,ShipToPartyName,SubTotal,SGST,CGST,IGST,RoundOff,GrandTotal");
+              "InvoiceNumber,InvoiceDate,SPUNumber,CRMTicketNumber,DocumentNumber,DocumentDate,VendorName,VendorCode,CustomerName,CustomerCode,ShipToPartyNumber,ShipToPartyName,SubTotal,SGST,CGST,IGST,RoundOff,GrandTotal,branchgstin,shiptopartyaddress");
             
             invoiceTable.rebindTable();
           }else{

@@ -10,9 +10,16 @@ sap.ui.define(
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "sap/ui/core/Fragment",
-    "sap/m/Dialog"
+    "sap/m/Dialog",
+    "sap/m/DialogType",
+    "sap/m/Button",
+    "sap/m/TextArea",
+    "sap/m/Label",
+    "sap/m/ButtonType",
+    "sap/ui/core/Core"
   ],
-  function (Controller, formatter, Filter, Sorter, FilterOperator, models, JSONModel, MessageBox, MessageToast, Fragment, Dialog) {
+  function (Controller, formatter, Filter, Sorter, FilterOperator, models, JSONModel, MessageBox, MessageToast, Fragment, Dialog,
+              DialogType, Button, TextArea, Label, ButtonType, Core) {
     "use strict";
 
     return Controller.extend(
@@ -152,6 +159,7 @@ sap.ui.define(
           );
         },
         initializeCreateModel: function (sControl) {
+
           var sData = {
             usertype: "",
             firstname: "",
@@ -169,6 +177,12 @@ sap.ui.define(
           };
           var oModel = new JSONModel(sData);
           sControl.setModel(oModel, "createModel");
+
+          if (this.byId("rbg3").getSelectedIndex() == 0) {
+            sControl.getModel("createModel").setProperty("/usertype", "C");
+          }else{
+            sControl.getModel("createModel").setProperty("/usertype", "V");
+          }
         },
         onSubmitDialog: async function (oEvent) {
   
@@ -179,21 +193,6 @@ sap.ui.define(
   
             if(!sData.refid){
               MessageToast.show("Please select reference");
-              return;
-            }
-  
-            if(!sData.firstname){
-              MessageToast.show("First Name is blank");
-              return;
-            }
-  
-            if(!sData.email || !mailRegex.test(sData.email)){
-              MessageToast.show("Enter valid email Id");
-              return;
-            }
-  
-            if(!sData.phnum || sData.phnum.length != 10){
-              MessageToast.show("Enter Valid Mobile Number");
               return;
             }
   
@@ -208,6 +207,22 @@ sap.ui.define(
             }
   
           if (this.byId("rbg3").getSelectedIndex() == 0) {
+            
+            if(!sData.firstname){
+              MessageToast.show("First Name is blank");
+              return;
+            }
+  
+            if(!sData.email || !mailRegex.test(sData.email)){
+              MessageToast.show("Enter valid email Id");
+              return;
+            }
+  
+            if(!sData.phnum || sData.phnum.length != 15){
+              MessageToast.show("Enter Valid Mobile Number");
+              return;
+            }
+
             oEvent.getSource().getParent().getModel("createModel").setProperty("/usertype", "C");
             var sCustomer = this._customerlist.filter(function(item){
               return item.branchcode == sData.refid;         
@@ -225,6 +240,10 @@ sap.ui.define(
             })
             oEvent.getSource().getParent().getModel("createModel").setProperty("/branchcode", sVendor[0].branchcode);
             oEvent.getSource().getParent().getModel("createModel").setProperty("/isactive", "X");
+            oEvent.getSource().getParent().getModel("createModel").setProperty("/firstname", sVendor[0].vendorname);
+            oEvent.getSource().getParent().getModel("createModel").setProperty("/lastname", "");
+            oEvent.getSource().getParent().getModel("createModel").setProperty("/email", sVendor[0].emailid);
+            oEvent.getSource().getParent().getModel("createModel").setProperty("/phnum", sVendor[0].mobilenum);
             oEvent.getSource().getParent().getModel("createModel").setProperty("/regioncode", sVendor[0].regioncode);
             //This needs to be changed based on logiv of Vendor Desc provided by client
             oEvent.getSource().getParent().getModel("createModel").setProperty("/region_desc", sVendor[0].regiondesc);

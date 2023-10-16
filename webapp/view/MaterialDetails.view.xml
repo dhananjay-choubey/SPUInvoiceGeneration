@@ -39,8 +39,8 @@
                 	<Toolbar>
 					<Title text="Material"/>
 					<ToolbarSpacer />
-					<Button text="Deactivate" icon="sap-icon://cancel"
-                        visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }" press="onDeactivateMaterial"/>
+					<!-- <Button text="Deactivate" icon="sap-icon://cancel"
+                        visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }" press="onDeactivateMaterial"/> -->
 				</Toolbar>
                 </f:toolbar>
                     <f:content>

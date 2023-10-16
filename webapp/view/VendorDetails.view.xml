@@ -37,8 +37,8 @@
                 	<Toolbar>
 					<Title text="Franchisee"/>
 					<ToolbarSpacer />
-					<Button text="Deactivate" icon="sap-icon://cancel"
-                        visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }" press="onDeactivateVendor"/>
+					<!-- <Button text="Deactivate" icon="sap-icon://cancel"
+                        visible="{= (${LoginDataModel>/usertype} === 'A') ? true : false }" press="onDeactivateVendor"/> -->
 				</Toolbar>
                 </f:toolbar>
                     <f:content>

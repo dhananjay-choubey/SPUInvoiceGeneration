@@ -41,7 +41,7 @@
                         >
                             <RadioButton
                                 id="RB3-1"
-                                text="Segment Head"
+                                text="Branch Head"
                             />
                             <RadioButton
                                 id="RB3-2"
@@ -60,33 +60,39 @@
                             valueHelpRequest="handleValueHelpUser"
                             value="{createModel>/refid}"
                         />
-                        <Label text="Name" required="true"/>
+                        <Label text="Name" required="true" visible="{= (${createModel>/usertype} === 'C') ? true : false }"/>
                         <Input
                             value="{createModel>/firstname}"
                             placeholder="First Name"
+                            visible="{= (${createModel>/usertype} === 'C') ? true : false }"
                         />
                         <Input
                             value="{createModel>/lastname}"
                             placeholder="Last Name"
+                            visible="{= (${createModel>/usertype} === 'C') ? true : false }"
                         />
                         <Label
                             text="Email Id"
                             required="true"
+                            visible="{= (${createModel>/usertype} === 'C') ? true : false }"
                         />
                         <Input
                             type="Email"
                             placeholder="Email Id"
                             value="{createModel>/email}"
+                            visible="{= (${createModel>/usertype} === 'C') ? true : false }"
                         />
                         <Label
                             text="Mobile Number"
                             required="true"
+                            visible="{= (${createModel>/usertype} === 'C') ? true : false }"
                         />
                         <Input
                             type="Tel"
                             placeholder="Mobile Number"
                             value="{createModel>/phnum}"
-                            maxLength="10"
+                            maxLength="15"
+                            visible="{= (${createModel>/usertype} === 'C') ? true : false }"
                         />
                         <Label
                             text="Password"

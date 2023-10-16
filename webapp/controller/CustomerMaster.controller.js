@@ -68,6 +68,11 @@ sap.ui.define(
               width: '35'
             },
             {
+              label: 'Plant Desc',
+              property: 'plantdesc',
+              width: '35'
+            },
+            {
               label: 'Customer Adress',
               property: 'address',
               width: '25'
