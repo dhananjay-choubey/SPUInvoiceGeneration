@@ -64,8 +64,8 @@
 						<content>
 							<ToolbarSpacer/>
 							<Button text="Bulk Print" icon="sap-icon://print" press="onBulkPrintPress" />
-							<Button text="Digital Signature" icon="sap-icon://signature" press="onDigitalSignature" 
-								type="Accept" visible="{= (${LoginDataModel>/usertype} === 'V') ? true : false }"/>
+							<!-- <Button text="Digital Signature" icon="sap-icon://signature" press="onDigitalSignature" 
+								type="Accept" visible="{= (${LoginDataModel>/usertype} === 'V') ? true : false }"/> -->
 							    <!-- <MenuButton text="Action">
 									<menu>
 										<Menu>

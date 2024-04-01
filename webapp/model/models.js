@@ -1058,7 +1058,140 @@ sap.ui.define(
           })
         });
         return promise;         
-      }
+      },
+      getDigitalRecords: function(sDate, userDetails){
+        var promise = new Promise((resolve, reject) => {
+
+          var sBusyDialog = new BusyDialog();
+          var url = this.component.baseURL + "getDigitalSignatureStatus";
+
+          var sData = {
+            startDate: sDate.firstDay,
+            endDate: sDate.lastDay,
+            region: userDetails.regioncode,
+           // region: "10",
+            vendorcode: userDetails.refid
+            //vendorcode: "0050008974"
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              if(response.messageCode && response.messageCode == "E"){
+                MessageBox.error(response.messageString);
+              }
+              
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during getting records");
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during getting records");
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;   
+      },
+      createDigitalRecordsBatch: function(sDate, userDetails){
+        var promise = new Promise((resolve, reject) => {
+
+          var sBusyDialog = new BusyDialog();
+          var url = this.component.baseURL + "SaveBulkPdfDigitalSignature";
+
+          var sData = {
+            startDate: sDate.firstDay,
+            endDate: sDate.lastDay,
+            region: userDetails.regioncode,
+            vendorcode: userDetails.refid
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during digital signature processing.");
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred during digital signature processing.");
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;   
+      },
+      saveDigitalFiles: function(sDate, userDetails, fileName){
+        var promise = new Promise((resolve, reject) => {
+
+          var sBusyDialog = new BusyDialog();
+          var url = this.component.baseURL + "splitBulkPdfDigitalSignature";
+
+          var sData = {
+            startDate: sDate.firstDay,
+            endDate: sDate.lastDay,
+            region: userDetails.regioncode,
+           // region: "10",
+            vendorcode: userDetails.refid,
+            fileName: fileName
+            //vendorcode: "0050008974"
+          }
+
+          sBusyDialog.open();
+
+          $.ajax({
+            type: "POST",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            data: JSON.stringify(sData),
+            success: function (response) {
+              sBusyDialog.close();
+              resolve(response);
+            },
+            failure: function (response) {
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while saving the files.");
+              console.log(response)
+              resolve(false);
+            },
+            error: function (response){
+              sBusyDialog.close();
+              MessageBox.error("Error occurred while saving the files.");
+              console.log(response);
+              resolve(false);
+            }
+          })
+        });
+        return promise;   
+      },
     };
   }
 );

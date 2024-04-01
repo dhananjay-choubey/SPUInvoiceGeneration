@@ -104,6 +104,17 @@
                     <ImageContent src="sap-icon://synchronize" />
                 </TileContent>
             </GenericTile>
+            <GenericTile
+                visible="{= (${LoginDataModel>/usertype} === 'V') ? true : false }"
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                header="Digital Signature"
+                subheader="For Invoices"
+                press="onDigitalSignaturePress"
+            >
+                <TileContent>
+                    <ImageContent src="sap-icon://signature" />
+                </TileContent>
+            </GenericTile>
         </content>
     </Page>
 </mvc:View>

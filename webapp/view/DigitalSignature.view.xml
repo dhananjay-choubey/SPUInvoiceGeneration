@@ -1,0 +1,112 @@
+<mvc:View
+    controllerName="com.ifb.invoicegenerator.controller.DigitalSignature"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+>
+    <Page
+        showHeader="true"
+        backgroundDesign="Transparent"
+        title="Digital Signature For Invoices"
+        showNavButton="true" navButtonPress=".onNavBack"
+        class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer"
+    >
+        <headerContent>
+            <core:Fragment
+                fragmentName='com.ifb.invoicegenerator.fragments.Menu'
+                type='XML'
+            />
+        </headerContent>
+        <content>
+            <f:SimpleForm
+                minWidth="1024"
+                maxContainerCols="2"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanL="5"
+                labelSpanM="5"
+                emptySpanL="4"
+                emptySpanM="1"
+                columnsL="2"
+                columnsM="2"
+            >
+                <f:content>
+                    <Label
+                        text="Digital Signature For"
+                        required="true"
+                        design="Bold"
+                    />
+                    <DatePicker id="idDSStartDate" displayFormat="MM-y" valueFormat="yyyyMM" change="onDatePickerChange"/>
+                    <Label />
+                    <Button
+                        text="Submit"
+                        icon="sap-icon://repost"
+                        press="onSubmitPress"
+                        type="Emphasized"
+                        enabled="{buttonDisability>/isDigitallySigned}"
+                    />
+                </f:content>
+            </f:SimpleForm>
+            <Table id="idDSTable" class="sapUiSmallMarginTop"
+		inset="false"
+		items="{
+			path: 'signedDataModel>/'
+		}">
+		<columns>
+			<Column
+				width="12em">
+				<Text text="Date" />
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Transaction Number" />
+			</Column>
+			<Column
+				minScreenWidth="Desktop"
+				demandPopin="true">
+				<Text text="Transaction Status" />
+			</Column>
+			<Column
+				minScreenWidth="Desktop"
+				demandPopin="true">
+				<Text text="Reference Number" />
+			</Column>
+            <Column
+				minScreenWidth="Desktop"
+				demandPopin="true">
+				<Text text="Comments" />
+			</Column>
+			<Column>
+				<Text text="Action" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem vAlign="Middle">
+				<cells>
+					<ObjectIdentifier
+						title="{signedDataModel>monthYear}"/>
+					<Text
+						text="{signedDataModel>TransactionNumber}" />
+					<Text
+						text="{signedDataModel>DigitalSignatureStatus}" />
+                    <Text
+						text="{signedDataModel>ReferenceNum}" />
+                    <Text
+						text="{signedDataModel>ErrorMessage}" />
+                    <HBox>
+                        <Button text="ESign" type="Accept" icon="sap-icon://signature" press="onEsignPressed"
+                         enabled="{= (${signedDataModel>DigitalSignatureStatus} !== 'Success') ? true : false }" 
+                         class="sapUiTinyMarginEnd" />
+                        <Button text="Save File" type="Emphasized" icon="sap-icon://save" press="onSaveFilePressed"
+                         enabled="{= (${signedDataModel>InvoicePdfDSStatus} !== 'X') ? true : false }" />
+                    </HBox>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+        </content>
+    </Page>
+</mvc:View>

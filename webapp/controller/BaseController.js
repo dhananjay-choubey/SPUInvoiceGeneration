@@ -3,8 +3,9 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"com/ifb/invoicegenerator/model/models",
-	"sap/ui/core/routing/History"
-], function (Controller, formatter, JSONModel, models, History) {
+	"sap/ui/core/routing/History",
+  "sap/m/MessageToast"
+], function (Controller, formatter, JSONModel, models, History, MessageToast) {
 	"use strict";
 	return Controller.extend("com.ifb.invoicegenerator.controller.BaseController", {
 		formatter: formatter,

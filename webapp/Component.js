@@ -17,7 +17,8 @@ sap.ui.define([
 		 * @override
 		 */
 		init: function() {
-			this.baseURL = "http://192.168.52.172/api/";
+			this.baseURL = "http://192.168.52.187/api/";
+			this.rootURL = "http://192.168.52.187/";
 			//this.baseURL = "http://192.168.52.174/api/";
 			models.constructor(this);
 			// call the base component's init function

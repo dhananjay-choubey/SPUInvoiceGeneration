@@ -37,6 +37,9 @@ sap.ui.define(
       onSyncInvoiceGenerationPress: function () {
         this.getOwnerComponent().getRouter().navTo("syncinvoice");
       },
+      onDigitalSignaturePress: function () {
+        this.getOwnerComponent().getRouter().navTo("digitalsignature");
+      },
       onMasterDataSyncPress: function (oEvent) {
         var oView = this.getView();
         // create value help dialog
